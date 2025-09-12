@@ -54,7 +54,7 @@ int main(int argc, char** argv)
   
   uint32_t multfactor = 31;//TOT mult factor other values could be 14 or 8
   uint32_t inputLSB = (selTC4==0) ? 1 : 0; //lsb at the input TC from ROC
-  uint32_t dropLSB = 1;  //lsb at the output during the packing [0 to 4]
+  uint32_t dropLSB = 0;  //lsb at the output during the packing [0 to 4]
   uint32_t select = 1 ;  //1 = Super Trigger Cell (STC), 2 = Best Choice (BC)
   //Not in use: 0 = Threshold Sum (TS), 3 = Repeater, 4=Autoencoder (AE).
   uint32_t stc_type = 1; //0 = STC4B(5E+4M), 1 = STC16(5E+4M), 2 = CTC4A(4E+3M), 3 = STC4A(4E+3M), 4 = CTC4B(5E+3M)
@@ -63,11 +63,19 @@ int main(int argc, char** argv)
   
   // uint32_t maxADC = 0x3FF ; //10 bit input in TPG path
   // uint32_t maxTOT = 0xFFF ; //12 bit input in TPG path
-  uint32_t maxADC = 134 ; //10 bit input in TPG path
-  uint32_t maxTOT = 0x0 ; //12 bit input in TPG path
-  uint16_t bx = 4;
-  uint32_t ped = 144;
-  uint32_t adcTh = 5;
+  // uint32_t maxADC = 134 ; 
+  // uint32_t maxTOT = 0x0 ; 
+  // uint16_t bx = 4;
+  // uint32_t ped = 144;
+  // uint32_t adcTh = 5;
+  
+  uint32_t maxADC = 800 ; 
+  uint32_t maxTOT = 0x0 ; 
+  uint16_t bx = 0;
+  uint32_t ped = 0;
+  uint32_t adcTh = 0;
+  bool hasset_singlech = false;
+  
   //===============================================================================================================================
   
   
@@ -163,6 +171,7 @@ int main(int argc, char** argv)
   econTPar[moduleId].setSTCType(stc_type); //STC type
   econTPar[moduleId].setNElinks(nelinks); //BC type
   for(uint32_t itc=0;itc<48;itc++) econTPar[moduleId].setCalibration(itc,calibration);
+  for(uint32_t itc=0;itc<48;itc++) econTPar[moduleId].setInputMux(itc,itc);
   cfgs.setEconTPara(econTPar);
   std::map<uint32_t,TPGFEConfiguration::ConfigEconT>& cfgTPar = cfgs.getEconTPara() ;
   for(const auto& it : cfgTPar) cfgTPar.at(it.first).print();
@@ -180,7 +189,13 @@ int main(int argc, char** argv)
     TPGFEDataformat::HalfHgcrocChannelData chdata[TPGFEDataformat::HalfHgcrocData::NumberOfChannels];
     for(uint32_t ich = 0 ; ich < TPGFEDataformat::HalfHgcrocData::NumberOfChannels ; ich++){
       //chdata[ich].setTot(maxTOT,0x3);
-      chdata[ich].setAdc(maxADC,0x0);
+      //chdata[ich].setAdc(maxADC,0x0);
+      if(!hasset_singlech){
+	chdata[ich].setAdc(maxADC,0x0);
+	hasset_singlech = true;
+      }else{
+	chdata[ich].setAdc(0,0x0);
+      }
     }
     TPGFEDataformat::HalfHgcrocData hrocdata;
     hrocdata.setBx(bx);
@@ -227,7 +242,7 @@ int main(int argc, char** argv)
   
   ////////////////////// ECONT emulation //////////////////////////
   TPGFEModuleEmulation::ECONTEmulation econtEmul(cfgs);
-  //econtEmul.setVerbose();
+  //econtEmul.setVerbose(true);
   econtEmul.Emulate(isSim, eventId, moduleId, moddata);
   /////////////////////////////////////////////////////////////////
   

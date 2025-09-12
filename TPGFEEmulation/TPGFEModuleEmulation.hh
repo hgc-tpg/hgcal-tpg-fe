@@ -437,7 +437,7 @@ namespace TPGFEModuleEmulation{
   }
   
   void ECONTEmulation::EmulateSTC(bool isSim, uint64_t ievent, uint32_t& moduleId, const std::map<uint32_t,TPGFEDataformat::ModuleTcData>& moddata) {
-    
+
     pck.setModId(moduleId);    
     const std::map<std::tuple<uint32_t,uint32_t,uint32_t>,std::string>& modNameMap = configs.getModIdxToName();
     const std::map<uint32_t,uint32_t>& refMuxMap = configs.getMuxMapping() ;
@@ -527,6 +527,7 @@ namespace TPGFEModuleEmulation{
 	bool isTcTp1 = false;
 	bool isTcTp2 = false;
 	bool isTcTp3 = false;
+	//std::cout<<"iSTC: " << istc16 << std::endl;
 	if(istc16>=nofSTCs) continue;
 	const std::vector<uint32_t>& tclist = stc16TcMap.at(std::make_pair(modName,istc16));
 	const TPGFEDataformat::ModuleTcData& mdata = moddata.at(moduleId);
@@ -539,6 +540,7 @@ namespace TPGFEModuleEmulation{
 	  bool hasFound = false;
 	  uint32_t emultc = 0xffffffff;
 	  for (const auto& it : refMuxMap){
+	    //std::cout<<"iSTC: " << istc16 << ", first : " << it.first << ", it.second: " << it.second << ", econtc: " << econtc << ", hgctc: " << hgctc << std::endl;
 	    if (it.second == hgctc)  {
 	      hasFound = true;
 	      emultc = it.first;
@@ -547,7 +549,9 @@ namespace TPGFEModuleEmulation{
 	  if(!hasFound){
 	    std::cerr << "TPGFEModuleEmulation::ECONTEmulation::EmulateBC (moduleid="<<moduleId<<") : Mux not set for TC " << econtc << std::endl;
 	    continue;
-	  }
+	  }// else{
+	  //   std::cout << "TPGFEModuleEmulation::ECONTEmulation::EmulateSTC (moduleid="<<moduleId<<") : Mux set for TC " << econtc << " --> " << emultc << std::endl;
+	  // }
 	  if(mdata.getTC(emultc).isTcTp1()) isTcTp1 = true;
 	  if(mdata.getTC(emultc).isTcTp2()) isTcTp2 = true;
 	  if(mdata.getTC(emultc).isTcTp3()) isTcTp3 = true;
