@@ -68,6 +68,7 @@ namespace TPGFEModuleEmulation{
     const std::map<std::tuple<uint32_t,uint32_t,uint32_t>,std::string>& modNameMap = configs.getModIdxToName();
     const std::string& modName = modNameMap.at(std::make_tuple(pck.getDetType(),pck.getSelTC4(),pck.getModule()));
     if(ievent==refEvent) std::cout << "TPGFEModuleEmulation::HGCROCTPGEmulation::Emulate: modName: " << modName << std::endl;
+    if(ievent==refEvent) std::cout << "TPGFEModuleEmulation::HGCROCTPGEmulation::Emulate: pck.getDetType(): " << pck.getDetType() << std::endl;
     const std::map<std::string,std::vector<uint32_t>>& modTClist = (pck.getDetType()==0)?configs.getSiModTClist():configs.getSciModTClist();
     const std::vector<uint32_t>& tclist = modTClist.at(modName) ;
     const std::map<std::pair<std::string,uint32_t>,std::vector<uint32_t>>& tcPinMap = (pck.getDetType()==0)?configs.getSiTCToROCpin():configs.getSciTCToROCpin();
@@ -93,7 +94,7 @@ namespace TPGFEModuleEmulation{
 	uint32_t half = (int(TMath::Floor(tcch/36))%2==0)?0:1;
 	uint32_t rocid = pck.getRocIdFromModId(moduleId,rocn,half);
 	if(rocdata.find(rocid)==rocdata.end()){
-	  std::cerr << "TPGFEModuleEmulation::HGCROCTPGEmulation::Emulate: HalfRoc not found in data for Event "<< ievent <<", Tcch: "<< tcch << ", rocn: " << rocn << ", half: " << half << ", rocpin: " << rocpin << std::endl;
+	  std::cerr << "TPGFEModuleEmulation::HGCROCTPGEmulation::Emulate: HalfRoc not found in data for Event "<< ievent << ", rocid: " << rocid <<", Tcch: "<< tcch << ", rocn: " << rocn << ", half: " << half << ", rocpin: " << rocpin << std::endl;
 	  continue ; 
 	}
 	if(ievent==refEvent) std::cout<<"TPGFEModuleEmulation::HGCROCTPGEmulation::Emulate: TC : " << itc <<", rocid: "<<rocid<< ", tcch: " << tcch <<", rocpin : "<<rocpin<<", rocn: "<<rocn<<", half: "<<half<<std::endl;

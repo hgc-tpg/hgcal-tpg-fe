@@ -701,8 +701,8 @@ namespace TPGFEConfiguration{
     int iphi;
     float t, trace;
 
-    std::string debugmodule = "TM-A5A6" ;
-    bool isDebug = false;
+    std::string debugmodule = "TM-B11B12" ;
+    bool isDebug = true;
     
     //Typecode ROC HalfROC Seq ROCpin TrLink TrCell iring iphi trace t
     std::ifstream inwafermap(SciMapfname);
@@ -723,7 +723,7 @@ namespace TPGFEConfiguration{
 	ss >> Typecode >> ROC >> HalfROC >> Seq >> ROCpin >> TrLink  >> TrCell  >> iring  >> iphi  >> t >> trace ;
 	if(TrLink!=-1 and TrCell!=-1 and ROCpin>=0 and Seq>=0 and iring.find("-1")==std::string::npos and iphi!=-1 and t!=-1){
 	  
-	  if(s.find("TM-A5A6")!=std::string::npos and isDebug) std::cout << s << std::endl;
+	  if(s.find(debugmodule)!=std::string::npos and isDebug) std::cout << s << std::endl;
 	  
 	  isLD = (iring.find("h")==std::string::npos)?1:0;
 	  if(iring.find("h")==std::string::npos)
@@ -735,7 +735,7 @@ namespace TPGFEConfiguration{
 	  uint32_t absTC = (isLD==1 ) ? (ROC*16 + TrLink*4 + TrCell) : (ROC*8 + HalfROC*4 + TrCell) ;
 	  uint32_t absSTC = uint32_t(TMath::FloorNint(absTC/4));
 	  uint32_t absSTC16 = uint32_t(TMath::FloorNint(absTC/16));
-	  if(s.find("TM-A5A6")!=std::string::npos and isDebug) std::cout << "TPGFEConfiguration::Configuration::readSciChMapping: isLD: " << isLD << ", ROC: " << ROC <<", TrLink: " << TrLink <<", TrCell: " << TrCell << ", absTC: " << absTC  << ", absSTC: " << absSTC << ", absSTC16: " << absSTC16 << std::endl;
+	  if(s.find(debugmodule)!=std::string::npos and isDebug) std::cout << "TPGFEConfiguration::Configuration::readSciChMapping: isLD: " << isLD << ", ROC: " << ROC <<", TrLink: " << TrLink <<", TrCell: " << TrCell << ", absTC: " << absTC  << ", absSTC: " << absSTC << ", absSTC16: " << absSTC16 << std::endl;
 	  uint32_t rocpin = ROC*72 + uint32_t(ROCpin);
 	  uint32_t iRiP = pck.packij(ring,uint32_t(iphi));
 	  std::tuple<uint32_t,uint32_t,uint32_t> seqch = std::make_tuple( ROC, HalfROC, uint32_t(Seq));

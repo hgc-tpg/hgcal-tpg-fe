@@ -66,7 +66,7 @@ int main(int argc, char** argv)
   TPGFEConfiguration::Configuration cfgs;
   cfgs.setSiChMapFile("cfgmap/WaferCellMapTraces.txt");
   //cfgs.setSciChMapFile("cfgmap/channels_sipmontile_HDtypes.hgcal.txt");
-  cfgs.setSciChMapFile("cfgmap/channels_sipmontile_TB2024.txt");
+  cfgs.setSciChMapFile("cfgmap/channels_sipmontile_TB2024.tsv");
   cfgs.initId();
   cfgs.readSiChMapping();
   cfgs.readSciChMapping();
@@ -78,7 +78,7 @@ int main(int argc, char** argv)
   //Read ECON-T/ROC/(ECON-D setting not needed, just dummy)
   //===============================================================================================================================  
   uint32_t zside = 0, sector = 0, link = 0, det = 1;
-  uint32_t econd = 0, econt = 0, selTC4 = 1, module = 0;
+  uint32_t econd = 0, econt = 0, selTC4 = 1, module = 1;
   TPGFEConfiguration::TPGFEIdPacking pck;
   
   uint32_t idx = pck.packModId(zside, sector, link, det, econd, selTC4, module); //we assume same ECONT and ECOND number for a given module      
@@ -86,7 +86,8 @@ int main(int argc, char** argv)
   
   //cfgs.setEconTFile("/home/indra/Data/2024-09-15_18-03-52_beamrun_electrons_200_TPGtuning_multfactor2/current_configs_no_timestamps/bravo_train.motherboard.econt_1_new.yaml"); //The _new has correct MUX setting
   //cfgs.setEconTFile("/home/indra/Data/2024-09-15_18-03-52_beamrun_electrons_200_TPGtuning_multfactor2/current_configs_no_timestamps/bravo_train.motherboard.econt_2.yaml");
-  cfgs.setEconTFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.motherboard.econt_1_new.yaml"); //The _new has correct MUX setting
+  //cfgs.setEconTFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.motherboard.econt_1_new.yaml"); //The _new has correct MUX setting
+  cfgs.setEconTFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.motherboard.econt_2_new.yaml"); //The _new has correct MUX setting
   cfgs.readEconTConfigYaml();
   
   cfgs.setEconDFile("cfgmap/init_econd.yaml");
@@ -97,14 +98,17 @@ int main(int argc, char** argv)
   uint32_t rocid_1 = pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, 1);
   //cfgs.setRocFile("/home/indra/Data/2024-09-15_18-03-52_beamrun_electrons_200_TPGtuning_multfactor2/current_configs_no_timestamps/bravo_train.TB3_A5.hgcroc_A6_new.yaml"); 
   //cfgs.setRocFile("/home/indra/Data/2024-09-15_18-03-52_beamrun_electrons_200_TPGtuning_multfactor2/current_configs_no_timestamps/bravo_train.TB3_B12.hgcroc_B12_1.yaml");
-  cfgs.setRocFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.TB3_A5.hgcroc_A6_new.yaml"); 
+  //cfgs.setRocFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.TB3_A5.hgcroc_A6_new.yaml");
+  cfgs.setRocFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.TB3_B12.hgcroc_B12_1_new.yaml"); 
   cfgs.readRocConfigYaml(rocid_0, rocid_1); //only roc0 is active corresponding to chip 3	
   
-  // iroc = 1;
-  // rocid_0 = pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, 0);
-  // rocid_1 = pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, 1);
+  iroc = 1;
+  rocid_0 = pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, 0);
+  rocid_1 = pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, 1);
   // cfgs.setRocFile("/home/indra/Data/2024-09-15_18-03-52_beamrun_electrons_200_TPGtuning_multfactor2/current_configs_no_timestamps/bravo_train.TB3_B12.hgcroc_B12_2.yaml");
   // cfgs.readRocConfigYaml(rocid_0, rocid_1); //only roc1 is active corresponding to chip 4
+  cfgs.setRocFile("/home/indra/Data/2024-09-16_15-28-58_beamrun_electrons_200/current_configs/bravo_train.TB3_B12.hgcroc_B12_2_new.yaml"); 
+  cfgs.readRocConfigYaml(rocid_0, rocid_1); //only roc0 is active corresponding to chip 3	
 
   uint32_t testmodid = pck.packModId(zside, sector, link, det, econt, selTC4, module); //we assume same ECONT and ECOND number for a given module
   //cfgs.setPedThZero();
@@ -112,7 +116,7 @@ int main(int argc, char** argv)
   cfgs.printCfgPedTh(testmodid);
   //===============================================================================================================================  
 
-    //===============================================================================================================================
+  //===============================================================================================================================
   //Modify the ECON parameters for special cases
   //===============================================================================================================================
   std::map<uint32_t,TPGFEConfiguration::ConfigEconD>& econDPar =  cfgs.getEconDPara();
@@ -120,7 +124,7 @@ int main(int argc, char** argv)
     std::cout << "it.first: "<< it.first << std::endl;
     econDPar.at(it.first).print();
     // econDPar.at(it.first).setPassThrough(true);
-    // econDPar.at(it.first).setNeRx(6);
+    // econDPar.at(it.first).setNeRx(4);
   }
   
   // link = 0; econt = 0; uint32_t lp0_bc0 = pck.packModId(zside, sector, link, det, econt, selTC4, module);
@@ -212,7 +216,7 @@ int main(int argc, char** argv)
   void ArrangeDAQData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int ref_trigtime, std::unique_ptr<TTree>& daqtr,
 		      std::map<uint64_t,std::vector<std::pair<uint32_t,TPGFEDataformat::HalfHgcrocData>>>& rocarr, std::map<uint64_t,int>& nofCorrp, uint64_t refevent);
   void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int ref_trigtime, std::unique_ptr<TTree>& tpgtr,
-		      std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets>& tpgarray);
+		      std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets>& tpgarray, uint64_t refEvent);
   
   
   // FillHistos(trdaq, trtpg);
@@ -222,7 +226,7 @@ int main(int argc, char** argv)
   std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets> tpgarray; //event,rocId
 
   void BookHistograms(TDirectory*& dir_diff, uint32_t relayNumber);
-  void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::HalfHgcrocData>& hrocdata, TPGFEDataformat::ModuleTcData& mtcdata, TPGFEDataformat::TcRawDataPacket& a, std::vector<TPGFEDataformat::TcRawDataPacket>& b, int nofTcTp3[], int nofCorruptions, uint64_t ievent);
+  void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::HalfHgcrocData>& hrocdata, TPGFEDataformat::ModuleTcData& mtcdata, TPGFEDataformat::TcRawDataPacket& a, std::vector<TPGFEDataformat::TcRawDataPacket>& b, int nofCorruptions, uint64_t ievent);
   
   TFile *fout = new TFile(Form("TM-Run-%u_%d.root",relayNumber,ref_trigtime), "recreate");
   TDirectory *dir_diff = fout->mkdir("diff_plots");
@@ -232,10 +236,10 @@ int main(int argc, char** argv)
   // std::map<uint64_t,uint32_t> eventbx;
   // std::vector<uint64_t> eventList;
   //int ref_trigtime = 13;
-  uint64_t refEvent = 16218339345035;
+  uint64_t refEvent = 16217809757906;
   std::map<uint64_t,int> nofCorrp;
   ArrangeDAQData(cfgs, testmodid, ref_trigtime, trdaq, hrocarray, nofCorrp, refEvent);
-  ArrangeTPGData(cfgs, testmodid, ref_trigtime, trtpg, tpgarray);
+  ArrangeTPGData(cfgs, testmodid, ref_trigtime, trtpg, tpgarray, refEvent);
 
   TPGFEModuleEmulation::HGCROCTPGEmulation rocTPGEmul(cfgs);
   TPGFEModuleEmulation::ECONTEmulation econtEmul(cfgs);
@@ -267,13 +271,12 @@ int main(int argc, char** argv)
     //HGCROC emulation for a given module
     //================================================
     bool isSim = false; //true for CMSSW simulation and false for beam-test analysis
-    // if(event==refEvent)
-    //   rocTPGEmul.Emulate(isSim, event, moduleId, rocdata, modTcdata, event);
+    //if(event==refEvent)
+    //rocTPGEmul.Emulate(isSim, event, moduleId, rocdata, modTcdata, event);
     // else
     rocTPGEmul.Emulate(isSim, event, moduleId, rocdata, modTcdata);
     //================================================
-
-    int nofTcTp3[4];
+    
     bool hasModTCshowed = false;
     //refEvent = event;
     modarray[event].push_back(modTcdata);
@@ -289,13 +292,6 @@ int main(int argc, char** argv)
 	std::cout << "Event: " << event << ", modTcid: " << modTcid << ", slink BxCounter: " << rocdata[modTcid].getSlinkBx() << std::endl;
 	mtcdata.print();
 	hasModTCshowed = true;
-      }
-      for(int istc=0;istc<4;istc++){
-	nofTcTp3[istc] = 0;
-      }
-      for(int itc=0;itc<16;itc++){
-	int istc = itc%4;
-	if(mtcdata.getTC(itc).isTcTp3()) nofTcTp3[istc]++;
       }
     }
     
@@ -343,7 +339,7 @@ int main(int argc, char** argv)
       }
     }
     
-    FillCorrHistos(dir_diff,rocdata,modTcdata.second, TcRawdata.second, tpgarray[event].second, nofTcTp3, nofCorrp[event], event);
+    FillCorrHistos(dir_diff,rocdata,modTcdata.second, TcRawdata.second, tpgarray[event].second, nofCorrp[event], event);
   }//event loop
   
   fout->cd();
@@ -356,33 +352,34 @@ int main(int argc, char** argv)
 
 void BookHistograms(TDirectory*& dir_diff, uint32_t relayNumber)
 {
-  TH1D *hEDiff[3];
-  for(int istc=0;istc<3;istc++){
+  const int nstcs = 6;
+  TH1D *hEDiff[nstcs];
+  for(int istc=0;istc<nstcs;istc++){
     hEDiff[istc] = new TH1D(Form("hEDiff_%d",istc),Form("Run:%u,STC:%d : (E_{emul}-E_{ECONT})",relayNumber,istc), 200, -100, 100);
     hEDiff[istc]->GetXaxis()->SetTitle("E_{emul}-E_{ECONT} (compressed in 4E+3M)");
     hEDiff[istc]->GetYaxis()->SetTitle("Entries");
     hEDiff[istc]->SetDirectory(dir_diff);
   }
 
-  TH2D *hBxCorr[3];
-  for(int istc=0;istc<3;istc++){
+  TH2D *hBxCorr[nstcs];
+  for(int istc=0;istc<nstcs;istc++){
     hBxCorr[istc] = new TH2D(Form("hBxCorr_%d",istc),Form("Run:%u,STC:%d : Bx Correlation",relayNumber,istc), 16, -0.5, 15.5, 16, -0.5, 15.5);
     hBxCorr[istc]->GetXaxis()->SetTitle("Bx in DAQ");
     hBxCorr[istc]->GetYaxis()->SetTitle("Bx in ECONT");    
     hBxCorr[istc]->SetDirectory(dir_diff);
   }
 
-  TH2D *hEmulCorr[3];
-  for(int istc=0;istc<3;istc++){
+  TH2D *hEmulCorr[nstcs];
+  for(int istc=0;istc<nstcs;istc++){
     hEmulCorr[istc] = new TH2D(Form("hEmulCorr_%d",istc),Form("Run:%u,STC:%d : Data-vs-Emulation",relayNumber,istc), 100, 0, 1e2, 100, 0, 1e2);
     hEmulCorr[istc]->GetXaxis()->SetTitle("E_{emul} (compressed in 4E+3M)");
     hEmulCorr[istc]->GetYaxis()->SetTitle("E_{ECONT} (compressed in 4E+3M)");    
     hEmulCorr[istc]->SetDirectory(dir_diff);
   }
-
-  TH2D *hEmulCorrDecomp[3];
-  for(int istc=0;istc<3;istc++){
-    hEmulCorrDecomp[istc] = new TH2D(Form("hEmulCorrDecomp_%d",istc),Form("Run:%u,STC:%d : Data-vs-Emulation",relayNumber,istc), 100, 0, 1e4, 100, 0, 1e4);
+  
+  TH2D *hEmulCorrDecomp[nstcs];
+  for(int istc=0;istc<nstcs;istc++){
+    hEmulCorrDecomp[istc] = new TH2D(Form("hEmulCorrDecomp_%d",istc),Form("Run:%u,STC:%d : Data-vs-Emulation",relayNumber,istc), 2e2, 0, 1e3, 2e2, 0, 1e3);
     hEmulCorrDecomp[istc]->GetXaxis()->SetTitle("E_{emul} (raw decompressed)");
     hEmulCorrDecomp[istc]->GetYaxis()->SetTitle("E_{ECONT} (raw decompressed)");    
     hEmulCorrDecomp[istc]->SetDirectory(dir_diff);
@@ -392,64 +389,65 @@ void BookHistograms(TDirectory*& dir_diff, uint32_t relayNumber)
   TH2D *hRocBxCorr = new TH2D(Form("hRocBxCorr_0"),Form("Run:%u: HalfRoc Bx Correlation",relayNumber), 100, -0.5, 3564.5, 100, -0.5, 3564.5);
   hRocBxCorr->SetDirectory(dir_diff);
 
-  TH2D *hSTCvsTC_pES[3][15][12];
-  for(int istc=0;istc<3;istc++){
-    for(int ies=0;ies<15;ies++){
-      for(int itc=0;itc<12;itc++){
-	hSTCvsTC_pES[istc][ies][itc] = new TH2D(Form("hSTCvsTC_pES_%d_%d_%d",istc,ies,itc),Form("Run:%u,STC:%d,ETS:%d,TC:%d : STC-vs-emulTC Correlation",relayNumber,istc,ies,itc), 100, 0, 1e2, 100, 0, 1e2);
-	hSTCvsTC_pES[istc][ies][itc]->SetDirectory(dir_diff);
-      }//itc
-    }//ies
-  }//itsc
+  // TH2D *hSTCvsTC_pES[nstcs][15][12];
+  // for(int istc=0;istc<nstcs;istc++){
+  //   for(int ies=0;ies<15;ies++){
+  //     for(int itc=0;itc<12;itc++){
+  // 	hSTCvsTC_pES[istc][ies][itc] = new TH2D(Form("hSTCvsTC_pES_%d_%d_%d",istc,ies,itc),Form("Run:%u,STC:%d,ETS:%d,TC:%d : STC-vs-emulTC Correlation",relayNumber,istc,ies,itc), 100, 0, 1e2, 100, 0, 1e2);
+  // 	hSTCvsTC_pES[istc][ies][itc]->SetDirectory(dir_diff);
+  //     }//itc
+  //   }//ies
+  // }//itsc
   
 
 }
 
-void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::HalfHgcrocData>& hrocdata, TPGFEDataformat::ModuleTcData& mtcdata, TPGFEDataformat::TcRawDataPacket& emul, std::vector<TPGFEDataformat::TcRawDataPacket>& econt, int nofTcTp3[], int nofCorruptions, uint64_t ievent)
+void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::HalfHgcrocData>& hrocdata, TPGFEDataformat::ModuleTcData& mtcdata, TPGFEDataformat::TcRawDataPacket& emul, std::vector<TPGFEDataformat::TcRawDataPacket>& econt, int nofCorruptions, uint64_t ievent)
 {
-  int tc4list[12][4] = {
-    {0, 1, 2, 3},
-    {4, 5, 6, 7},
-    {9, 10, 11, 12},
-    {13, 14, 15, 16},
-    {19, 20, 21, 22},
-    {23, 24, 25, 26},
-    {28, 29, 30, 31},
-    {32, 33, 34, 35},
-    {0, 1, 2, 3},
-    {4, 5, 6, 7},
-    {9, 10, 11, 12},
-    {13, 14, 15, 16}
-  };
+  // int tc4list[12][4] = {
+  //   {0, 1, 2, 3},
+  //   {4, 5, 6, 7},
+  //   {9, 10, 11, 12},
+  //   {13, 14, 15, 16},
+  //   {19, 20, 21, 22},
+  //   {23, 24, 25, 26},
+  //   {28, 29, 30, 31},
+  //   {32, 33, 34, 35},
+  //   {0, 1, 2, 3},
+  //   {4, 5, 6, 7},
+  //   {9, 10, 11, 12},
+  //   {13, 14, 15, 16}
+  // };
   
-  int stc4list[3][4] = {
-    {0, 1, 2, 3},
-    {4, 5, 6, 7},
-    {8, 9, 10, 11}
-  };
+  // int stc4list[3][4] = {
+  //   {0, 1, 2, 3},
+  //   {4, 5, 6, 7},
+  //   {8, 9, 10, 11}
+  // };
   
   TList *list = (TList *)dir_diff->GetList();
   //if(!(emul.isTcTp1()) and !(emul.isTcTp2()) and nofCorruptions==0){
-  for(uint32_t istc=0;istc<3;istc++){
-    //if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2()) and emul.getTc(istc).isTcTp3() ){
+  for(uint32_t istc=0;istc<6;istc++){
+    //if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2()) and !(emul.getTc(istc).isTcTp3()) ){
     if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
+      //int bxdiff = abs(emul.bx() - econt.at(7).bx());
+      //if(bxdiff==4){
       if(emul.bx() == econt.at(7).bx()){
+	// int id = (istc<=1)?4352:4353;
+	// int nof_tctp_stc = 0;
+	// int nof_tctp_stc_tcgt1 = 0;
+	// //for(int itc = 0; itc<4 && ievent==16218339345035; itc++){
+	// for(int itc = 0; itc<4 ; itc++){
+	//   int nof_tctp_tcch = 0 ; 
+	//   for(int ich = 0; ich<4; ich++){
+	//     //std::cout << "istc: " << istc << ", id: " << id << ", itc : " << itc << ", ich : " << ich << ", channel: " << tc4list[stc4list[istc][itc]][ich] << std::endl;
+	//     uint16_t tctp = hrocdata[id].getChannelData( tc4list[stc4list[istc][itc]][ich] ).getTcTp();
+	//     if(tctp>0) nof_tctp_tcch++;
+	//   }
+	//   if(nof_tctp_tcch>0) nof_tctp_stc++;
+	//   if(nof_tctp_tcch>1) nof_tctp_stc_tcgt1++;
+	// }//itc loop
 	
-	int id = (istc<=1)?4352:4353;
-	int nof_tctp_stc = 0;
-	int nof_tctp_stc_tcgt1 = 0;
-	//for(int itc = 0; itc<4 && ievent==16218339345035; itc++){
-	for(int itc = 0; itc<4 ; itc++){
-	  int nof_tctp_tcch = 0 ; 
-	  for(int ich = 0; ich<4; ich++){
-	    //std::cout << "istc: " << istc << ", id: " << id << ", itc : " << itc << ", ich : " << ich << ", channel: " << tc4list[stc4list[istc][itc]][ich] << std::endl;
-	    uint16_t tctp = hrocdata[id].getChannelData( tc4list[stc4list[istc][itc]][ich] ).getTcTp();
-	    if(tctp>0) nof_tctp_tcch++;
-	  }
-	  if(nof_tctp_tcch>0) nof_tctp_stc++;
-	  if(nof_tctp_tcch>1) nof_tctp_stc_tcgt1++;
-	}//itc loop
-
 	int diff = (emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy());
 	//if(nof_tctp_stc_tcgt1==0 and nof_tctp_stc==1){
 	((TH1D *) list->FindObject(Form("hEDiff_%u",istc)))->Fill( emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy() );
@@ -457,30 +455,31 @@ void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::Ha
 	((TH2D *) list->FindObject(Form("hEmulCorrDecomp_%u",istc)))->Fill( emul.getTc(istc).decodedE(TPGFEDataformat::STC4A), econt.at(7).getTc(istc).decodedE(TPGFEDataformat::STC4A) );
 	//}
 	
-	// if(diff!=0){
-	//   std::cout << "++++++++++++++++++++++++++++++++++++++++++ Diff for event: " << ievent << ", stc: " << istc << "++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-	//   emul.print();
-	//   for(int ibx=0;ibx<int(econt.size());ibx++) econt.at(ibx).print();	    
-	//   std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-	// }
+	if(diff!=0 and (istc==0 or istc==4)){
+	  std::cout << "++++++++++++++++++++++++++++++++++++++++++ Diff for event: " << ievent << ", stc:" << istc << " ++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	  emul.print();
+	  for(int ibx=0;ibx<int(econt.size());ibx++) econt.at(ibx).print();	    
+	  std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	}
 	
       }
     }
-      //}
+    //}
     for(int ibx=0;ibx<int(econt.size());ibx++){
-      //if(!emul.isTcTp1() and !emul.isTcTp2()){
-      double ediff = double(emul.getTc(istc).energy() - econt.at(ibx).getTc(istc).energy());
-      if(TMath::Abs(ediff)<=0) {
-	((TH1D *) list->FindObject(Form("hBxCorr_%u",istc)))->Fill( emul.bx(), econt.at(ibx).bx() );
-	((TH2D *) list->FindObject(Form("hRocBxCorr_0")))->Fill( hrocdata[4352].getSlinkBx(), hrocdata[4353].getSlinkBx() );
-      }
-      for(int itc=0; itc<12;itc++){
-	((TH1D *) list->FindObject(Form("hSTCvsTC_pES_%d_%d_%d",istc,ibx,itc)))->Fill( mtcdata.getTC(itc).getCdata() , econt.at(ibx).getTc(istc).energy() );
-	// if(istc==0 and itc==0 and mtcdata.getTC(itc).getCdata()>60 and econt.at(ibx).getTc(istc).energy()<40 and emul.bx() == econt.at(ibx).bx())
-	//   std::cout << "Event: " << ievent <<",  mtcdata.getTC(itc).getCdata(): " << mtcdata.getTC(itc).getCdata() << ", econt.at(ibx).getTc(istc).energy(): " << econt.at(ibx).getTc(istc).energy() << std::endl;
-      }
-      //}//isTcTp
-      
+      if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
+	//if(emul.bx() == econt.at(ibx).bx()){
+	((TH2D *) list->FindObject(Form("hRocBxCorr_0")))->Fill( hrocdata[4368].getSlinkBx(), hrocdata[4370].getSlinkBx() );
+	double ediff = double(emul.getTc(istc).energy() - econt.at(ibx).getTc(istc).energy());
+	if(TMath::Abs(ediff)==0) {
+	  ((TH1D *) list->FindObject(Form("hBxCorr_%u",istc)))->Fill( emul.bx(), econt.at(ibx).bx() );
+	}
+	//}
+	// for(int itc=0; itc<12;itc++){
+	// 	((TH1D *) list->FindObject(Form("hSTCvsTC_pES_%d_%d_%d",istc,ibx,itc)))->Fill( mtcdata.getTC(itc).getCdata() , econt.at(ibx).getTc(istc).energy() );
+	// 	// if(istc==0 and itc==0 and mtcdata.getTC(itc).getCdata()>60 and econt.at(ibx).getTc(istc).energy()<40 and emul.bx() == econt.at(ibx).bx())
+	// 	//   std::cout << "Event: " << ievent <<",  mtcdata.getTC(itc).getCdata(): " << mtcdata.getTC(itc).getCdata() << ", econt.at(ibx).getTc(istc).energy(): " << econt.at(ibx).getTc(istc).energy() << std::endl;
+	// }
+      }//isTcTp      
       //std::cout << "istc: " << istc << ", Emul: " << emul.getTc(istc).energy() << ", ECONT: " << econt.at(7).getTc(istc).energy() << std::endl;
     }//ibx loop
   }//istc
@@ -571,6 +570,7 @@ void FillHistos(std::unique_ptr<TTree>& trdaq, std::unique_ptr<TTree>& trtpg)
   TH2F *hTPGChip1STC1_trigtimeVsSTCE = new TH2F("hTPGChip1STC1_trigtimeVsSTCE","hTPGChip1STC1_trigtimeVsSTCE",33,-0.5,32.5,1000,0,2.5e4);
   TH2F *hTPGChip1STC2_trigtimeVsSTCE = new TH2F("hTPGChip1STC2_trigtimeVsSTCE","hTPGChip1STC2_trigtimeVsSTCE",33,-0.5,32.5,1000,0,2.5e4);
 
+  TH1F *hTPGChip3_trigtime = new TH1F("hTPGChip3_trigtime","hTPGChip3_trigtime",32,-0.5,31.5);
   double totE_chip1[32],totE_chip3[32];
   for(int itm=0;itm<32;itm++){
     totE_chip1[itm] = 0;
@@ -580,7 +580,7 @@ void FillHistos(std::unique_ptr<TTree>& trdaq, std::unique_ptr<TTree>& trtpg)
   TH1F *hTPGChip = new TH1F("hTPGChip","hTPGChip",33,-0.5,32.5);
   //trdaq->Scan("*");
   //for(Long_t ievent = 0; ievent<trdaq->GetEntries(); ievent++){
-  for(Long_t ievent = 0; ievent<400; ievent++){
+  for(Long_t ievent = 0; ievent<4000; ievent++){
     trdaq->GetEvent(ievent);
     
     std::cout << "DAQ Event: " << std::setw(3) << std::setfill('0') << ievent
@@ -631,43 +631,44 @@ void FillHistos(std::unique_ptr<TTree>& trdaq, std::unique_ptr<TTree>& trtpg)
     }
   }
   
-  // //trtpg->Scan("*");
-  // for(Long_t ievent = 0; ievent<trtpg->GetEntries(); ievent++){
-  //   //for(Long_t ievent = 0; ievent<10; ievent++){
-  //   trtpg->GetEvent(ievent);
-  //   //std::cout << "TPG Event: " << ievent << ", eventId " << globEventId_TPG << std::endl;
-  //   hTPGChip->Fill(chip_TPG);
-  //   //if(trigtime_TPG<12 or trigtime_TPG>18) continue;
-  //   if(chip_TPG==0){
-  //     hTPGChip0_STC->Fill(stcindex);
-  //     hTPGChip0_STCMax->Fill(largesttc);
-  //     hTPGChip0_STCE->Fill(stcindex, stcenergy);
-  //   }else if(chip_TPG==1){
-  //     hTPGChip1_STC->Fill(stcindex);
-  //     hTPGChip1_STCMax->Fill(largesttc);
-  //     hTPGChip1_STCE->Fill(stcindex, stcenergy);
-  //     if(stcindex==0){
-  // 	hTPGChip1STC0_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
-  //     }else if(stcindex==1){
-  // 	hTPGChip1STC1_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
-  // 	totE_chip1[trigtime_TPG] += stcenergyraw;
-  //     }else if(stcindex==2){
-  // 	hTPGChip1STC2_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
-  //     }
+  //trtpg->Scan("*");
+  for(Long_t ievent = 0; ievent<trtpg->GetEntries(); ievent++){
+    //for(Long_t ievent = 0; ievent<10; ievent++){
+    trtpg->GetEvent(ievent);
+    //std::cout << "TPG Event: " << ievent << ", eventId " << globEventId_TPG << std::endl;
+    hTPGChip->Fill(chip_TPG);
+    //if(trigtime_TPG<12 or trigtime_TPG>18) continue;
+    if(chip_TPG==0){
+      hTPGChip0_STC->Fill(stcindex);
+      hTPGChip0_STCMax->Fill(largesttc);
+      hTPGChip0_STCE->Fill(stcindex, stcenergy);
+    }else if(chip_TPG==1){
+      hTPGChip1_STC->Fill(stcindex);
+      hTPGChip1_STCMax->Fill(largesttc);
+      hTPGChip1_STCE->Fill(stcindex, stcenergy);
+      if(stcindex==0){
+	hTPGChip1STC0_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
+      }else if(stcindex==1){
+	hTPGChip1STC1_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
+	totE_chip1[trigtime_TPG] += stcenergyraw;
+      }else if(stcindex==2){
+	hTPGChip1STC2_trigtimeVsSTCE->Fill(trigtime_TPG, stcenergy);
+      }
 
-  //   }else if(chip_TPG==2){
-  //     hTPGChip2_STC->Fill(stcindex);
-  //     hTPGChip2_STCMax->Fill(largesttc);
-  //     hTPGChip2_STCE->Fill(stcindex, stcenergy);
-  //   }else if(chip_TPG==3){
-  //     hTPGChip3_STC->Fill(stcindex);
-  //     hTPGChip3_STCMax->Fill(largesttc);
-  //     hTPGChip3_STCE->Fill(stcindex, stcenergy);
-  //     if(stcindex==1){
-  // 	totE_chip3[trigtime_TPG] += stcenergyraw;
-  //     }
-  //   }
-  // }
+    }else if(chip_TPG==2){
+      hTPGChip2_STC->Fill(stcindex);
+      hTPGChip2_STCMax->Fill(largesttc);
+      hTPGChip2_STCE->Fill(stcindex, stcenergy);
+    }else if(chip_TPG==3){
+      hTPGChip3_STC->Fill(stcindex);
+      hTPGChip3_STCMax->Fill(largesttc);
+      hTPGChip3_STCE->Fill(stcindex, stcenergy);
+      if(stcindex==1){
+	totE_chip3[trigtime_TPG] += stcenergyraw;
+      }
+      hTPGChip3_trigtime->Fill(trigtime_TPG);
+    }
+  }
   
   for(int itm=0;itm<32;itm++){
     std::cout << "trigtime: " << itm << ", chip1 Etot: " << totE_chip1[itm] << ", chip3 Etot: " << totE_chip3[itm] << std::endl ;
@@ -700,6 +701,8 @@ void FillHistos(std::unique_ptr<TTree>& trdaq, std::unique_ptr<TTree>& trtpg)
   hTPGChip1STC0_trigtimeVsSTCE->Write();
   hTPGChip1STC1_trigtimeVsSTCE->Write();
   hTPGChip1STC2_trigtimeVsSTCE->Write();
+  hTPGChip3_trigtime->Write();
+  
 }
 
 void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, int ref_trigtime, std::unique_ptr<TTree>& trdaq,
@@ -775,7 +778,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
   ULong64_t prev_globEventId = 0xffffffffffffffff ;
 
   for(Long_t ievent = 0; ievent<trdaq->GetEntries(); ievent++){
-  //for(Long_t ievent = 0; ievent<50000; ievent++){
+  //for(Long_t ievent = 0; ievent<5000; ievent++){
     trdaq->GetEvent(ievent);
     
     TPGFEDataformat::HalfHgcrocChannelData ch;
@@ -809,7 +812,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
     int org_channel = channel;
     channel = chmap[channel];
     if(prev_globEventId != globEventId_DAQ) nofCorrp[globEventId_DAQ] = 0;
-    if(chip==2 and globEventId_DAQ==refEvent){
+    if((chip==3 or chip==4) and globEventId_DAQ==refEvent){
       std::cout << "ievent : " << ievent << ", eventcounter: " << eventcounter << ", orbitcounter: " << orbitcounter << ", bxcounter: " << bxcounter << ", globEventId_DAQ: "  << globEventId_DAQ << ", trigtime: " << trigtime
 	//<< ", sourceId: " << sourceId <<", contentId: " << contentId
 		<< ", chip : " << chip << ", half: " << half << ", org ch: " << org_channel << ", channel: " << channel << ", trigflag(from rawdata): " << trigflag  << ", adc: " << ch.getAdc() << ", tot: " << ch.getTot()
@@ -818,7 +821,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
 		<< std::endl ;
     }
     
-    if(chip==2 and channel>=0 and channel<=35) {
+    if((chip==3 or chip==4) and channel>=0 and channel<=35) {
       if(globEventId_DAQ==refEvent){
 	// std::cout << "globEventId_DAQ: "  << globEventId_DAQ << ", ievent : " << ievent << ", half: " << half << ", channel: " << channel << ", data : " ;
 	// ch.print();
@@ -837,6 +840,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
 	hrocdata.setBx(uint16_t(bx));
 	hrocdata.setSlinkBx(prevBx);
 	pck.setZero();
+	iroc = (prevChip==3)?0:1;
 	rocarr[prev_globEventId].push_back(std::make_pair(pck.packRocId(zside, sector, link, det, econd, selTC4, module, iroc, prevHalf),hrocdata));
 	if(prev_globEventId==refEvent) hrocdata.print();
       }
@@ -855,7 +859,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
   
 }
 
-void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int ref_trigtime, std::unique_ptr<TTree>& trtpg, std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets>& tpgarray)
+void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int ref_trigtime, std::unique_ptr<TTree>& trtpg, std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets>& tpgarray, uint64_t refEvent)
 {
   
   tpgarray.clear();
@@ -896,37 +900,42 @@ void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int 
   for(Long_t ievent = 0; ievent<trtpg->GetEntries(); ievent++){
   //for(Long_t ievent = 0; ievent<156000; ievent++){
     trtpg->GetEvent(ievent);
-    
-    // std::cout << "iEvent1 : " << ievent << ", tcpkt.size(): " << tcpkt.size()
-    // 	      << ", globEventId_TPG: " << globEventId_TPG << ", prevGlobEent : " << prev_globEventId
-    // 	      << ", trigtime_TPG: " << trigtime_TPG << ", prevTrigtime: " << prevtrigtime
-    // 	      << ", chip: " << chip_TPG << ", prevChip: " << prevChip
-    //   	      << ", bx: " << bx << ", prevBx: " << prevBx
-    // 	      << ", "
-    // 	      << std::endl;
-    if(chip_TPG==1) {
+
+    if(chip_TPG==3) {
+      // if(refEvent==globEventId_TPG)
+      // 	std::cout << "iEvent1 : " << ievent << ", tcpkt.size(): " << tcpkt.size()
+      // 		  << ", globEventId_TPG: " << globEventId_TPG << ", prevGlobEent : " << prev_globEventId
+      // 		  << ", trigtime_TPG: " << trigtime_TPG << ", prevTrigtime: " << prevtrigtime
+      // 		  << ", chip: " << chip_TPG << ", prevChip: " << prevChip
+      // 		  << ", bx: " << bx << ", prevBx: " << prevBx
+      // 		  << ", "
+      // 		  << std::endl;
+      
       tcpkt.setTcData(TPGFEDataformat::STC4A, uint8_t(largesttc), uint16_t(stcenergyraw), uint64_t(stcenergyraw), 0, 0, 0);
-      //   std::cout << "iEvent2 : " << ievent << ", tcpkt.size(): " << tcpkt.size() << ", bx: " << bx << ", prevBx: " << prevBx << ", tcpktarr.size(): " << tcpktarr.size() << std::endl;
+      //std::cout << "iEvent2 : " << ievent << ", tcpkt.size(): " << tcpkt.size() << ", bx: " << bx << ", prevBx: " << prevBx << ", tcpktarr.size(): " << tcpktarr.size() << ", tcpkt.size : " << tcpkt.size() << std::endl;
     }    
     
-    if(tcpkt.size()==12 and chip_TPG==1){    
+    if(tcpkt.size()==9 and chip_TPG==3){    
       tcpkt.setBX(uint8_t(prevBxEcon));
       tcpkt.setType(TPGFEDataformat::STC4A);
       tcpktarr.push_back(tcpkt);
       //tcpkt.print();
       tcpkt.reset();
-      // std::cout << "iEvent-3 : " << ievent << ", tcpktarr.size: " << tcpktarr.size()
-      // 		<< ", tcpkt.size(): " << tcpkt.size() << ", bx: " << bx << ", prevBx: " << prevBx << ", trigtime: " << trigtime_TPG << ", prevtrigtime: " << prevtrigtime << ", chip: " << chip_TPG
-      // 		<< std::endl;
+      // if(refEvent==globEventId_TPG)
+      // 	std::cout << "iEvent-3 : " << ievent << ", tcpktarr.size: " << tcpktarr.size()
+      // 		  << ", tcpkt.size(): " << tcpkt.size() << ", bx: " << bx << ", prevBx: " << prevBx << ", trigtime: " << trigtime_TPG << ", prevtrigtime: " << prevtrigtime << ", chip: " << chip_TPG
+      // 		  << std::endl;
     }
     
-    if(tcpktarr.size()==15 and prevBx != bx){
-      // std::cout << "iEvent-4 : " << ievent << ", tcpktarr.size: " << tcpktarr.size() << ", tcpkt.size(): " << tcpkt.size()
-      // 		<< ", chip: " << chip_TPG << ", prevChip : " << prevChip 
-      // 		<< ", bx: " << bx << ", prevBx: " << prevBx
-      // 		<< ", trigtime_TPG: " << trigtime_TPG << ", prevtrigtime: "<< prevtrigtime << ", ref_trigtime: " << ref_trigtime
-      // 		<< ", globEventId: " << prev_globEventId
-      // 		<< std::endl;
+    //if(tcpktarr.size()==15 and prevBx != bx){
+    if(tcpktarr.size()==15){
+      // if(refEvent==globEventId_TPG)
+      // 	std::cout << "iEvent-4 : " << ievent << ", tcpktarr.size: " << tcpktarr.size() << ", tcpkt.size(): " << tcpkt.size()
+      // 		  << ", chip: " << chip_TPG << ", prevChip : " << prevChip 
+      // 		  << ", bx: " << bx << ", prevBx: " << prevBx
+      // 		  << ", trigtime_TPG: " << trigtime_TPG << ", prevtrigtime: "<< prevtrigtime << ", ref_trigtime: " << ref_trigtime
+      // 		  << ", globEventId: " << prev_globEventId
+      // 		  << std::endl;
       if(ref_trigtime==prevtrigtime){
 	// std::cout << "iEvent-5 : " << ievent << std::endl;
 	tpgarray[uint64_t(prev_globEventId)] = std::make_pair(modId,tcpktarr);
@@ -941,5 +950,5 @@ void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int 
     prev_globEventId = globEventId_TPG ; 
   }
 
-    std::cout << "local tpgarray.size(): " << tpgarray.size() << std::endl;
+  std::cout << "local tpgarray.size(): " << tpgarray.size() << std::endl;
 }
