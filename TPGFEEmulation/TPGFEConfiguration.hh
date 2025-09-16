@@ -702,7 +702,7 @@ namespace TPGFEConfiguration{
     float t, trace;
 
     std::string debugmodule = "TM-B11B12" ;
-    bool isDebug = true;
+    bool isDebug = false;
     
     //Typecode ROC HalfROC Seq ROCpin TrLink TrCell iring iphi trace t
     std::ifstream inwafermap(SciMapfname);

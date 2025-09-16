@@ -426,64 +426,65 @@ void FillCorrHistos(TDirectory*& dir_diff, std::map<uint32_t,TPGFEDataformat::Ha
   // };
   
   TList *list = (TList *)dir_diff->GetList();
-  //if(!(emul.isTcTp1()) and !(emul.isTcTp2()) and nofCorruptions==0){
-  for(uint32_t istc=0;istc<6;istc++){
-    //if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2()) and !(emul.getTc(istc).isTcTp3()) ){
-    if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
-      //int bxdiff = abs(emul.bx() - econt.at(7).bx());
-      //if(bxdiff==4){
-      if(emul.bx() == econt.at(7).bx()){
-	// int id = (istc<=1)?4352:4353;
-	// int nof_tctp_stc = 0;
-	// int nof_tctp_stc_tcgt1 = 0;
-	// //for(int itc = 0; itc<4 && ievent==16218339345035; itc++){
-	// for(int itc = 0; itc<4 ; itc++){
-	//   int nof_tctp_tcch = 0 ; 
-	//   for(int ich = 0; ich<4; ich++){
-	//     //std::cout << "istc: " << istc << ", id: " << id << ", itc : " << itc << ", ich : " << ich << ", channel: " << tc4list[stc4list[istc][itc]][ich] << std::endl;
-	//     uint16_t tctp = hrocdata[id].getChannelData( tc4list[stc4list[istc][itc]][ich] ).getTcTp();
-	//     if(tctp>0) nof_tctp_tcch++;
-	//   }
-	//   if(nof_tctp_tcch>0) nof_tctp_stc++;
-	//   if(nof_tctp_tcch>1) nof_tctp_stc_tcgt1++;
-	// }//itc loop
+  if(!(emul.isTcTp1()) and !(emul.isTcTp2()) and nofCorruptions==0){
+    for(uint32_t istc=0;istc<6;istc++){
+    //for(uint32_t istc=0;istc<6;istc++){
+      if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2()) and !(emul.getTc(istc).isTcTp3()) ){
+      //if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
+	//int bxdiff = abs(emul.bx() - econt.at(7).bx());
+	//if(bxdiff==4){
+	if(emul.bx() == econt.at(7).bx()){
+	  // int id = (istc<=1)?4352:4353;
+	  // int nof_tctp_stc = 0;
+	  // int nof_tctp_stc_tcgt1 = 0;
+	  // //for(int itc = 0; itc<4 && ievent==16218339345035; itc++){
+	  // for(int itc = 0; itc<4 ; itc++){
+	  //   int nof_tctp_tcch = 0 ; 
+	  //   for(int ich = 0; ich<4; ich++){
+	  //     //std::cout << "istc: " << istc << ", id: " << id << ", itc : " << itc << ", ich : " << ich << ", channel: " << tc4list[stc4list[istc][itc]][ich] << std::endl;
+	  //     uint16_t tctp = hrocdata[id].getChannelData( tc4list[stc4list[istc][itc]][ich] ).getTcTp();
+	  //     if(tctp>0) nof_tctp_tcch++;
+	  //   }
+	  //   if(nof_tctp_tcch>0) nof_tctp_stc++;
+	  //   if(nof_tctp_tcch>1) nof_tctp_stc_tcgt1++;
+	  // }//itc loop
 	
-	int diff = (emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy());
-	//if(nof_tctp_stc_tcgt1==0 and nof_tctp_stc==1){
-	((TH1D *) list->FindObject(Form("hEDiff_%u",istc)))->Fill( emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy() );
-	((TH2D *) list->FindObject(Form("hEmulCorr_%u",istc)))->Fill( emul.getTc(istc).energy(), econt.at(7).getTc(istc).energy() );
-	((TH2D *) list->FindObject(Form("hEmulCorrDecomp_%u",istc)))->Fill( emul.getTc(istc).decodedE(TPGFEDataformat::STC4A), econt.at(7).getTc(istc).decodedE(TPGFEDataformat::STC4A) );
-	//}
-	
-	if(diff!=0 and (istc==0 or istc==4)){
-	  std::cout << "++++++++++++++++++++++++++++++++++++++++++ Diff for event: " << ievent << ", stc:" << istc << " ++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-	  emul.print();
-	  for(int ibx=0;ibx<int(econt.size());ibx++) econt.at(ibx).print();	    
-	  std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	  int diff = (emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy());
+	  //if(nof_tctp_stc_tcgt1==0 and nof_tctp_stc==1){
+	  ((TH1D *) list->FindObject(Form("hEDiff_%u",istc)))->Fill( emul.getTc(istc).energy() - econt.at(7).getTc(istc).energy() );
+	  ((TH2D *) list->FindObject(Form("hEmulCorr_%u",istc)))->Fill( emul.getTc(istc).energy(), econt.at(7).getTc(istc).energy() );
+	  ((TH2D *) list->FindObject(Form("hEmulCorrDecomp_%u",istc)))->Fill( emul.getTc(istc).decodedE(TPGFEDataformat::STC4A), econt.at(7).getTc(istc).decodedE(TPGFEDataformat::STC4A) );
+	  //}
+	  
+	  if(diff!=0 and istc!=3){
+	    std::cout << "++++++++++++++++++++++++++++++++++++++++++ Diff for event: " << ievent << ", stc:" << istc << " ++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	    emul.print();
+	    for(int ibx=0;ibx<int(econt.size());ibx++) econt.at(ibx).print();	    
+	    std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	  }
+	  
 	}
-	
       }
-    }
-    //}
-    for(int ibx=0;ibx<int(econt.size());ibx++){
-      if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
-	//if(emul.bx() == econt.at(ibx).bx()){
-	((TH2D *) list->FindObject(Form("hRocBxCorr_0")))->Fill( hrocdata[4368].getSlinkBx(), hrocdata[4370].getSlinkBx() );
-	double ediff = double(emul.getTc(istc).energy() - econt.at(ibx).getTc(istc).energy());
-	if(TMath::Abs(ediff)==0) {
-	  ((TH1D *) list->FindObject(Form("hBxCorr_%u",istc)))->Fill( emul.bx(), econt.at(ibx).bx() );
-	}
-	//}
-	// for(int itc=0; itc<12;itc++){
-	// 	((TH1D *) list->FindObject(Form("hSTCvsTC_pES_%d_%d_%d",istc,ibx,itc)))->Fill( mtcdata.getTC(itc).getCdata() , econt.at(ibx).getTc(istc).energy() );
-	// 	// if(istc==0 and itc==0 and mtcdata.getTC(itc).getCdata()>60 and econt.at(ibx).getTc(istc).energy()<40 and emul.bx() == econt.at(ibx).bx())
-	// 	//   std::cout << "Event: " << ievent <<",  mtcdata.getTC(itc).getCdata(): " << mtcdata.getTC(itc).getCdata() << ", econt.at(ibx).getTc(istc).energy(): " << econt.at(ibx).getTc(istc).energy() << std::endl;
-	// }
-      }//isTcTp      
-      //std::cout << "istc: " << istc << ", Emul: " << emul.getTc(istc).energy() << ", ECONT: " << econt.at(7).getTc(istc).energy() << std::endl;
-    }//ibx loop
-  }//istc
-  //}
+      //}
+      for(int ibx=0;ibx<int(econt.size());ibx++){
+	if(!(emul.getTc(istc).isTcTp1()) and !(emul.getTc(istc).isTcTp2())){
+	  //if(emul.bx() == econt.at(ibx).bx()){
+	  ((TH2D *) list->FindObject(Form("hRocBxCorr_0")))->Fill( hrocdata[4368].getSlinkBx(), hrocdata[4370].getSlinkBx() );
+	  double ediff = double(emul.getTc(istc).energy() - econt.at(ibx).getTc(istc).energy());
+	  if(TMath::Abs(ediff)==0) {
+	    ((TH1D *) list->FindObject(Form("hBxCorr_%u",istc)))->Fill( emul.bx(), econt.at(ibx).bx() );
+	  }
+	  //}
+	  // for(int itc=0; itc<12;itc++){
+	  // 	((TH1D *) list->FindObject(Form("hSTCvsTC_pES_%d_%d_%d",istc,ibx,itc)))->Fill( mtcdata.getTC(itc).getCdata() , econt.at(ibx).getTc(istc).energy() );
+	  // 	// if(istc==0 and itc==0 and mtcdata.getTC(itc).getCdata()>60 and econt.at(ibx).getTc(istc).energy()<40 and emul.bx() == econt.at(ibx).bx())
+	  // 	//   std::cout << "Event: " << ievent <<",  mtcdata.getTC(itc).getCdata(): " << mtcdata.getTC(itc).getCdata() << ", econt.at(ibx).getTc(istc).energy(): " << econt.at(ibx).getTc(istc).energy() << std::endl;
+	  // }
+	}//isTcTp      
+	//std::cout << "istc: " << istc << ", Emul: " << emul.getTc(istc).energy() << ", ECONT: " << econt.at(7).getTc(istc).energy() << std::endl;
+      }//ibx loop
+    }//istc
+  }
   
   
 }
@@ -812,6 +813,7 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
     int org_channel = channel;
     channel = chmap[channel];
     if(prev_globEventId != globEventId_DAQ) nofCorrp[globEventId_DAQ] = 0;
+    //if(chip==2 and globEventId_DAQ==refEvent){
     if((chip==3 or chip==4) and globEventId_DAQ==refEvent){
       std::cout << "ievent : " << ievent << ", eventcounter: " << eventcounter << ", orbitcounter: " << orbitcounter << ", bxcounter: " << bxcounter << ", globEventId_DAQ: "  << globEventId_DAQ << ", trigtime: " << trigtime
 	//<< ", sourceId: " << sourceId <<", contentId: " << contentId
@@ -820,7 +822,8 @@ void ArrangeDAQData(TPGFEConfiguration::Configuration& configs, uint32_t modId, 
 	//<< ", rawdata: " << rawdata
 		<< std::endl ;
     }
-    
+
+    //if(chip==2 and channel>=0 and channel<=35) {
     if((chip==3 or chip==4) and channel>=0 and channel<=35) {
       if(globEventId_DAQ==refEvent){
 	// std::cout << "globEventId_DAQ: "  << globEventId_DAQ << ", ievent : " << ievent << ", half: " << half << ", channel: " << channel << ", data : " ;
@@ -901,6 +904,7 @@ void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int 
   //for(Long_t ievent = 0; ievent<156000; ievent++){
     trtpg->GetEvent(ievent);
 
+    //if(chip_TPG==1) {
     if(chip_TPG==3) {
       // if(refEvent==globEventId_TPG)
       // 	std::cout << "iEvent1 : " << ievent << ", tcpkt.size(): " << tcpkt.size()
@@ -914,7 +918,8 @@ void ArrangeTPGData(TPGFEConfiguration::Configuration& cfg, uint32_t modId, int 
       tcpkt.setTcData(TPGFEDataformat::STC4A, uint8_t(largesttc), uint16_t(stcenergyraw), uint64_t(stcenergyraw), 0, 0, 0);
       //std::cout << "iEvent2 : " << ievent << ", tcpkt.size(): " << tcpkt.size() << ", bx: " << bx << ", prevBx: " << prevBx << ", tcpktarr.size(): " << tcpktarr.size() << ", tcpkt.size : " << tcpkt.size() << std::endl;
     }    
-    
+
+    //if(tcpkt.size()==12 and chip_TPG==1){    
     if(tcpkt.size()==9 and chip_TPG==3){    
       tcpkt.setBX(uint8_t(prevBxEcon));
       tcpkt.setType(TPGFEDataformat::STC4A);
