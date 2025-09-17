@@ -44,7 +44,7 @@ public:
       }
     }
     layerBits_array.push_back(counter);
-      
+    
     int showerLen = lastLayer - firstLayer + 1;
     //int coreShowerLen = config_.nTriggerLayers();
     int coreShowerLen = 0;
@@ -59,7 +59,7 @@ public:
     //               and PropertyCalculator.py of Milos
     
     if(w==0) return 0;
-      
+    
     //========================== Constants =======================
     float mu_roz_lower_single = lsbScales->roz_min_L1T() / lsbScales->LSB_roz();
     float mu_roz_upper_single = lsbScales->roz_max_L1T() / lsbScales->LSB_roz();
@@ -69,14 +69,10 @@ public:
     muroz = (muroz<mu_roz_lower_single)?mu_roz_lower_single:muroz;
     muroz = (muroz>mu_roz_upper_single)?mu_roz_upper_single:muroz;
     float mu_roz_local_single = muroz - mu_roz_lower_single;      
-    ap_ufixed<32,20, AP_RND, AP_SAT> mu_roz_local_scaled = mu_roz_local_single * lsbScales->c_roz_scaler_0();
-    muroz = mu_roz_local_scaled.to_float();      
-    uint32_t roz = uint32_t(std::round(muroz));
+    uint32_t roz = roundF(mu_roz_local_single * lsbScales->c_roz_scaler_0(), 22, 12);
     if ( roz > 1023 ) roz = 1023;
-    uint32_t eta = clusPropLUT->getMuEta(uint32_t(roz));
-    //std::cout << "TPGClusterProperties::convertRozToEta roz: " << roz << ", eta: " << eta << std::endl;
+    uint32_t eta = clusPropLUT->getMuEta(roz);
     return eta;      
-
     
   }
 
@@ -85,23 +81,13 @@ public:
     if(w==0) return 0;
     
     float muphi = float(wphi)/float(w);
-    ap_ufixed<32,20, AP_RND, AP_SAT> mu_phi_scaled = muphi * lsbScales->c_phi_scaler();
-    muphi = mu_phi_scaled.to_float();
-    int mu_phi_int = std::round(muphi);
+    int mu_phi_int = roundF(muphi * lsbScales->c_phi_scaler(), 21, 12);
     int wphi_et_tmp = mu_phi_int - lsbScales->c_Phi_Offset() ;
     saturatedPhi = ((wphi_et_tmp < lsbScales->maxPhiM()) or (wphi_et_tmp > lsbScales->maxPhiP()))?true:false ;
     wphi_et_tmp = (wphi_et_tmp < lsbScales->maxPhiM())?lsbScales->maxPhiM():wphi_et_tmp ;
     wphi_et_tmp = (wphi_et_tmp > lsbScales->maxPhiP())?lsbScales->maxPhiP():wphi_et_tmp ;
     nominalPhi = ((wphi_et_tmp > lsbScales->nomPhiL()) and (wphi_et_tmp < lsbScales->nomPhiH()))?true:false ;
     ap_int<9> wphi_et = wphi_et_tmp ;    
-    
-    // std::cout << "TPGClusterProperties::calc_phi muphi: " << muphi
-    // 	      << ", c_phi_scaler: " << lsbScales->c_phi_scaler()
-    // 	      << ", c_Phi_Offset: " << lsbScales->c_Phi_Offset()
-    // 	      << ", mu_phi_scaled: " << mu_phi_scaled 
-    // 	      << ", mu_phi_int: " << mu_phi_int
-    // 	      << ", wphi_et: " << wphi_et
-    // 	      << std::endl;
     
     return wphi_et;
   }
@@ -121,6 +107,8 @@ public:
     float mu_roz_ds_float = mu_roz_ds_local_fxp.to_float() ;
     int mu_roz_ds_int = std::round(mu_roz_ds_float);
     int mu_roz_addr = (mu_roz_ds_int>63)?63:mu_roz_ds_int;
+    // uint32_t mu_roz_ds_int = roundF(mu_roz_ds_local_single * lsbScales->c_roz_scaler_1(), 19, 12);;
+    // int mu_roz_addr = (mu_roz_ds_int>63)?63:mu_roz_ds_int;
     
     // # sigma_rozroz_single already calculated previously
     uint32_t sigma_rozroz_ds_int = sigma_coordinate(w, wroz2, wroz, lsbScales->c_sigma_roz_scaler_0());     
@@ -129,18 +117,18 @@ public:
     uint32_t sigma_etaeta = clusPropLUT->getSigmaEtaEta(sigma_eta_LUT_addr);
     ap_uint<5> ret = sigma_etaeta;
     
-    // std::cout << "TPGClusterProperties::convertSigmaRozRozToSigmaEtaEta : muroz: " << muroz
-    // 		<<", mu_roz_ds_sat: " << mu_roz_ds_sat
-    // 		<<", mu_roz_ds_local_scaled: " << mu_roz_ds_local_scaled
-    // 		<<", mu_roz_ds_local_fxp: " << mu_roz_ds_local_fxp
-    // 		<<", mu_roz_addr: " << mu_roz_addr
-    // 		<<std::endl;
-    // std::cout << "TPGClusterProperties::convertSigmaRozRozToSigmaEtaEta sigma_rozroz_ds_int: " << sigma_rozroz_ds_int
-    // 		<<", sig_roz_addr: " << sig_roz_addr
-    // 		<<", sigma_eta_LUT_addr: " << sigma_eta_LUT_addr
-    // 		<<", sigma_etaeta: " << sigma_etaeta
-    // 		<<", ret: " << ret
-    // 		<<std::endl;
+    std::cout << "TPGClusterProperties::convertSigmaRozRozToSigmaEtaEta : muroz: " << muroz
+    		<<", mu_roz_ds_sat: " << mu_roz_ds_sat
+      //<<", mu_roz_ds_local_scaled: " << mu_roz_ds_local_scaled
+      //<<", mu_roz_ds_local_fxp: " << mu_roz_ds_local_fxp
+    		<<", mu_roz_addr: " << mu_roz_addr
+    		<<std::endl;
+    std::cout << "TPGClusterProperties::convertSigmaRozRozToSigmaEtaEta sigma_rozroz_ds_int: " << sigma_rozroz_ds_int
+    		<<", sig_roz_addr: " << sig_roz_addr
+    		<<", sigma_eta_LUT_addr: " << sigma_eta_LUT_addr
+    		<<", sigma_etaeta: " << sigma_etaeta
+    		<<", ret: " << ret
+    		<<std::endl;
     
     return ret;      
   }
@@ -150,12 +138,22 @@ public:
     
     if ( w == 0 ) return 0;
     float wt_obs = (float(w)*float(wc2) - float(wc) * float(wc))/(float(w) * float(w)) ;
-    if (wt_obs<0.) return 0;
+
+    if (wt_obs<0.) {
+      ap_fixed<32,20, AP_RND, AP_SAT> temp_obs = wt_obs;
+      ap_ufixed<32,20, AP_RND, AP_SAT> temp_obs1 = 2545; //temp_obs.range(31,12) ;
+      std::cout << "NEGATIVE::TPGClusterProperties::sigma_coordinate  wt_obs:"<< wt_obs <<", w: " << w << ", wc2: " << wc2 << ", wc: " << wc << ", scale: " << scale << std::endl;
+      std::cout << "NEGATIVE::TPGClusterProperties::sigma_coordinate  temp_obs:"<< temp_obs << ", temp_obs.bits: " << temp_obs.to_string() << std::endl;
+      std::cout << "NEGATIVE::TPGClusterProperties::sigma_coordinate  temp_obs1:"<< temp_obs1 << ", temp_obs1.bits: " << temp_obs1.to_string() << std::endl;
+      wt_obs *= -1.;
+      //return 0;
+    }
     float wt_obs_sqr = sqrt( wt_obs );
-    float wt_obs_scaled = wt_obs_sqr * scale;
-    ap_ufixed<32,20, AP_RND, AP_SAT> wt_obs_scaled_fxp = wt_obs_scaled;
-    float wt_obs_fp1 = wt_obs_scaled_fxp.to_float() ;
-    uint32_t sigma = std::round( wt_obs_fp1 );
+    // float wt_obs_scaled = wt_obs_sqr * scale;
+    // ap_ufixed<32,20, AP_RND, AP_SAT> wt_obs_scaled_fxp = wt_obs_scaled;
+    // float wt_obs_fp1 = wt_obs_scaled_fxp.to_float() ;
+    // uint32_t sigma = std::round( wt_obs_fp1 );
+    uint32_t sigma = roundF(wt_obs_sqr * scale, 19, 12);
 
     // std::cout << "TPGClusterProperties::sigma_coordinate  w: " << w << ", wc2: " << wc2 << ", wc: " << wc << ", scale: " << scale << std::endl;
     // std::cout << "TPGClusterProperties::sigma_coordinate wt_obs: " << wt_obs << ", wt_obs_sqr : " << wt_obs_sqr << ", wt_obs_scaled: " << wt_obs_scaled << ", wt_obs_fp1: " << wt_obs_fp1 << ", sigma : " << sigma  << std::endl;
@@ -163,13 +161,38 @@ public:
     return sigma;    
 
   }
-  
+
+  uint32_t roundI(uint32_t input, uint16_t maxBitPos, uint16_t minBitPos) const {
+    
+    if(maxBitPos>31) {
+      std::cerr << "TPGClusterProperties::roundLocal: Local rounding failed" << std::endl; 
+      return 0;
+    }
+    ap_ufixed<32,32, AP_RND, AP_SAT> inputfxp = input;
+    ap_ufixed<32,32, AP_RND, AP_SAT> outputfxp = inputfxp.range(maxBitPos,minBitPos);
+    if(inputfxp[minBitPos-1]==1) outputfxp = outputfxp + 1;    
+    return uint32_t(outputfxp);
+  }
+
+  uint32_t roundF(float input, uint16_t maxBitPos, uint16_t minBitPos) const {
+    
+    if(maxBitPos>31) {
+      std::cerr << "TPGClusterProperties::roundLocal: Local rounding failed" << std::endl; 
+      return 0;
+    }
+    ap_ufixed<32,20, AP_RND, AP_SAT> inputfxp = input;
+    ap_ufixed<32,32, AP_RND, AP_SAT> outputfxp = inputfxp.range(maxBitPos,minBitPos);
+    if(inputfxp[minBitPos-1]==1) outputfxp = outputfxp + 1;    
+    return uint32_t(outputfxp);
+  }
+
   void ClusterProperties(const TPGBEDataformat::TcAccumulatorFW& accuInput, l1thgcfirmware::HGCalCluster_HW& l1TOutput, bool isPrint = false){
     //Collected from HGCalHistoClusterProperties::calcProperties of L1Trigger/L1THGCal/src/backend_emulator/HGCalHistoClusterProperties_SA.cc
     
     l1TOutput.clear();
     
     if(isPrint) std::cout<<"Calculating cluster properties" << std::endl;
+<<<<<<< HEAD
     //// ================== First Word ===========================
     // ap_ufixed<16,16, AP_RND, AP_SAT> etot =  accuInput.totE() * lsbScales->c_ET_scaler();
     // ap_ufixed<16,16, AP_RND, AP_SAT> e_em =  accuInput.ceeE() * lsbScales->c_ET_scaler();
@@ -189,7 +212,24 @@ if(isPrint) std::cout<<"Set Energies" << std::endl;
     l1TOutput.fractionInEarlyCE_E = (accuInput.totE()==0)?0:uint32_t(lsbScales->c_frac_scaler() * accuInput.ceHEarly() /  accuInput.totE());
     if(isPrint) std::cout<<"Set Fractions" << std::endl;
     l1TOutput.setGCTBits();
+=======
+    //// ================== First Word ===========================    
+    uint32_t etot = roundI(accuInput.totE(),21,8);
+    uint32_t e_em = roundI(accuInput.ceeE(),21,8);    
+    ap_ufixed<9,9, AP_RND, AP_WRAP> fracCE_E = roundF(float(accuInput.ceeE())/float(accuInput.totE()), 12, 4) ;
+    ap_ufixed<9,9, AP_RND, AP_WRAP> fracCECore_E = roundF(float(accuInput.ceeECore())/float(accuInput.ceeE()), 12, 4) ;
+    ap_ufixed<9,9, AP_RND, AP_WRAP> fracCEH_E = roundF(float(accuInput.ceHEarly())/float(accuInput.totE()), 12, 4) ;
+    fracCE_E = (fracCE_E[8]==1)?uint32_t(0xff):fracCE_E.to_uint(); 
+    fracCECore_E = (fracCECore_E[8]==1)?uint32_t(0xff):fracCECore_E.to_uint();
+    fracCEH_E = (fracCEH_E[8]==1)?uint32_t(0xff):fracCEH_E.to_uint();
+    l1TOutput.e = uint32_t(etot);
+    l1TOutput.e_em = uint32_t(e_em);
+    l1TOutput.fractionInCE_E = (accuInput.totE()==0)?0:uint32_t(fracCE_E) ;
+    l1TOutput.fractionInCoreCE_E = (accuInput.ceeE()==0)?0:uint32_t(fracCECore_E);
+    l1TOutput.fractionInEarlyCE_E = (accuInput.totE()==0)?0:uint32_t(fracCEH_E);
+>>>>>>> 8ac962012f93faef19b847676f6522da1f78944c
     if(isPrint) std::cout<<"Set GCT bits" << std::endl;
+    l1TOutput.setGCTBits();
     std::vector<int> layeroutput = showerLengthProperties(accuInput.layerBits());
     if(isPrint) std::cout<<"Set Layer outputs" << std::endl;
     l1TOutput.firstLayer = layeroutput[0];
@@ -204,15 +244,12 @@ if(isPrint) std::cout<<"Set Energies" << std::endl;
     l1TOutput.w_eta = convertRozToEta( accuInput.sumWRoZ(), accuInput.sumW() );
     bool saturatedPhi = false, nominalPhi = false;      
     l1TOutput.w_phi = calc_phi(accuInput.sumWPhi(), accuInput.sumW(), saturatedPhi, nominalPhi);
-    float zratio = float(accuInput.sumWZ()) / float(accuInput.sumW()) ;
-    ap_ufixed<32,20, AP_RND> wt_muz_fxp = zratio;
-    uint32_t muz = std::round(wt_muz_fxp.to_float());
+    uint32_t muz = roundF(float(accuInput.sumWZ()) / float(accuInput.sumW()), 23, 12) ;
     l1TOutput.w_z = (muz>0xfff)?0:muz;      
-    //l1TOutput.setQualityFlags(l1thgcfirmware::Scales::HGCaltoL1_et(accuInput.ceeECore()), l1thgcfirmware::Scales::HGCaltoL1_et(accuInput.ceHEarly()), accuInput.issatTC(), accuInput.shapeQ(), saturatedPhi, nominalPhi);
     l1TOutput.setQualityFlags(accuInput.ceeECore(), accuInput.ceHEarly(), accuInput.issatTC(), accuInput.shapeQ(), saturatedPhi, nominalPhi);
     //// ================== Second Word ===========================
     if(isPrint) std::cout<<"Completed second word" << std::endl;
-
+    
     //// ================== Third Word ===========================
     uint32_t sigmaE = sigma_coordinate( accuInput.numberOfTcsW(), accuInput.sumW2(), accuInput.sumW(), lsbScales->c_sigma_E_scaler());
     l1TOutput.sigma_E = (sigmaE>0x7f)?0x7f:sigmaE;
@@ -223,15 +260,17 @@ if(isPrint) std::cout<<"Set Energies" << std::endl;
     if(isPrint) std::cout<<"Completed sigma_Z" << std::endl;    
     
     uint32_t sigmaPhi = sigma_coordinate(accuInput.sumW(), accuInput.sumWPhi2(), accuInput.sumWPhi(), lsbScales->c_sigma_phi_scaler());
-    l1TOutput.sigma_phi = (sigmaPhi>0x7f)?0x0:sigmaPhi;
+    l1TOutput.sigma_phi = (sigmaPhi>0x7f)?0x7f:sigmaPhi;
     if(isPrint) std::cout<<"Completed sigma_phi" << std::endl;
-      
-    unsigned int sigma_roz = sigma_coordinate(accuInput.sumW(), accuInput.sumWRoZ2(),  accuInput.sumWRoZ(), lsbScales->c_sigma_roz_scaler_1());
-    l1TOutput.sigma_roz = (sigma_roz<127)?sigma_roz:127;
-    if(isPrint) std::cout<<"Completed sigma_roz" << std::endl;
-    
+          
     uint32_t sigmaEta = convertSigmaRozRozToSigmaEtaEta( accuInput.sumWRoZ2(), accuInput.sumWRoZ(), accuInput.sumW());
-    l1TOutput.sigma_eta = (sigmaEta>0x1f)?0x1f:sigmaEta;
+    l1TOutput.sigma_eta = (sigmaEta>0x7f)?0x7f:sigmaEta;
+
+    unsigned int sigma_roz = sigma_coordinate(accuInput.sumW(), accuInput.sumWRoZ2(),  accuInput.sumWRoZ(), lsbScales->c_sigma_roz_scaler_1());
+    std::cout << "sigma_roz: " << sigma_roz << std::endl;
+    l1TOutput.sigma_roz = (sigma_roz>0x7f)?0x7f:sigma_roz;
+    if(isPrint) std::cout<<"Completed sigma_roz" << std::endl;
+
     //// ================== Third Word ===========================
     if(isPrint) std::cout<<"Completed sigma_eta and third word" << std::endl;
   }

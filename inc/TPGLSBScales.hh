@@ -59,12 +59,14 @@ namespace TPGLSBScales{
       for(int il=0;il<47;il++) _zLayer[il] = zLayer[il];
       
       maxTCET_	       = 512.;	//in GeV
+      maxTCETb_        = 9;    //2^9 = 512
       maxTCETbits_     = 18; //19 used in FW, 18 in current TPGTCbits setup
       maxTCRoZbits_    = 12; //13 used in FW, 12 in current setup
       //maxTCRoZbits_    = 10;
       maxTCHistoColNo_ = 108;
       
       maxET_	     = 4097.5;	//in GeV
+      maxETb_        = 12;      //max energy in terms of bits 2^12 = 4096
       maxETbits_     = 14;
       maxETFracbits_ = 8;
       maxZbits_	     = 12;
@@ -97,7 +99,7 @@ namespace TPGLSBScales{
       LSB_sigma_roz_LUT_ = 0.000441991619167075 ;
       mu_roz_ds_lower_	 = 809.9324324324323924884083680808544158935546875 ;
       mu_roz_ds_upper_	 = 4996.798250844762151245959103107452392578125 ;
-           
+      
     }
     
     static float round(float frac, int precision){
@@ -168,12 +170,18 @@ namespace TPGLSBScales{
     float c_roz_scaler_1()		const	{ return LSB_roz_TC()/LSB_mean_roz_LUT(); }		// sigma(eta) LUT
     float c_sigma_roz_scaler_0()	const	{ return LSB_roz_TC()/LSB_sigma_roz_LUT(); }		// sigma(eta) LUT
     float c_sigma_roz_scaler_1()	const	{ return LSB_roz_TC()/LSB_sigma_roz(); }			// L1T LSB Rounding
-
+    
+    uint16_t c_ET_shiftR()            const   { return (maxTCETbits_-maxTCETb_)-(maxETbits_-maxETb_); }
+    uint16_t c_frac_shiftL()            const   { return maxETFracbits_; }
+    
     void print(){       
       std::cout<< "roz_global_min :" << roz_global_min()
 	       << ", roz_global_max :" << roz_global_max()
 	       << ", eta_global_min :" << eta_global_min()
 	       << ", eta_global_max :" << eta_global_max()
+	       << std::endl
+	       <<"c_ET_shiftR(): " << c_ET_shiftR()
+	       <<", c_frac_shiftL() : " << c_frac_shiftL()
 	       << std::endl
 	       << "LSB_E_TC :" << LSB_E_TC()
 	       << ", LSB_z_TC :" << LSB_z_TC()
@@ -234,12 +242,14 @@ namespace TPGLSBScales{
 
     //TC parameters
     float maxTCET_;           //in GeV
+    uint16_t maxTCETb_;    //max energy in terms of bits    
     uint16_t maxTCETbits_;
     uint16_t maxTCRoZbits_;
     uint16_t maxTCHistoColNo_;
     
     //Cluster parameters
     float maxET_ ;            //in GeV
+    uint16_t maxETb_ ;        //max energy in terms of bits    
     uint16_t maxETbits_;      //max allocated bits for ET
     uint16_t maxETFracbits_;  //max allocated bits for ET fractions
     uint16_t maxZbits_;
