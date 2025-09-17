@@ -37,7 +37,7 @@ int main(int argc, char** argv)
   //===============================================================================================================================
   //input paramaters for testing
   //===============================================================================================================================
-  uint32_t zside = 0, sector = 0, link = 0, econt = 0;
+  uint32_t zside = 0, sector = 1, link = 1, econt = 0;
   
   //A combinatin of following three will uniquiely identfy the module type in HGCAL
   //(outlook : some modification expected for the ECONTs connected to different types of modules, which are not considered in current tests)
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
   //Sci:==
   //LD: A5A6(0), B11B12(1), C5(2), D8(3), E8(4), G3(5), G5(6), G7(7), G8(8)
   //HD: K6(0), K8(1), K11(2), K12(3), J12(4)
-  uint32_t det = 0, selTC4 = 1, module = 0;
+  uint32_t det = 0, selTC4 = 1, module = 5;
   
   uint32_t multfactor = 31;//TOT mult factor other values could be 14 or 8
   uint32_t inputLSB = (selTC4==0) ? 1 : 0; //lsb at the input TC from ROC
@@ -102,192 +102,192 @@ int main(int argc, char** argv)
   const uint32_t nchs = 2*TPGFEDataformat::HalfHgcrocData::NumberOfChannels;  
   std::cout<<"Check1 : modName: "<<modName<<", nhfrocs : " << nhfrocs << ", nrocs: " << nrocs << std::endl;
   
-  for(uint32_t iroc=0;iroc<nrocs;iroc++){
-    uint32_t half0 = 0, half1 = 1;
-    uint32_t rocid_0 = pck.packRocId(zside, sector, link, det, econt, selTC4, module, iroc, half0);
-    uint32_t rocid_1 = pck.packRocId(zside, sector, link, det, econt, selTC4, module, iroc, half1);      
-    TPGFEConfiguration::ConfigHfROC hroc_0, hroc_1;
+  // for(uint32_t iroc=0;iroc<nrocs;iroc++){
+  //   uint32_t half0 = 0, half1 = 1;
+  //   uint32_t rocid_0 = pck.packRocId(zside, sector, link, det, econt, selTC4, module, iroc, half0);
+  //   uint32_t rocid_1 = pck.packRocId(zside, sector, link, det, econt, selTC4, module, iroc, half1);      
+  //   TPGFEConfiguration::ConfigHfROC hroc_0, hroc_1;
       
-    hroc_0.setAdcTH(adcTh);
-    hroc_0.setClrAdcTottrig(0);
-    hroc_0.setMultFactor(multfactor);
-    for(int itot=0;itot<4;itot++){
-      hroc_0.setTotTH(itot, 0);
-      hroc_0.setTotP(itot, 0);
-    }
+  //   hroc_0.setAdcTH(adcTh);
+  //   hroc_0.setClrAdcTottrig(0);
+  //   hroc_0.setMultFactor(multfactor);
+  //   for(int itot=0;itot<4;itot++){
+  //     hroc_0.setTotTH(itot, 0);
+  //     hroc_0.setTotP(itot, 0);
+  //   }
 
-    hroc_1.setAdcTH(adcTh);
-    hroc_1.setClrAdcTottrig(0);
-    hroc_1.setMultFactor(multfactor);
-    for(int itot=0;itot<4;itot++){
-      hroc_1.setTotTH(itot, 0);
-      hroc_1.setTotP(itot, 0);
-    }
+  //   hroc_1.setAdcTH(adcTh);
+  //   hroc_1.setClrAdcTottrig(0);
+  //   hroc_1.setMultFactor(multfactor);
+  //   for(int itot=0;itot<4;itot++){
+  //     hroc_1.setTotTH(itot, 0);
+  //     hroc_1.setTotP(itot, 0);
+  //   }
     
-    hroccfg[rocid_0] = hroc_0;
-    hroccfg[rocid_1] = hroc_1;
+  //   hroccfg[rocid_0] = hroc_0;
+  //   hroccfg[rocid_1] = hroc_1;
     
-    for(uint32_t ich=0;ich<nchs;ich++){
-      uint32_t ihalf = (ich<TPGFEDataformat::HalfHgcrocData::NumberOfChannels)?0:1;
-      uint32_t chnl = ich%TPGFEDataformat::HalfHgcrocData::NumberOfChannels;
-      if(ihalf==0){
-	TPGFEConfiguration::ConfigCh ch_0;
-	ch_0.setAdcpedestal(ped);
-	hrocchcfg[pck.packChId(rocid_0,chnl)] = ch_0;
-      }else{
-	TPGFEConfiguration::ConfigCh ch_1;
-	ch_1.setAdcpedestal(ped);
-	hrocchcfg[pck.packChId(rocid_1,chnl)] = ch_1;
-      }
-    }//channel loop
-  }//roc loop
+  //   for(uint32_t ich=0;ich<nchs;ich++){
+  //     uint32_t ihalf = (ich<TPGFEDataformat::HalfHgcrocData::NumberOfChannels)?0:1;
+  //     uint32_t chnl = ich%TPGFEDataformat::HalfHgcrocData::NumberOfChannels;
+  //     if(ihalf==0){
+  // 	TPGFEConfiguration::ConfigCh ch_0;
+  // 	ch_0.setAdcpedestal(ped);
+  // 	hrocchcfg[pck.packChId(rocid_0,chnl)] = ch_0;
+  //     }else{
+  // 	TPGFEConfiguration::ConfigCh ch_1;
+  // 	ch_1.setAdcpedestal(ped);
+  // 	hrocchcfg[pck.packChId(rocid_1,chnl)] = ch_1;
+  //     }
+  //   }//channel loop
+  // }//roc loop
 
-  cfgs.setRocPara(hroccfg);
-  cfgs.setChPara(hrocchcfg);
-  //===============================================================================================================================
+  // cfgs.setRocPara(hroccfg);
+  // cfgs.setChPara(hrocchcfg);
+  // //===============================================================================================================================
 
     
-  //===============================================================================================================================
-  //Set ECON-D and ECON-T parameters manually for September, 2023 beam-test
-  //===============================================================================================================================
-  std::map<uint32_t,TPGFEConfiguration::ConfigEconD> econDPar;
-  econDPar[moduleId].setPassThrough(true);
-  econDPar[moduleId].setNeRx(nhfrocs);
-  cfgs.setEconDPara(econDPar);
-  econDPar[moduleId].print();
+  // //===============================================================================================================================
+  // //Set ECON-D and ECON-T parameters manually for September, 2023 beam-test
+  // //===============================================================================================================================
+  // std::map<uint32_t,TPGFEConfiguration::ConfigEconD> econDPar;
+  // econDPar[moduleId].setPassThrough(true);
+  // econDPar[moduleId].setNeRx(nhfrocs);
+  // cfgs.setEconDPara(econDPar);
+  // econDPar[moduleId].print();
   
-  std::map<uint32_t,TPGFEConfiguration::ConfigEconT> econTPar ;
-  econTPar[moduleId].setDensity(inputLSB);
-  econTPar[moduleId].setDropLSB(dropLSB);
-  econTPar[moduleId].setSelect(select);
-  econTPar[moduleId].setSTCType(stc_type); //STC type
-  econTPar[moduleId].setNElinks(nelinks); //BC type
-  for(uint32_t itc=0;itc<48;itc++) econTPar[moduleId].setCalibration(itc,calibration);
-  cfgs.setEconTPara(econTPar);
-  std::map<uint32_t,TPGFEConfiguration::ConfigEconT>& cfgTPar = cfgs.getEconTPara() ;
-  for(const auto& it : cfgTPar) cfgTPar.at(it.first).print();
-  //===============================================================================================================================
+  // std::map<uint32_t,TPGFEConfiguration::ConfigEconT> econTPar ;
+  // econTPar[moduleId].setDensity(inputLSB);
+  // econTPar[moduleId].setDropLSB(dropLSB);
+  // econTPar[moduleId].setSelect(select);
+  // econTPar[moduleId].setSTCType(stc_type); //STC type
+  // econTPar[moduleId].setNElinks(nelinks); //BC type
+  // for(uint32_t itc=0;itc<48;itc++) econTPar[moduleId].setCalibration(itc,calibration);
+  // cfgs.setEconTPara(econTPar);
+  // std::map<uint32_t,TPGFEConfiguration::ConfigEconT>& cfgTPar = cfgs.getEconTPara() ;
+  // for(const auto& it : cfgTPar) cfgTPar.at(it.first).print();
+  // //===============================================================================================================================
 
   
-  //===============================================================================================================================
-  //Set ADC/TOT for Emulation
-  //===============================================================================================================================
-  std::map<uint64_t,std::vector<std::pair<uint32_t,TPGFEDataformat::HalfHgcrocData>>> hrocarray; //event,rocId
-  uint64_t eventId = 0;
-  uint32_t rocn = 0;
-  for(uint32_t ihroc = 0 ; ihroc < nhfrocs ; ihroc++){
-    uint32_t half = (ihroc%2==0) ? 0 : 1 ;
-    TPGFEDataformat::HalfHgcrocChannelData chdata[TPGFEDataformat::HalfHgcrocData::NumberOfChannels];
-    for(uint32_t ich = 0 ; ich < TPGFEDataformat::HalfHgcrocData::NumberOfChannels ; ich++){
-      //chdata[ich].setTot(maxTOT,0x3);
-      chdata[ich].setAdc(maxADC,0x0);
-    }
-    TPGFEDataformat::HalfHgcrocData hrocdata;
-    hrocdata.setBx(bx);
-    hrocdata.setChannels(chdata);
-    pck.setZero();
-    hrocarray[eventId].push_back(std::make_pair(pck.packRocId(zside, sector, link, det, econt, selTC4, module, rocn, half),hrocdata));
-    if(ihroc%2==1)rocn++;
-  }
-  //===============================================================================================================================
+  // //===============================================================================================================================
+  // //Set ADC/TOT for Emulation
+  // //===============================================================================================================================
+  // std::map<uint64_t,std::vector<std::pair<uint32_t,TPGFEDataformat::HalfHgcrocData>>> hrocarray; //event,rocId
+  // uint64_t eventId = 0;
+  // uint32_t rocn = 0;
+  // for(uint32_t ihroc = 0 ; ihroc < nhfrocs ; ihroc++){
+  //   uint32_t half = (ihroc%2==0) ? 0 : 1 ;
+  //   TPGFEDataformat::HalfHgcrocChannelData chdata[TPGFEDataformat::HalfHgcrocData::NumberOfChannels];
+  //   for(uint32_t ich = 0 ; ich < TPGFEDataformat::HalfHgcrocData::NumberOfChannels ; ich++){
+  //     //chdata[ich].setTot(maxTOT,0x3);
+  //     chdata[ich].setAdc(maxADC,0x0);
+  //   }
+  //   TPGFEDataformat::HalfHgcrocData hrocdata;
+  //   hrocdata.setBx(bx);
+  //   hrocdata.setChannels(chdata);
+  //   pck.setZero();
+  //   hrocarray[eventId].push_back(std::make_pair(pck.packRocId(zside, sector, link, det, econt, selTC4, module, rocn, half),hrocdata));
+  //   if(ihroc%2==1)rocn++;
+  // }
+  // //===============================================================================================================================
   
-  //===============================================================================================================================
-  //Emulation of HGCROC
-  //===============================================================================================================================
-  //Rearrange the rocdata for emulation input
-  std::map<uint32_t,TPGFEDataformat::HalfHgcrocData> rocdata; 
-  rocdata.clear();
-  for(const auto& data : hrocarray.at(eventId)){
-    rocdata[data.first] = data.second ;
-  }
+  // //===============================================================================================================================
+  // //Emulation of HGCROC
+  // //===============================================================================================================================
+  // //Rearrange the rocdata for emulation input
+  // std::map<uint32_t,TPGFEDataformat::HalfHgcrocData> rocdata; 
+  // rocdata.clear();
+  // for(const auto& data : hrocarray.at(eventId)){
+  //   rocdata[data.first] = data.second ;
+  // }
   
-  //emulation output format
-  std::pair<uint32_t,TPGFEDataformat::ModuleTcData> modTcdata;
+  // //emulation output format
+  // std::pair<uint32_t,TPGFEDataformat::ModuleTcData> modTcdata;
   
-  bool isSim = false; //true for CMSSW simulation and false for beam-test analysis (Note: not yet set for CMSSW)
+  // bool isSim = false; //true for CMSSW simulation and false for beam-test analysis (Note: not yet set for CMSSW)
 
-  ////////////////////// HRCROC emulation //////////////////////////
-  TPGFEModuleEmulation::HGCROCTPGEmulation rocTPGEmul(cfgs);
-  rocTPGEmul.Emulate(isSim, eventId, moduleId, rocdata, modTcdata);
-  /////////////////////////////////////////////////////////////////
+  // ////////////////////// HRCROC emulation //////////////////////////
+  // TPGFEModuleEmulation::HGCROCTPGEmulation rocTPGEmul(cfgs);
+  // rocTPGEmul.Emulate(isSim, eventId, moduleId, rocdata, modTcdata);
+  // /////////////////////////////////////////////////////////////////
 
  
-  //while needed for later inspection
-  std::map<uint64_t,std::vector<std::pair<uint32_t,TPGFEDataformat::ModuleTcData>>> modarray; //event,moduleId
-  modarray[eventId].push_back(modTcdata);
-  //===============================================================================================================================
+  // //while needed for later inspection
+  // std::map<uint64_t,std::vector<std::pair<uint32_t,TPGFEDataformat::ModuleTcData>>> modarray; //event,moduleId
+  // modarray[eventId].push_back(modTcdata);
+  // //===============================================================================================================================
 
-  //===============================================================================================================================
-  //Emulation of ECONT
-  //===============================================================================================================================
-  //Rearrange the TC output of module for ECONT emulation input
-  std::map<uint32_t,TPGFEDataformat::ModuleTcData> moddata;
-  for(const auto& data : modarray.at(eventId))
-    moddata[data.first] = data.second ;
+  // //===============================================================================================================================
+  // //Emulation of ECONT
+  // //===============================================================================================================================
+  // //Rearrange the TC output of module for ECONT emulation input
+  // std::map<uint32_t,TPGFEDataformat::ModuleTcData> moddata;
+  // for(const auto& data : modarray.at(eventId))
+  //   moddata[data.first] = data.second ;
   
-  ////////////////////// ECONT emulation //////////////////////////
-  TPGFEModuleEmulation::ECONTEmulation econtEmul(cfgs);
-  //econtEmul.setVerbose();
-  econtEmul.Emulate(isSim, eventId, moduleId, moddata);
-  /////////////////////////////////////////////////////////////////
+  // ////////////////////// ECONT emulation //////////////////////////
+  // TPGFEModuleEmulation::ECONTEmulation econtEmul(cfgs);
+  // //econtEmul.setVerbose();
+  // econtEmul.Emulate(isSim, eventId, moduleId, moddata);
+  // /////////////////////////////////////////////////////////////////
   
-  //emulation output format
-  TPGFEDataformat::TcModulePacket& TcRawdata = econtEmul.accessTcRawDataPacket();
-  //===============================================================================================================================
+  // //emulation output format
+  // TPGFEDataformat::TcModulePacket& TcRawdata = econtEmul.accessTcRawDataPacket();
+  // //===============================================================================================================================
   
-  //===============================================================================================================================
-  //Packing for elink
-  //===============================================================================================================================
-  uint32_t elinkemul[nelinks];
-  TPGFEModuleEmulation::ECONTEmulation::convertToElinkData(bx, TcRawdata.second, elinkemul);
-  //===============================================================================================================================
+  // //===============================================================================================================================
+  // //Packing for elink
+  // //===============================================================================================================================
+  // uint32_t elinkemul[nelinks];
+  // TPGFEModuleEmulation::ECONTEmulation::convertToElinkData(bx, TcRawdata.second, elinkemul);
+  // //===============================================================================================================================
   
-  //===============================================================================================================================
-  // check I/O
-  //===============================================================================================================================
-  for(const auto& data : hrocarray.at(eventId)){
-    const TPGFEDataformat::HalfHgcrocData& hrocdata = data.second ;
-    std::cout << "ModuleId: "<<moduleId << ", RocId: "<< data.first << std::endl;
-    if(moduleId==pck.getModIdFromRocId(uint32_t(data.first)))
-      hrocdata.print();
-  }
+  // //===============================================================================================================================
+  // // check I/O
+  // //===============================================================================================================================
+  // for(const auto& data : hrocarray.at(eventId)){
+  //   const TPGFEDataformat::HalfHgcrocData& hrocdata = data.second ;
+  //   std::cout << "ModuleId: "<<moduleId << ", RocId: "<< data.first << std::endl;
+  //   if(moduleId==pck.getModIdFromRocId(uint32_t(data.first)))
+  //     hrocdata.print();
+  // }
   
-  const TPGFEDataformat::ModuleTcData& modtcdata = moddata.at(moduleId);
-  modtcdata.print();
+  // const TPGFEDataformat::ModuleTcData& modtcdata = moddata.at(moduleId);
+  // modtcdata.print();
 
-  std::cout <<"\t1: Module " << TcRawdata.first << ", size : " << TcRawdata.second.size() << std::endl;
-  if(TcRawdata.second.type()==TPGFEDataformat::BestC) TcRawdata.second.sortCh();
-  const TPGFEDataformat::TcRawDataPacket& tcpkt = TcRawdata.second ;
-  tcpkt.print();
+  // std::cout <<"\t1: Module " << TcRawdata.first << ", size : " << TcRawdata.second.size() << std::endl;
+  // if(TcRawdata.second.type()==TPGFEDataformat::BestC) TcRawdata.second.sortCh();
+  // const TPGFEDataformat::TcRawDataPacket& tcpkt = TcRawdata.second ;
+  // tcpkt.print();
 
-    //===============================================================================================================================
+  //   //===============================================================================================================================
 
   
-  //===============================================================================================================================
-  //Unpacking for elink to TC rawdata
-  //===============================================================================================================================
-  TPGFEDataformat::TcRawDataPacket vTC1;
-  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TcRawdata.second.type(), TcRawdata.second.size(), elinkemul, vTC1);
-  vTC1.print();
-  //===============================================================================================================================
+  // //===============================================================================================================================
+  // //Unpacking for elink to TC rawdata
+  // //===============================================================================================================================
+  // TPGFEDataformat::TcRawDataPacket vTC1;
+  // TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TcRawdata.second.type(), TcRawdata.second.size(), elinkemul, vTC1);
+  // vTC1.print();
+  // //===============================================================================================================================
 
 
-  //===============================================================================================================================
-  //TC rawdata to stage1 input
-  //===============================================================================================================================
-  TPGBEDataformat::UnpackerOutputStreamPair up1;
-  TPGStage1Emulation::Stage1IO::convertTcRawDataToUnpackerOutputStreamPair(bx, vTC1, up1);
-  up1.print();
-  //===============================================================================================================================
+  // //===============================================================================================================================
+  // //TC rawdata to stage1 input
+  // //===============================================================================================================================
+  // TPGBEDataformat::UnpackerOutputStreamPair up1;
+  // TPGStage1Emulation::Stage1IO::convertTcRawDataToUnpackerOutputStreamPair(bx, vTC1, up1);
+  // up1.print();
+  // //===============================================================================================================================
   
-  hroccfg.clear();
-  hrocchcfg.clear();
-  econDPar.clear();
-  econTPar.clear();
-  hrocarray.clear();
-  rocdata.clear();
-  modarray.clear();
-  moddata.clear();
+  // hroccfg.clear();
+  // hrocchcfg.clear();
+  // econDPar.clear();
+  // econTPar.clear();
+  // hrocarray.clear();
+  // rocdata.clear();
+  // modarray.clear();
+  // moddata.clear();
   
   
   return true;

@@ -1,6 +1,6 @@
 #all: emul_test-beam_Sep23 findEMax read_econt_Jul24 GenerateEmpRxFile
 
-CPPFLAGS=-I${HOME}/Software/yaml-cpp/include -I common/inc -I inc -I TPGStage1Emulation/ -I TPGFEEmulation/ -I`root-config --incdir` 
+CPPFLAGS=-I${HOME}/Software/yaml-cpp/include -I common/inc -I inc -I TPGStage1Emulation/  -I TPGFEEmulation/ -I`root-config --incdir` 
 BOOST=/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/boost/1.80.0-87b5de10acd2f2c8a325345ad058b814
 LDFLAGS=-L${HOME}/Software/yaml-cpp/lib64 -L$(BOOST)/lib
 CPPFLAGSSTAGE2=-I inc/ -I TPGStage2Emulation/ -I EMPTools/ -I EMPTools/CMSSWCode -I EMPTools/HLS_arbitrary_Precision_Types/include/ -I`root-config --incdir` 
@@ -10,8 +10,8 @@ all: stage2CPCalc.exe #stage2BkgRate.exe #CalcResolution.exe stage2SemiEmulator.
 emul_test-beam_Sep23.exe:  test-beam_Sep23_macros/emul_test-beam_Sep23.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
 	g++ $(LDFLAGS) $(CPPFLAGS) test-beam_Sep23_macros/emul_test-beam_Sep23.cpp  -l yaml-cpp `root-config --libs --cflags` -o emul_test-beam_Sep23.exe
 
-findEMax.exe: test-beam_Sep23_macros/findEMax.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
-	g++  $(LDFLAGS) $(CPPFLAGS)  test-beam_Sep23_macros/findEMax.cpp  -l yaml-cpp `root-config --libs --cflags` -o findEMax.exe
+findEMax.exe: test-beam_Sep23_macros/findEMax.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh TPGStage2Emulation/*.hh common/inc/*.h
+	g++  $(LDFLAGS) $(CPPFLAGS) $(CPPFLAGSSTAGE2) test-beam_Sep23_macros/findEMax.cpp  -l yaml-cpp `root-config --libs --cflags` -o findEMax.exe
 
 read_econt_Jul24.exe: test-beam_Aug24_macros/read_econt_Jul24.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
 	g++ -I common/inc -I inc -I . test-beam_Aug24_macros/read_econt_Jul24.cpp  -l yaml-cpp `root-config --libs --cflags` -o read_econt_Jul24.exe

@@ -833,7 +833,7 @@ namespace TPGStage2Emulation
         TPGTCFloats vTcf(vTcw[itc]);
         float tcfX(vTcf.getXOverZF());
         float tcfY(vTcf.getYOverZF());
-
+	
         for (unsigned c(0); c < 3; c++)
         {
           double dr2Min(1.0e10);
@@ -846,7 +846,7 @@ namespace TPGStage2Emulation
               double dx(tcfX - _ca->centre[c][i][j][0]);
               double dy(tcfY - _ca->centre[c][i][j][1]);
               double dr2(dx * dx + dy * dy);
-
+	      
               if (dr2Min > dr2)
               {
                 dr2Min = dr2;
@@ -857,7 +857,7 @@ namespace TPGStage2Emulation
           }
 
           if (dr2Min > dr2Limit)
-          {
+	    {
             std::cout << "Accumulation: at i,j = " << iMin << ", " << jMin
                       << ", dr2Min = " << dr2Min << " > " << dr2Limit
                       << std::endl;
