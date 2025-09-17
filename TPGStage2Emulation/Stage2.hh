@@ -488,13 +488,15 @@ namespace TPGStage2Emulation
                 {
                   if (j2 >= 0 && j2 < _nBins)
                   {
-                    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < 0.6 * _rOverZ)
+                    //if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < 0.6 * _rOverZ)
+		    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < _rOverZ)
                     {
                       // std::cout << "Match i,j,c,i2,j2,c2 = " << i << ", " << j << ", " << c
                       //	      << ", " << i2 << ", " << j2 << ", " << (c+1)%3 << std::endl;
                       _tcaa->vTca[c][i][j].addNN(&(_tcaa->vTca[(c + 1) % 3][i2][j2]));
                     }
-                    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < 0.6 * _rOverZ)
+                    //if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < 0.6 * _rOverZ)
+		    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < _rOverZ)
                     {
                       // std::cout << "Match i,j,c,i2,j2,c2 = " << i << ", " << j << ", " << c
                       //	      << ", " << i2 << ", " << j2 << ", " << (c+2)%3 << std::endl;
@@ -526,13 +528,15 @@ namespace TPGStage2Emulation
                 {
                   if (j2 >= 0 && j2 < _nBins)
                   {
-                    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < 0.6 * _rOverZ)
+                    //if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < 0.6 * _rOverZ)
+		    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 1) % 3][i2][j2]) < _rOverZ)
                     {
                       // std::cout << "Match i,j,c,i2,j2,c2 = " << i << ", " << j << ", " << c
                       //	      << ", " << i2 << ", " << j2 << ", " << (c+1)%3 << std::endl;
                       _tcaafw->vTca[c][i][j].addNN(&(_tcaafw->vTca[(c + 1) % 3][i2][j2]));
                     }
-                    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < 0.6 * _rOverZ)
+                    //if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < 0.6 * _rOverZ)
+		    if (distanceXX(_ca->centre[c][i][j], _ca->centre[(c + 2) % 3][i2][j2]) < _rOverZ)
                     {
                       // std::cout << "Match i,j,c,i2,j2,c2 = " << i << ", " << j << ", " << c
                       //	      << ", " << i2 << ", " << j2 << ", " << (c+2)%3 << std::endl;
@@ -827,12 +831,17 @@ namespace TPGStage2Emulation
       clusprop.setClusPropLUT(clusPropLUT);
       
       double dr2Limit(_rOverZ * _rOverZ / 3.0);
-      
+
+      //std::cout << "Stage2::run vTcw.size(): " << vTcw.size() << std::endl;
+      TPGTCFloats *vTcf[vTcw.size()];
       for (unsigned itc(0); itc < vTcw.size(); itc++)
       {
-        TPGTCFloats vTcf(vTcw[itc]);
-        float tcfX(vTcf.getXOverZF());
-        float tcfY(vTcf.getYOverZF());
+        // TPGTCFloats vTcf(vTcw[itc]);
+        // float tcfX(vTcf.getXOverZF());
+        // float tcfY(vTcf.getYOverZF());
+        vTcf[itc] = new TPGTCFloats(vTcw[itc]);
+        float tcfX(vTcf[itc]->getXOverZF());
+        float tcfY(vTcf[itc]->getYOverZF());
 
         for (unsigned c(0); c < 3; c++)
         {
@@ -864,16 +873,37 @@ namespace TPGStage2Emulation
             assert(false);
           }
 	  
-          _tcaafw->vTca[c][iMin][jMin].accumulate(vTcf);
+          _tcaafw->vTca[c][iMin][jMin].accumulate(vTcf[itc]);
         }
       }
+      // int totnoftc = 0;
+      // for (unsigned c(0); c < 3; c++)
+      // 	for (unsigned i(0); i < _nBins; i++)
+      // 	  for (unsigned j(0); j < _nBins; j++){
+      // 	    if(_tcaafw->vTca[c][i][j].numberOfTcs()>0){
+      // 	      std::cout << "Stage2::run vTcw.size(): " << vTcw.size() << ", c: " << c << ", i: " << i << ", j:" << j <<", numTcs: "<< _tcaafw->vTca[c][i][j].numberOfTcs() << ", nofTCFloats : " << _tcaafw->vTca[c][i][j].getTCFArray().size() << std::endl ;
+      // 	      double totE = 0;
+      // 	      for (unsigned itc(0); itc < _tcaafw->vTca[c][i][j].getTCFArray().size() ; itc++){
+      // 		//(_tcaafw->vTca[c][i][j].getTCFArray().at(itc))->print();
+      // 		TPGTCFloats *t = _tcaafw->vTca[c][i][j].getTCFArray().at(itc);	      
+      // 		std::cout << "Stage2::run \t itc: " << itc << ", E : " <<  t->getEnergyGeV() << " GeV, (x/z,y/z): (" << t->getXOverZF() << ", " << t->getYOverZF() << ") " << std::endl;
+      // 		totE += t->getEnergyGeV();
+      // 		totnoftc++;
+      // 	      }
+      // 	      std::cout << "Stage2::run vTcw.size(): " << vTcw.size() << ", totE : " << totE  << std::endl;
+      // 	    }//>0
+      // 	    //_tcaafw->vTca[c][i][j].printdetail(0);
+      // 	  }
+      // std::cout << "Stage2::run vTcw.size(): " << vTcw.size() << ", totnoftc in hexagons: " << totnoftc/3.0 << std::endl;
 
+      
       // Find local maxima
       vCld.resize(0);
+      for (unsigned itc(0); itc < vTcw.size(); itc++) {delete vTcf[itc];}
       
       constexpr double epsilon = 1e-6;
 
-      constexpr unsigned nPasses = 2;
+      constexpr unsigned nPasses = 6;
       for ( unsigned iPass(0); iPass < nPasses; iPass++ ) {
         // First, find and store local maxima
         std::vector<std::tuple<unsigned, unsigned, unsigned>> localMaxima;
@@ -884,23 +914,25 @@ namespace TPGStage2Emulation
             for (unsigned j(0); j < _nBins; j++)
             {
               double phiNorm(6.0 * atan2(_ca->centre[c][i][j][1], _ca->centre[c][i][j][0]) / acos(-1));
-        
+	      
               if ( _tcaafw->vTca[c][i][j].isLocalMaximum() ) {
                 localMaxima.emplace_back(c, i, j);
-              }
-
+              }	      
+	      //if(_tcaafw->vTca[c][i][j].totE()>40){
+	      // std::cout<<"1:c: " << c <<", i: " << i << ", j: " << j ;	    
+	      // std::cout<<", Energy: " << _tcaafw->vTca[c][i][j].totE() << ", atan2: " << atan2(_ca->centre[c][i][j][1], _ca->centre[c][i][j][0]) <<", phiNorm: " << phiNorm << std::endl;
+	      //}
               if (phiNorm >= (-2.0 - epsilon) && phiNorm < (2. - epsilon) && _tcaafw->vTca[c][i][j].isLocalMaximum())
               //if (phiNorm >= -2.11 && phiNorm < 1.89 && _tcaafw->vTca[c][i][j].isLocalMaximum())
               {
-                // if(_tcaafw->vTca[c][i][j].totE()>40){
-                // 	std::cout<<"c: " << c <<", i: " << i << ", j: " << j ;	    
-                // 	std::cout<<", Energy: " << _tcaafw->vTca[c][i][j].totE() <<", phiNorm: " << phiNorm << std::endl;
-                // }
-
+                //if(_tcaafw->vTca[c][i][j].totE()>40){
+		// std::cout<<"2:c: " << c <<", i: " << i << ", j: " << j ;	    
+		// std::cout<<", Energy: " << _tcaafw->vTca[c][i][j].totE() <<", phiNorm: " << phiNorm << std::endl;
+		//}
+		
                 clusprop.ClusterProperties(_tcaafw->vTca[c][i][j], L1TOutputEmul);
                 TPGCluster tcd(&L1TOutputEmul);
-                tcd.setMaxFinderPass(iPass);
-
+                tcd.setMaxFinderPass(iPass);		
                 vCld.push_back(tcd);  
               }
             }

@@ -171,17 +171,22 @@ public:
     
     if(isPrint) std::cout<<"Calculating cluster properties" << std::endl;
     //// ================== First Word ===========================
-    ap_ufixed<14,14, AP_RND, AP_SAT> etot =  accuInput.totE() * lsbScales->c_ET_scaler();
-    ap_ufixed<14,14, AP_RND, AP_SAT> e_em =  accuInput.ceeE() * lsbScales->c_ET_scaler();
-    l1TOutput.e = uint32_t(etot);
-    l1TOutput.e_em = uint32_t(e_em);
-    if(isPrint) std::cout<<"Set Energies" << std::endl;
-    ap_ufixed<8,8, AP_RND, AP_SAT> fracCE_E = (lsbScales->c_frac_scaler() * accuInput.ceeE()/accuInput.totE()) ;
-    ap_ufixed<8,8, AP_RND, AP_SAT> fracCECore_E = (lsbScales->c_frac_scaler() * accuInput.ceeECore() / accuInput.ceeE());
-    ap_ufixed<8,8, AP_RND, AP_SAT>  fracCEH_E = (lsbScales->c_frac_scaler() * accuInput.ceHEarly() /  accuInput.totE());
-    l1TOutput.fractionInCE_E = (accuInput.totE()==0)?0:uint32_t(fracCE_E) ;
-    l1TOutput.fractionInCoreCE_E = (accuInput.ceeE()==0)?0:uint32_t(fracCECore_E);
-    l1TOutput.fractionInEarlyCE_E = (accuInput.totE()==0)?0:uint32_t(fracCEH_E);
+    // ap_ufixed<16,16, AP_RND, AP_SAT> etot =  accuInput.totE() * lsbScales->c_ET_scaler();
+    // ap_ufixed<16,16, AP_RND, AP_SAT> e_em =  accuInput.ceeE() * lsbScales->c_ET_scaler();
+    // l1TOutput.e = uint32_t(etot);
+    // l1TOutput.e_em = uint32_t(e_em);
+    l1TOutput.e = uint32_t(accuInput.totE() * lsbScales->c_ET_scaler());
+    l1TOutput.e_em = uint32_t(accuInput.ceeE() * lsbScales->c_ET_scaler());
+if(isPrint) std::cout<<"Set Energies" << std::endl;
+    // ap_ufixed<8,8, AP_RND, AP_SAT> fracCE_E = (lsbScales->c_frac_scaler() * accuInput.ceeE()/accuInput.totE()) ;
+    // ap_ufixed<8,8, AP_RND, AP_SAT> fracCECore_E = (lsbScales->c_frac_scaler() * accuInput.ceeECore() / accuInput.ceeE());
+    // ap_ufixed<8,8, AP_RND, AP_SAT>  fracCEH_E = (lsbScales->c_frac_scaler() * accuInput.ceHEarly() /  accuInput.totE());
+    // l1TOutput.fractionInCE_E = (accuInput.totE()==0)?0:uint32_t(fracCE_E) ;
+    // l1TOutput.fractionInCoreCE_E = (accuInput.ceeE()==0)?0:uint32_t(fracCECore_E);
+    // l1TOutput.fractionInEarlyCE_E = (accuInput.totE()==0)?0:uint32_t(fracCEH_E);
+    l1TOutput.fractionInCE_E = (accuInput.totE()==0)?0:uint32_t(lsbScales->c_frac_scaler() * accuInput.ceeE()/accuInput.totE()) ;
+    l1TOutput.fractionInCoreCE_E = (accuInput.ceeE()==0)?0:uint32_t(lsbScales->c_frac_scaler() * accuInput.ceeECore() / accuInput.ceeE());
+    l1TOutput.fractionInEarlyCE_E = (accuInput.totE()==0)?0:uint32_t(lsbScales->c_frac_scaler() * accuInput.ceHEarly() /  accuInput.totE());
     if(isPrint) std::cout<<"Set Fractions" << std::endl;
     l1TOutput.setGCTBits();
     if(isPrint) std::cout<<"Set GCT bits" << std::endl;

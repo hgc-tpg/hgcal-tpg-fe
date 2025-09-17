@@ -37,6 +37,8 @@ int plotStdPerf(int index = 5)
   void PlotDR(TFile *fin1, const char* h2histName, const char* profName, const char* plotTitle, const char* xaxisTitle, TCanvas*& cPtReso);
   void PlotNofClus(TFile *fin1, TFile *fin2, TFile *fin3, const char* histName, const char* plotTitle, const char* xaxisTitle, TCanvas*& c1);
   void PlotNofClus1(TFile *fin1, const char* histName1, const char* histName2, const char* histName3, const char* histName4, const char* plotTitle, const char* xaxisTitle, TCanvas*& c1);
+
+  void SetCanvasStyle(TCanvas *canvas);
   ////////////////////////////////////////////////////////
   
   // //////////////////// global ROOT settings //////////////
@@ -202,54 +204,54 @@ int plotStdPerf(int index = 5)
   // //PlotNofClus(fin1,fin2,fin3,"hNClus3GeV","Nof clusters #it{e}^{+}#it{e}^{-} PU200 for p_{T}>3", "Number of clusters",cNofClus);
   // ///////////////////////////////////////////////
 
-  ////////////////////// Correlation plots //////////////////////////////////////
-  void Plot2DCorr(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, const char* xaxisTitle, TCanvas*& cPtReso);
-  void Plot2DCorr(TFile *fin, const char* histName, const char* profName, const char* plotTitle, const char* yaxisTitle, const char* xaxisTitle, TCanvas*& cPtReso);
+  // ////////////////////// Correlation plots //////////////////////////////////////
+  // void Plot2DCorr(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, const char* xaxisTitle, TCanvas*& cPtReso);
+  // void Plot2DCorr(TFile *fin, const char* histName, const char* profName, const char* plotTitle, const char* yaxisTitle, const char* xaxisTitle, TCanvas*& cPtReso);
   
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter61/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter69/vbfHInv_0PU";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter70/vbfHInv_0PU";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/doublePhoton_PU0";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/singleElectron_PU0_Ideal";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/vbfHInv_0PU_ID";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/singlePion_PU0_Ideal";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/singleElectron_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/singlePion_PU0_Ideal";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/vbfHInv_0PU_ID";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter73/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter73/vbfHInv_0PU_ID";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter74/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter74/vbfHInv_0PU_ID";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter75/singlePion_PU0_Ideal";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter75/singlePion_PU0_Realistic";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter78/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter78/vbfHInv_0PU_ID";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/singlePion_PU0_Ideal";
-  inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter82/singlePion_PU0_Realistic";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter61/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter69/vbfHInv_0PU";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter70/vbfHInv_0PU";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/doublePhoton_PU0";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/singleElectron_PU0_Ideal";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/vbfHInv_0PU_ID";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter71/singlePion_PU0_Ideal";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/singleElectron_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/singlePion_PU0_Ideal";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter72/vbfHInv_0PU_ID";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter73/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter73/vbfHInv_0PU_ID";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter74/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter74/vbfHInv_0PU_ID";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter75/singlePion_PU0_Ideal";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter75/singlePion_PU0_Realistic";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter78/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter78/vbfHInv_0PU_ID";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/singlePion_PU0_Ideal";
+  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter82/singlePion_PU0_Realistic";
   
-  std::string infile1 = inpath1 + "/" + "CalcResolution_ntuples_16_merged.root";
-  TCanvas *cPtReso;
-  TFile *fin = TFile::Open(infile1.c_str());
+  // std::string infile1 = inpath1 + "/" + "CalcResolution_ntuples_16_merged.root";
+  // TCanvas *cPtReso;
+  // TFile *fin = TFile::Open(infile1.c_str());
   
-  //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt","#Sigmap_{T}^{TC} vs p_{T}^{Genjet}","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CEE_CoreEta","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (CEE:1.7<#eta<2.9)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta_rozcut0p15","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9 and roz<0.15)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta_mpptcut2","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9 and roz<0.15)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt","#Sigmap_{T}^{TC} vs p_{T}^{Genjet}","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CEE_CoreEta","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (CEE:1.7<#eta<2.9)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta_rozcut0p15","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9 and roz<0.15)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2TCvsGenPt_CoreEta_mpptcut2","#Sigmap_{T}^{TC} vs p_{T}^{Genjet} for (1.7<#eta<2.9 and roz<0.15)","#Sigmap_{T}^{TC} (GeV)","p_{T}^{Genjet} (GeV)",cPtReso);
   
-  Plot2DCorr(fin,"Clus/h2ClusVsTCPt","p_{T}^{Cluster} vs #Sigmap_{T}^{TC}","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"Clus/h2ClusVsTCPt_CoreEta","p_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0)","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"Clus/h2ClusVsTCPt_CoreEta_rozcut0p15","p_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0 and roz<0.15)","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC}","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt_CoreEta","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0)","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
-  //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt_CoreEta_rozcut0p15","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0 and roz<0.15)","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // Plot2DCorr(fin,"Clus/h2ClusVsTCPt","p_{T}^{Cluster} vs #Sigmap_{T}^{TC}","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"Clus/h2ClusVsTCPt_CoreEta","p_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0)","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"Clus/h2ClusVsTCPt_CoreEta_rozcut0p15","p_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0 and roz<0.15)","p_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC}","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt_CoreEta","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0)","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"Clus/h2TotClusVsTCPt_CoreEta_rozcut0p15","#Sigmap_{T}^{Cluster} vs #Sigmap_{T}^{TC} (1.6<#eta<3.0 and roz<0.15)","#Sigmap_{T}^{Cluster} (GeV)","#Sigmap_{T}^{TC} (GeV)",cPtReso);
 
 
-  //Plot2DCorr(fin,"TC_Scale/h2GenjetTCPtsumvsGenEta","TC_Scale/pGenjetTCPtsumvsGenEta","p_{T}^{Genjet}/#Sigmap_{T}^{TC} vs #eta^{Genjet}","p_{T}^{Genjet}/#Sigmap_{T}^{TC}","#eta^{Genjet} (GeV)",cPtReso);
+  // //Plot2DCorr(fin,"TC_Scale/h2GenjetTCPtsumvsGenEta","TC_Scale/pGenjetTCPtsumvsGenEta","p_{T}^{Genjet}/#Sigmap_{T}^{TC} vs #eta^{Genjet}","p_{T}^{Genjet}/#Sigmap_{T}^{TC}","#eta^{Genjet} (GeV)",cPtReso);
   
-  ///////////////////////////////////////////////////////////////////////////////
+  // ///////////////////////////////////////////////////////////////////////////////
   
   // ////////////////////// Calibration plots //////////////////////////////////////
   // void PlotPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
@@ -331,6 +333,113 @@ int plotStdPerf(int index = 5)
   // ////////////////////////////////////////////////////////////////////////////
 
 
+  ////////////////////////////////////// Background rates //////////////////////////////////////////////////
+  int GetTreeDataCMSSW(TTree *tr, const char *br1, const char *br2, const char *br3, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3);
+  int GetTreeDataStandalone(std::unique_ptr<TTree>& tr, const char *br1, const char *br2, const char *br3, const char *brpas, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3, int pass=3);
+  int PlotBkgGraphs(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3);
+  int PlotBkgGraphs6(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3,
+		     TGraphErrors* gr1p, TGraphErrors* gr2p, TGraphErrors* gr3p, const char *entry1p, const char *entry2p, const char *entry3p);
+  
+  // //=============================================================================
+  // TChain *trcmssw = new TChain("l1tHGCalTriggerNtuplizer/HGCalTriggerNtuple");
+  // const char *inputfname = "/tmp/local_fs.txt";
+  // std::string s;
+  // ifstream fin(inputfname);
+  // int nfiles = 0;
+  // while(getline(fin,s)){
+  //   std::cout << "Filename : " << s << std::endl;
+  //   //trcmssw->Add(Form("%s/%s",server,s.c_str()));
+  //   trcmssw->Add(Form("%s",s.c_str()));
+  //   nfiles++;
+  // }
+  // std::cout << "Nof added files : " << nfiles << std::endl;
+
+  // TGraphErrors *gr16_cmssw, *gr30_cmssw, *gr45_cmssw;
+  // GetTreeDataCMSSW(trcmssw, "cl3d_p16Tri_pt", "cl3d_p03Tri_pt", "cl3d_p045Tri_pt", gr16_cmssw, gr30_cmssw, gr45_cmssw);
+
+  // gr16_cmssw->SetName("gr16_cmssw");
+  // gr30_cmssw->SetName("gr30_cmssw");
+  // gr45_cmssw->SetName("gr45_cmssw");
+  
+  // //PlotBkgGraphs(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected, CMSSW)", "a = 0.016", "a = 0.03", "a = 0.045");
+  
+  // delete trcmssw;
+  //============================================================================
+
+  const char *infile16 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_16_merged.root";
+  const char *infile30 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_30_merged.root";
+  const char *infile45 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_45_merged.root";
+  std::unique_ptr<TFile> fin16(TFile::Open(Form("%s",infile16)));
+  std::unique_ptr<TFile> fin30(TFile::Open(Form("%s",infile30)));
+  std::unique_ptr<TFile> fin45(TFile::Open(Form("%s",infile45)));
+
+  std::unique_ptr<TTree> tr16((TTree*)fin16->Get("TPG_Reco"));
+  std::unique_ptr<TTree> tr30((TTree*)fin30->Get("TPG_Reco"));
+  std::unique_ptr<TTree> tr45((TTree*)fin45->Get("TPG_Reco"));
+
+  TGraphErrors *gr16_uncorr_pass1, *gr16_corr1D_pass1, *gr16_corr2D_pass1;
+  TGraphErrors *gr16_uncorr_pass2, *gr16_corr1D_pass2, *gr16_corr2D_pass2;
+  TGraphErrors *gr16_uncorr_passall, *gr16_corr1D_passall, *gr16_corr2D_passall;
+  TGraphErrors *gr30_uncorr_pass1, *gr30_corr1D_pass1, *gr30_corr2D_pass1;
+  TGraphErrors *gr30_uncorr_passall, *gr30_corr1D_passall, *gr30_corr2D_passall;
+  TGraphErrors *gr45_uncorr_pass1, *gr45_corr1D_pass1, *gr45_corr2D_pass1;
+  TGraphErrors *gr45_uncorr_passall, *gr45_corr1D_passall, *gr45_corr2D_passall;
+  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, 0);
+  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, 1);
+  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, 2);
+  GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, 0);
+  GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, 2);
+  GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, 0);
+  GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, 2);
+  
+  gr16_uncorr_pass1->SetName("gr16_uncorr_pass1");
+  gr16_corr1D_pass1->SetName("gr16_corr1D_pass1");
+  gr16_corr2D_pass1->SetName("gr16_corr2D_pass1");
+
+  gr16_uncorr_pass2->SetName("gr16_uncorr_pass2");
+  gr16_corr1D_pass2->SetName("gr16_corr1D_pass2");
+  gr16_corr2D_pass2->SetName("gr16_corr2D_pass2");
+
+  gr16_uncorr_passall->SetName("gr16_uncorr_passall");
+  gr16_corr1D_passall->SetName("gr16_corr1D_passall");
+  gr16_corr2D_passall->SetName("gr16_corr2D_passall");
+
+  gr30_uncorr_pass1->SetName("gr30_uncorr_pass1");
+  gr30_corr1D_pass1->SetName("gr30_corr1D_pass1");
+  gr30_corr2D_pass1->SetName("gr30_corr2D_pass1");
+
+  gr30_uncorr_passall->SetName("gr30_uncorr_passall");
+  gr30_corr1D_passall->SetName("gr30_corr1D_passall");
+  gr30_corr2D_passall->SetName("gr30_corr2D_passall");
+
+  gr45_uncorr_pass1->SetName("gr45_uncorr_pass1");
+  gr45_corr1D_pass1->SetName("gr45_corr1D_pass1");
+  gr45_corr2D_pass1->SetName("gr45_corr2D_pass1");
+
+  gr45_uncorr_passall->SetName("gr45_uncorr_passall");
+  gr45_corr1D_passall->SetName("gr45_corr1D_passall");
+  gr45_corr2D_passall->SetName("gr45_corr2D_passall");
+  
+  // PlotBkgGraphs(gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  // PlotBkgGraphs(gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, "Minbias, PU 200, second pass (exclusive)", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  // PlotBkgGraphs(gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  
+  // PlotBkgGraphs(gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
+  // PlotBkgGraphs(gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
+  
+  // PlotBkgGraphs(gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
+  // PlotBkgGraphs(gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
+
+  // PlotBkgGraphs(gr16_corr2D_pass1, gr30_corr2D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
+  //PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
+  PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Hexagon side length in (x/z,y/z) plane", "a = 0.016", "a = 0.03", "a = 0.045");
+  
+  // PlotBkgGraphs(gr16_corr2D_passall, gr30_corr1D_passall, gr45_uncorr_passall, "Minbias, PU 200, two passes", "a = 0.016: 2D corr", "a = 0.03: 1D corr", "a = 0.045: no corr");
+  //PlotBkgGraphs(gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "Minbias, PU 200, first pass (uncorrected, standalone)", "a = 0.016", "a = 0.03", "a = 0.045");
+
+  // PlotBkgGraphs6(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected)", "a = 0.016:CMSSW", "a = 0.03:CMSSW", "a = 0.045:CMSSW",
+  // 		 gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "a = 0.016:standalone", "a = 0.03:standalone", "a = 0.045:standalone");
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   return true;
 }
@@ -2113,4 +2222,389 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
   for(int ieta=0;ieta<nTCEtaBins;ieta++) (ieta==(nTCEtaBins-1))? std::cout << f1[ieta]->GetParameter(2)  : std::cout << f1[ieta]->GetParameter(2) << ", " ;
   std::cout << "};" << std::endl;
 
+}
+
+int GetTreeDataCMSSW(TTree *trcmssw, const char *br1, const char *br2, const char *br3, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3)
+{
+  trcmssw->SetBranchStatus("*",0);
+
+  //////////////////// CMSSW ///////////////////////
+  std::vector<float>  *clusE_a16_cmssw = 0 ;
+  trcmssw->SetBranchStatus(br1,1);
+  trcmssw->SetBranchAddress(br1 , &clusE_a16_cmssw);
+
+  std::vector<float>  *clusE_a30_cmssw = 0 ;
+  trcmssw->SetBranchStatus(br2,1);
+  trcmssw->SetBranchAddress(br2 , &clusE_a30_cmssw);
+
+  std::vector<float>  *clusE_a45_cmssw = 0 ;
+  trcmssw->SetBranchStatus(br3,1);
+  trcmssw->SetBranchAddress(br3 , &clusE_a45_cmssw);
+  //////////////////// CMSSW ///////////////////////
+
+  //////////////////// Find leading pt ///////////////////////
+  std::cout << "Total number of Events in CMSSW tree : " << trcmssw->GetEntries() << std::endl;
+  Long64_t nofEvents = trcmssw->GetEntries();
+  
+  std::map<Long64_t,double> maxpt16_cmssw, maxpt30_cmssw, maxpt45_cmssw;
+  for (Long64_t ievent = 0 ; ievent < nofEvents ; ievent++ ) {
+    trcmssw->GetEntry(ievent) ;
+    
+    double maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a16_cmssw->size() ; iclus++){
+      if(clusE_a16_cmssw->at(iclus)>maxpt) maxpt = clusE_a16_cmssw->at(iclus);
+    }
+    maxpt16_cmssw[ievent] = maxpt;
+
+    maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a30_cmssw->size() ; iclus++){
+      if(clusE_a30_cmssw->at(iclus)>maxpt) maxpt = clusE_a30_cmssw->at(iclus);
+    }
+    maxpt30_cmssw[ievent] = maxpt;
+
+    maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a45_cmssw->size() ; iclus++){
+      if(clusE_a45_cmssw->at(iclus)>maxpt) maxpt = clusE_a45_cmssw->at(iclus);
+    }
+    maxpt45_cmssw[ievent] = maxpt;
+
+    if(ievent%10000==0)
+      std::cout<<"CMSSW::Event : "<< ievent
+	       <<", nof Clusters16 : "<< clusE_a16_cmssw->size()
+	       <<", nof Clusters30 : "<< clusE_a30_cmssw->size()
+	       <<", nof Clusters45 : "<< clusE_a45_cmssw->size()
+	       << ", maxpt: " << maxpt << std::endl;
+    
+    clusE_a16_cmssw->clear();
+    clusE_a30_cmssw->clear();
+    clusE_a45_cmssw->clear();
+  }
+  
+  gr1 = new TGraphErrors(200);
+  gr2 = new TGraphErrors(200);
+  gr3 = new TGraphErrors(200);
+  int ipoint = 0;
+  for(int ithr = 20 ; ithr <= 200 ; ithr = ithr+6){
+    int pass16 = 0, pass30 = 0, pass45 = 0;
+    for (Long64_t ievent = 0 ; ievent < nofEvents ; ievent++ ) {
+      if(maxpt16_cmssw[ievent]>double(ithr)) pass16++;
+      if(maxpt30_cmssw[ievent]>double(ithr)) pass30++;
+      if(maxpt45_cmssw[ievent]>double(ithr)) pass45++;
+    }
+    double rate16 = double(pass16) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+    double rate30 = double(pass30) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+    double rate45 = double(pass45) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+
+    // double rate16_yerr = rate16*sqrt( pow(sqrt(pass16)/double(pass16),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+    // double rate30_yerr = rate30*sqrt( pow(sqrt(pass30)/double(pass30),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+    // double rate45_yerr = rate45*sqrt( pow(sqrt(pass45)/double(pass45),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+
+    double rate16_yerr = rate16*fabs( sqrt(pass16)/double(pass16) - sqrt(nofEvents)/double(nofEvents) );
+    double rate30_yerr = rate30*fabs( sqrt(pass30)/double(pass30) - sqrt(nofEvents)/double(nofEvents) );
+    double rate45_yerr = rate45*fabs( sqrt(pass45)/double(pass45) - sqrt(nofEvents)/double(nofEvents) );
+
+    std::cout <<"CMSSW::Threshold :" << ithr
+	      << ", Rate16 : " << rate16 << " +/- " << 100*(rate16_yerr/rate16)
+	      << " % , Rate30 : " << rate30 << " +/- " << 100*(rate30_yerr/rate30)
+	      << " % , Rate45 : " << rate45 << " +/- " << 100*(rate45_yerr/rate45)
+	      <<" % "<< std::endl;
+    
+    gr1->SetPoint(ipoint,double(ithr),rate16);
+    gr1->SetPointError(ipoint, 0., rate16_yerr);
+    
+    gr2->SetPoint(ipoint,double(ithr),rate30);
+    gr2->SetPointError(ipoint, 0., rate30_yerr);
+    
+    gr3->SetPoint(ipoint,double(ithr),rate45);
+    gr3->SetPointError(ipoint, 0., rate45_yerr);
+    
+    ipoint++;
+  }//threshold loop
+  gr1->Set(ipoint);
+  gr2->Set(ipoint);
+  gr3->Set(ipoint);
+  
+  gr1->SetTitle("");
+  gr2->SetTitle("");
+  gr3->SetTitle("");
+
+
+  return true;
+}
+
+int GetTreeDataStandalone(std::unique_ptr<TTree>& tree, const char *br1, const char *br2, const char *br3, const char *brpas, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3, int pass)
+{
+  tree->SetBranchStatus("*",0);
+
+  //////////////////// Standalone ///////////////////////
+  std::vector<float>  *clusE_a16 = 0 ;
+  tree->SetBranchStatus(br1,1);
+  tree->SetBranchAddress(br1 , &clusE_a16);
+
+  std::vector<float>  *clusE_a30 = 0 ;
+  tree->SetBranchStatus(br2,1);
+  tree->SetBranchAddress(br2 , &clusE_a30);
+
+  std::vector<float>  *clusE_a45 = 0 ;
+  tree->SetBranchStatus(br3,1);
+  tree->SetBranchAddress(br3 , &clusE_a45);
+
+  std::vector<unsigned int>  *cluspass = 0 ;
+  tree->SetBranchStatus(brpas,1);
+  tree->SetBranchAddress(brpas , &cluspass);  
+//////////////////// Standalone ///////////////////////
+
+  //////////////////// Find leading pt ///////////////////////
+  std::cout << "Total number of Events in Standalone tree : " << tree->GetEntries() << std::endl;
+  Long64_t nofEvents = tree->GetEntries();
+  
+  std::map<Long64_t,double> maxpt16, maxpt30, maxpt45;
+  for (Long64_t ievent = 0 ; ievent < nofEvents ; ievent++ ) {
+    tree->GetEntry(ievent) ;
+
+    bool passcondn;
+    double maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a16->size() ; iclus++){
+      if(pass==0){
+	passcondn = (cluspass->at(iclus)==0); 
+      }else if(pass==1){
+	passcondn = (cluspass->at(iclus)==1); 
+      }else{
+	passcondn = true;
+      }
+      if(clusE_a16->at(iclus)>maxpt and passcondn) maxpt = clusE_a16->at(iclus);
+    }
+    maxpt16[ievent] = maxpt;
+    
+    maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a30->size() ; iclus++){
+      if(pass==0){
+	passcondn = (cluspass->at(iclus)==0); 
+      }else if(pass==1){
+	passcondn = (cluspass->at(iclus)==1); 
+      }else{
+	passcondn = true;
+      }
+      if(clusE_a30->at(iclus)>maxpt and passcondn) maxpt = clusE_a30->at(iclus);
+    }
+    maxpt30[ievent] = maxpt;
+
+    maxpt = 0;
+    for(int iclus = 0; iclus < clusE_a45->size() ; iclus++){
+      if(pass==0){
+	passcondn = (cluspass->at(iclus)==0); 
+      }else if(pass==1){
+	passcondn = (cluspass->at(iclus)==1); 
+      }else{
+	passcondn = true ; 
+      }
+      if(clusE_a45->at(iclus)>maxpt and passcondn) maxpt = clusE_a45->at(iclus);
+    }
+    maxpt45[ievent] = maxpt;
+
+    if(ievent%10000==0)
+      std::cout<<"SL::Event : "<< ievent
+	       <<", nof Clusters16 : "<< clusE_a16->size()
+	       <<", nof Clusters30 : "<< clusE_a30->size()
+	       <<", nof Clusters45 : "<< clusE_a45->size()
+	       << ", maxpt: " << maxpt << std::endl;
+    
+    clusE_a16->clear();
+    clusE_a30->clear();
+    clusE_a45->clear();
+  }
+  
+  gr1 = new TGraphErrors(200);
+  gr2 = new TGraphErrors(200);
+  gr3 = new TGraphErrors(200);
+  int ipoint = 0;
+  for(int ithr = 20 ; ithr <= 200 ; ithr = ithr+6){
+    int pass16 = 0, pass30 = 0, pass45 = 0;
+    for (Long64_t ievent = 0 ; ievent < nofEvents ; ievent++ ) {
+      if(maxpt16[ievent]>double(ithr)) pass16++;
+      if(maxpt30[ievent]>double(ithr)) pass30++;
+      if(maxpt45[ievent]>double(ithr)) pass45++;
+    }
+    double rate16 = double(pass16) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+    double rate30 = double(pass30) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+    double rate45 = double(pass45) * 40.e3 * 2760. / 3564. / double(nofEvents) ;
+
+    // double rate16_yerr = rate16*sqrt( pow(sqrt(pass16)/double(pass16),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+    // double rate30_yerr = rate30*sqrt( pow(sqrt(pass30)/double(pass30),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+    // double rate45_yerr = rate45*sqrt( pow(sqrt(pass45)/double(pass45),2) + pow(sqrt(nofEvents)/double(nofEvents),2) );
+
+    double rate16_yerr = rate16*fabs( sqrt(pass16)/double(pass16) - sqrt(nofEvents)/double(nofEvents) );
+    double rate30_yerr = rate30*fabs( sqrt(pass30)/double(pass30) - sqrt(nofEvents)/double(nofEvents) );
+    double rate45_yerr = rate45*fabs( sqrt(pass45)/double(pass45) - sqrt(nofEvents)/double(nofEvents) );
+
+    std::cout <<"SL::Threshold :" << ithr
+	      << ", Rate16 : " << rate16 << " +/- " << 100*(rate16_yerr/rate16)
+	      << " % , Rate30 : " << rate30 << " +/- " << 100*(rate30_yerr/rate30)
+	      << " % , Rate45 : " << rate45 << " +/- " << 100*(rate45_yerr/rate45)
+	      <<" % "<< std::endl;
+    
+    gr1->SetPoint(ipoint,double(ithr),rate16);
+    gr1->SetPointError(ipoint, 0., rate16_yerr);
+    
+    gr2->SetPoint(ipoint,double(ithr),rate30);
+    gr2->SetPointError(ipoint, 0., rate30_yerr);
+    
+    gr3->SetPoint(ipoint,double(ithr),rate45);
+    gr3->SetPointError(ipoint, 0., rate45_yerr);
+    
+    ipoint++;
+  }//threshold loop
+  gr1->Set(ipoint);
+  gr2->Set(ipoint);
+  gr3->Set(ipoint);
+  
+  gr1->SetTitle("");
+  gr2->SetTitle("");
+  gr3->SetTitle("");
+
+
+  return true;
+}
+
+int PlotBkgGraphs(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3)
+{
+
+  int fixedrate = 50.0;
+  int refip1 = -1;
+  for(int ipoint=1;ipoint<gr1->GetN()-1;ipoint++){
+    if(gr1->GetPointY(ipoint)>fixedrate and gr1->GetPointY(ipoint+1)<=fixedrate) refip1 = ipoint;
+  }
+  double slope1 = (gr1->GetPointY(refip1+1)-gr1->GetPointY(refip1)) / (gr1->GetPointX(refip1+1)-gr1->GetPointX(refip1)) ;
+  double xval1 = (fixedrate - gr1->GetPointY(refip1))/slope1 +  gr1->GetPointX(refip1) ;
+
+  int refip2 = -1;
+  for(int ipoint=1;ipoint<gr2->GetN()-1;ipoint++){
+    if(gr2->GetPointY(ipoint)>fixedrate and gr2->GetPointY(ipoint+1)<=fixedrate) refip2 = ipoint;
+  }
+  double slope2 = (gr2->GetPointY(refip2+1)-gr2->GetPointY(refip2)) / (gr2->GetPointX(refip2+1)-gr2->GetPointX(refip2)) ;
+  double xval2 = (fixedrate - gr2->GetPointY(refip2))/slope2 +  gr2->GetPointX(refip2) ;
+
+  int refip3 = -1;
+  for(int ipoint=1;ipoint<gr3->GetN()-1;ipoint++){
+    if(gr3->GetPointY(ipoint)>fixedrate and gr3->GetPointY(ipoint+1)<=fixedrate) refip3 = ipoint;
+  }
+  double slope3 = (gr3->GetPointY(refip3+1)-gr3->GetPointY(refip3)) / (gr3->GetPointX(refip3+1)-gr3->GetPointX(refip3)) ;
+  double xval3 = (fixedrate - gr3->GetPointY(refip3))/slope3 +  gr3->GetPointX(refip3) ;
+  
+  std::cout << gr1->GetName() << ": " << entry1 << ":: Lower that rate " << fixedrate << " kHz: " << gr1->GetPointX(refip1) << ", and higher : " <<  gr1->GetPointX(refip1+1) << ", Xval: " << xval1 << std::endl;
+  std::cout << gr2->GetName() << ": " << entry2 << ":: Lower that rate " << fixedrate << " kHz: " << gr2->GetPointX(refip2) << ", and higher : " <<  gr2->GetPointX(refip2+1) << ", Xval: " << xval2 << std::endl;
+  std::cout << gr3->GetName() << ": " << entry3 << ":: Lower that rate " << fixedrate << " kHz: " << gr3->GetPointX(refip3) << ", and higher : " <<  gr3->GetPointX(refip3+1) << ", Xval: " << xval3 << std::endl;
+  
+  gr1->SetLineColor(kRed);
+  gr2->SetLineColor(kBlue);
+  gr3->SetLineColor(kBlack);
+
+  gr1->SetFillColor(kRed);
+  gr2->SetFillColor(kBlue);
+  gr3->SetFillColor(kBlack);
+
+  gr1->SetLineWidth(3);
+  gr2->SetLineWidth(3);
+  gr3->SetLineWidth(3);
+  
+  gr1->SetMinimum(1);
+  gr1->SetMaximum(5.e4);
+  gr1->GetYaxis()->SetTitle("Single jet rate [kHz]");
+  gr1->GetXaxis()->SetTitle("Threshold [GeV]");
+  gr1->GetXaxis()->SetRangeUser(0,200);
+
+  TLatex *texl = new TLatex(3.369606,58503.36,"CMS");
+  texl->SetTextSize(0.035);
+  TLatex *texp = new TLatex(26.9,59533.27,"Preliminary");
+  texp->SetTextSize(0.025);
+  texp->SetTextFont(52);
+  auto leg0 = new TLegend(0.19,0.25,0.58,0.42);
+  leg0->SetTextSize(0.028);
+  leg0->SetHeader(header);
+  leg0->AddEntry(gr1,entry1,"lp");
+  leg0->AddEntry(gr2,entry2,"lp");
+  leg0->AddEntry(gr3,entry3,"lp");
+  leg0->SetShadowColor(kWhite);
+
+  gROOT->SetStyle("Pub");
+  TCanvas *c1 = new TCanvas(Form("c%d",gindex),Form("c%d",gindex),900,900); gindex++;
+  SetCanvasStyle(c1);
+  c1->SetLogy();
+  c1->SetGridx();
+  c1->SetGridy();
+  gr1->Draw("a3c");
+  gr2->Draw("3c same");
+  gr3->Draw("3c same");
+  leg0->Draw();
+  texl->Draw("same");
+  texp->Draw("same");
+
+  return true;
+}
+
+int PlotBkgGraphs6(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3,
+		   TGraphErrors* gr1p, TGraphErrors* gr2p, TGraphErrors* gr3p, const char *entry1p, const char *entry2p, const char *entry3p)
+{
+  gr1->SetLineColor(kRed);
+  gr2->SetLineColor(kBlue);
+  gr3->SetLineColor(kBlack);
+
+  gr1p->SetLineColor(kMagenta);
+  gr2p->SetLineColor(kOrange-7);
+  gr3p->SetLineColor(kGreen+2);
+
+  gr1->SetFillColor(kRed);
+  gr2->SetFillColor(kBlue);
+  gr3->SetFillColor(kBlack);
+
+  gr1p->SetFillColor(kMagenta);
+  gr2p->SetFillColor(kOrange-7);
+  gr3p->SetFillColor(kGreen+2);
+
+  gr1->SetLineWidth(3);
+  gr2->SetLineWidth(3);
+  gr3->SetLineWidth(3);
+  
+  gr1p->SetLineWidth(3);
+  gr2p->SetLineWidth(3);
+  gr3p->SetLineWidth(3);
+  
+  gr1->SetMinimum(1);
+  gr1->SetMaximum(5.e4);
+  gr1->GetYaxis()->SetTitle("Single jet rate [kHz]");
+  gr1->GetXaxis()->SetTitle("Threshold [GeV]");
+  gr1->GetXaxis()->SetRangeUser(0,200);
+
+  TLatex *texl = new TLatex(3.369606,58503.36,"CMS");
+  texl->SetTextSize(0.035);
+  TLatex *texp = new TLatex(26.9,59533.27,"Preliminary");
+  texp->SetTextSize(0.025);
+  texp->SetTextFont(52);
+  auto leg0 = new TLegend(0.19,0.25,0.58,0.42);
+  leg0->SetTextSize(0.028);
+  leg0->SetHeader(header);
+  leg0->AddEntry(gr1,entry1,"lp");
+  leg0->AddEntry(gr1p,entry1p,"lp");
+  leg0->AddEntry(gr2,entry2,"lp");
+  leg0->AddEntry(gr2p,entry2p,"lp");
+  leg0->AddEntry(gr3,entry3,"lp");
+  leg0->AddEntry(gr3p,entry3p,"lp");
+  leg0->SetShadowColor(kWhite);
+
+  TCanvas *c1 = new TCanvas(Form("c%d",gindex),Form("c%d",gindex),900,900); gindex++;
+  SetCanvasStyle(c1);
+  c1->SetLogy();
+  c1->SetGridx();
+  c1->SetGridy();
+  gr1->Draw("a3c");
+  gr2->Draw("3c same");
+  gr3->Draw("3c same");
+  gr1p->Draw("3c same");
+  gr2p->Draw("3c same");
+  gr3p->Draw("3c same");
+  leg0->Draw();
+  texl->Draw("same");
+  texp->Draw("same");
+
+  return true;
 }
