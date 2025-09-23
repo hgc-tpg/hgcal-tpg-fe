@@ -125,8 +125,53 @@ int main(int argc, char** argv)
   pt_clusThresh = 30.; //GeV electron 30 GeV //pion = 100, VBF = 150 GeV
   pt_clusThresh_etaeff = 50.; //GeV electron 50 GeV //pion = 150, VBF = 200 GeV
   if(sampleType.find("vbfHInv")!=std::string::npos){
-    pt_clusThresh = 150.; 
-    pt_clusThresh_etaeff = 200.; 
+    
+    // pt_clusThresh = 150.; 
+    // pt_clusThresh_etaeff = 200.;
+
+    //===============================================
+    // @10 kHz
+    //===============================================
+    //gr16_corr2D_passall: a = 0.016:: Lower that rate 10 kHz: 140, and higher : 146, Xval: 143.352
+    //gr30_corr2D_passall: a = 0.03:: Lower that rate 10 kHz: 152, and higher : 158, Xval: 152.457
+    //gr45_corr2D_passall: a = 0.045:: Lower that rate 10 kHz: 158, and higher : 164, Xval: 163.346
+    //===============================================
+    //pt_clusThresh = 143.; 
+    //pt_clusThresh = 152.; 
+    // pt_clusThresh = 163.; 
+    // pt_clusThresh_etaeff = 200.;
+    //===============================================
+    
+    //===============================================
+    // @100 kHz
+    //===============================================
+    //gr16_corr2D_passall: a = 0.016:: Lower that rate 100 kHz: 86, and higher : 92, Xval: 90.8449
+    //gr30_corr2D_passall: a = 0.03:: Lower that rate 100 kHz: 92, and higher : 98, Xval: 95.3578
+    //gr45_corr2D_passall: a = 0.045:: Lower that rate 100 kHz: 110, and higher : 116, Xval: 115.74
+    //===============================================
+    //pt_clusThresh = 91.;
+    //pt_clusThresh = 95.;
+    //pt_clusThresh_etaeff = 150.;    
+    // pt_clusThresh = 116.; 
+    // pt_clusThresh_etaeff = 170.;
+    //===============================================
+    
+    //===============================================
+    // @50 kHz
+    //===============================================
+    // gr16_corr2D_passall: a = 0.016:: Lower that rate 50 kHz: 98, and higher : 104, Xval: 100.644
+    // gr30_corr2D_passall: a = 0.03:: Lower that rate 50 kHz: 104, and higher : 110, Xval: 107.071
+    // gr45_corr2D_passall: a = 0.045:: Lower that rate 50 kHz: 122, and higher : 128, Xval: 126.683
+    //===============================================
+    //pt_clusThresh = 101.;
+    //pt_clusThresh = 107.;
+    //pt_clusThresh = 127.;
+    //pt_clusThresh_etaeff = 180.;
+    //===============================================
+    
+    // pt_clusThresh = 30.;
+    // pt_clusThresh_etaeff = 50.;
+    
   }else if(sampleType.find("singlePion")!=std::string::npos){
     pt_clusThresh = 100.; 
     pt_clusThresh_etaeff = 200.; 
@@ -385,22 +430,22 @@ int main(int argc, char** argv)
   
   TF1* fcl3d = new TF1("fcl3d","[0]+[1]/(x+[2])",7,500);
   fcl3d->SetParameters(1.17576, 19.7599, 0.908577); //PU0 VBF
-
-  // //VBF correction 16
-  // float par0[nJetEtaBins] = {1.07956, 1.2916, 1.18022, 1.14248, 1.12945, 0.976157};
-  // float par1[nJetEtaBins] = {68.9515, 51.967, 52.3593, 47.0961, 39.7107, 32.1626};
-  // float par2[nJetEtaBins] = {18.5932, 5.89004, 8.34816, 10.0994, 9.27638, 16.5888};
-
+  
+  //VBF correction 16
+  float par0[nJetEtaBins] = {1.07956, 1.2916, 1.18022, 1.14248, 1.12945, 0.976157};
+  float par1[nJetEtaBins] = {68.9515, 51.967, 52.3593, 47.0961, 39.7107, 32.1626};
+  float par2[nJetEtaBins] = {18.5932, 5.89004, 8.34816, 10.0994, 9.27638, 16.5888};
+  
   // //VBF correction 30
   // float par0[6] = {1.03452, 1.17763, 1.04363, 1.11672, 1.11673, 1.00139};
   // float par1[6] = {41.6436, 34.3258, 47.9796, 26.7711, 20.9924, 27.4734};
   // float par2[6] = {16.7377, 1.34016, 16.0725, 4.91101, 3.39069, 24.9721};
 
-  //VBF correction 45
-  float par0[6] = {0.9205, 1.09595, 1.01855, 1.09636, 1.06454, 0.91201};
-  float par1[6] = {53.1531, 28.7612, 35.9239, 18.509, 18.412, 24.4667};
-  float par2[6] = {30.0757, 4.80461, 13.5817, 1.28464, 6.60814, 20.6122};
-
+  // //VBF correction 45
+  // float par0[6] = {0.9205, 1.09595, 1.01855, 1.09636, 1.06454, 0.91201};
+  // float par1[6] = {53.1531, 28.7612, 35.9239, 18.509, 18.412, 24.4667};
+  // float par2[6] = {30.0757, 4.80461, 13.5817, 1.28464, 6.60814, 20.6122};
+  
   // //Poin correction (pt150) [size =16]
   // float par0[nJetEtaBins] = {1.07567, 1.17335, 1.18182, 1.19163, 1.17032, 1.1243};
   // float par1[nJetEtaBins] = {26.7441, 16.8533, 14.6125, 13.4602, 12.0038, 17.2314};
@@ -486,6 +531,54 @@ int main(int argc, char** argv)
   //s2Clustering.setConfiguration(&sb);
   s2Clustering.setkpower(0);
   std::cout << " Stage2::_rOverZ : " << s2Clustering.getROverZ() << std::endl;
+  
+  std::string outtreefname = "TPGS2Emu_tree_" + outputfile_extn + "_" + index;
+  TDirectory *savedir = gDirectory;
+  //std::vector<TPGCluster> tpgClus;
+  std::vector<float> outgj_pt,outgj_eta,outgj_phi;
+  std::vector<float> clus_pt,clus_eta,clus_phi,clus_zcm;
+  std::vector<float> clus_pt_corr1D, clus_pt_corr2D;
+  std::vector<unsigned int> clus_pass, clus_sect;
+  std::vector<float> clus_local_eta,clus_local_phi;
+  std::vector<float> tci_pt,tci_layer,tci_x,tci_y,tci_z,tci_sect;
+  std::vector<float> tcf_pt,tcf_layer,tcf_xbyz,tcf_ybyz,tcf_zcm,tcf_sect;
+  std::vector<float> tctot_ptsum, tctot_xbyz, tctot_ybyz, tctot_eta;
+
+  TFile *foutTree = new TFile(Form("%s.root",outtreefname.c_str()),"recreate");
+  TTree *outputTree = new TTree("TPGS2Emu","TPGS2Emu");
+  outputTree->SetAutoSave();
+  //outputTree->Branch("tpgClus", &tpgClus);
+  outputTree->Branch("genjet_pt", &outgj_pt);
+  outputTree->Branch("genjet_eta", &outgj_eta);
+  outputTree->Branch("genjet_phi", &outgj_phi);
+  outputTree->Branch("clus_pass", &clus_pass);
+  outputTree->Branch("clus_pt", &clus_pt);
+  outputTree->Branch("clus_pt_corr1D", &clus_pt_corr1D);
+  outputTree->Branch("clus_pt_corr2D", &clus_pt_corr2D);
+  outputTree->Branch("clus_eta", &clus_eta);
+  outputTree->Branch("clus_phi", &clus_phi);
+  outputTree->Branch("clus_zcm", &clus_zcm);
+  outputTree->Branch("clus_sect", &clus_sect);
+  outputTree->Branch("clus_local_eta", &clus_local_eta);
+  outputTree->Branch("clus_local_phi", &clus_local_phi);
+  outputTree->Branch("tci_pt", &tci_pt);
+  outputTree->Branch("tci_layer", &tci_layer);
+  outputTree->Branch("tci_x", &tci_x);
+  outputTree->Branch("tci_y", &tci_y);
+  outputTree->Branch("tci_z", &tci_z);
+  outputTree->Branch("tci_sect", &tci_sect);
+  outputTree->Branch("tcf_pt", &tcf_pt);
+  outputTree->Branch("tcf_layer", &tcf_layer);
+  outputTree->Branch("tcf_xbyz", &tcf_xbyz);
+  outputTree->Branch("tcf_ybyz", &tcf_ybyz);
+  outputTree->Branch("tcf_zcm", &tcf_zcm);
+  outputTree->Branch("tcf_sect", &tcf_sect);
+  outputTree->Branch("tctot_ptsum", &tctot_ptsum);
+  outputTree->Branch("tctot_xbyz", &tctot_xbyz);
+  outputTree->Branch("tctot_ybyz", &tctot_ybyz);
+  outputTree->Branch("tctot_eta", &tctot_eta);
+
+  savedir->cd();
   
   //TPGTriggerCellFloats tcf0,tcf1;
   TPGTCFloats tcf0,tcf1;
@@ -673,60 +766,60 @@ int main(int argc, char** argv)
     /////////////////////////////////=========== Genjet =============//////////////////////////////////////////
     hNJets->Fill(float(jetlist.size()));
     hSelEvents->Fill(1);
-    // ////////////////////////Conditions for two jets ////////////////////////////////////
-    // bool isOneperSide = true ;
-    // if(jetlist.size()==2){
-    //   isOneperSide = ((genjet_eta->at(jetlist.at(0).index) * genjet_eta->at(jetlist.at(1).index))<0.)?true:false;
-    //   // double *allJets = new double[jetlist.size()];
-    //   // int *sortedIdx = new int[jetlist.size()];
-    //   // for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
-    //   // 	int ijet = jetlist.at(ipjet).index ;
-    //   // 	allJets[ipjet] = genjet_pt->at(ijet);
-    //   // }
-    //   // TMath::Sort(int(jetlist.size()), allJets, sortedIdx);
-    //   // int HptIdx = jetlist.at(sortedIdx[0]).index ;
-    //   // int MptIdx = jetlist.at(sortedIdx[1]).index ;
-    //   // double eta12 = genjet_eta->at(HptIdx) * genjet_eta->at(MptIdx) ;
-    //   // std::vector<JetPart> tJetlist;
-    //   // for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
-    //   // 	if(eta12<0.){
-    //   // 	  if(ipjet==sortedIdx[0] or ipjet==sortedIdx[1]){
-    //   // 	    JetPart jet;
-    //   // 	    jet.name = jetlist.at(ipjet).name ;
-    //   // 	    jet.index = jetlist.at(ipjet).index ;
-    //   // 	    tJetlist.push_back(jet);
-    //   // 	  }
-    //   // 	}else{
-    //   // 	  if(ipjet==sortedIdx[0]){
-    //   // 	    JetPart jet;
-    //   // 	    jet.name = jetlist.at(ipjet).name ;
-    //   // 	    jet.index = jetlist.at(ipjet).index ;
-    //   // 	    tJetlist.push_back(jet);
-    //   // 	  }	  
-    //   // 	}
-    //   // }
-    //   // jetlist.clear();
-    //   // for(int ipjet=0; ipjet < tJetlist.size() ; ipjet++ ){
-    //   // 	int ijet = tJetlist.at(ipjet).index ;
-    //   // 	JetPart jet;
-    //   // 	jet.name = tJetlist.at(ipjet).name ;
-    //   // 	jet.index = tJetlist.at(ipjet).index ;
-    //   // 	jetlist.push_back(jet);
-    //   // 	if(doPrint)
-    //   // 	  std::cout << "filtered-ijet-ievent: " << std::setprecision(default_precision) << std::setw(4) <<ievent << ", ijet: " << std::setw(4) << ijet
-    //   // 		    <<", Name: " << std::setw(10) << jet.name
-    //   // 		    <<" jet:(pt,eta,phi,energy) : (" << std::fixed << std::setprecision(2) << std::setw(8) << genjet_pt->at(ijet)
-    //   // 		    << ", " << std::setw(8) << genjet_eta->at(ijet) << ", " //<< std::setw(5) << genjet_exeta->at(ijet)
-    //   // 		    << ", " << std::setw(8) << (TMath::RadToDeg()*genjet_phi->at(ijet)) //<< ", " << std::setw(5) << (TMath::RadToDeg()*genjet_exphi->at(ijet))
-    //   // 		    << ", " << std::setw(8) << genjet_energy->at(ijet) << ") "
-    //   // 		    << std::defaultfloat
-    //   // 		    << std::endl;
-    //   // }      
-    //   // tJetlist.clear();      
-    //   // delete allJets;
-    //   // delete sortedIdx;
-    // }
-    // ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////Conditions for two jets ////////////////////////////////////
+    bool isOneperSide = true ;
+    if(jetlist.size()==2){
+      isOneperSide = ((genjet_eta->at(jetlist.at(0).index) * genjet_eta->at(jetlist.at(1).index))<0.)?true:false;
+      // double *allJets = new double[jetlist.size()];
+      // int *sortedIdx = new int[jetlist.size()];
+      // for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
+      // 	int ijet = jetlist.at(ipjet).index ;
+      // 	allJets[ipjet] = genjet_pt->at(ijet);
+      // }
+      // TMath::Sort(int(jetlist.size()), allJets, sortedIdx);
+      // int HptIdx = jetlist.at(sortedIdx[0]).index ;
+      // int MptIdx = jetlist.at(sortedIdx[1]).index ;
+      // double eta12 = genjet_eta->at(HptIdx) * genjet_eta->at(MptIdx) ;
+      // std::vector<JetPart> tJetlist;
+      // for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
+      // 	if(eta12<0.){
+      // 	  if(ipjet==sortedIdx[0] or ipjet==sortedIdx[1]){
+      // 	    JetPart jet;
+      // 	    jet.name = jetlist.at(ipjet).name ;
+      // 	    jet.index = jetlist.at(ipjet).index ;
+      // 	    tJetlist.push_back(jet);
+      // 	  }
+      // 	}else{
+      // 	  if(ipjet==sortedIdx[0]){
+      // 	    JetPart jet;
+      // 	    jet.name = jetlist.at(ipjet).name ;
+      // 	    jet.index = jetlist.at(ipjet).index ;
+      // 	    tJetlist.push_back(jet);
+      // 	  }	  
+      // 	}
+      // }
+      // jetlist.clear();
+      // for(int ipjet=0; ipjet < tJetlist.size() ; ipjet++ ){
+      // 	int ijet = tJetlist.at(ipjet).index ;
+      // 	JetPart jet;
+      // 	jet.name = tJetlist.at(ipjet).name ;
+      // 	jet.index = tJetlist.at(ipjet).index ;
+      // 	jetlist.push_back(jet);
+      // 	if(doPrint)
+      // 	  std::cout << "filtered-ijet-ievent: " << std::setprecision(default_precision) << std::setw(4) <<ievent << ", ijet: " << std::setw(4) << ijet
+      // 		    <<", Name: " << std::setw(10) << jet.name
+      // 		    <<" jet:(pt,eta,phi,energy) : (" << std::fixed << std::setprecision(2) << std::setw(8) << genjet_pt->at(ijet)
+      // 		    << ", " << std::setw(8) << genjet_eta->at(ijet) << ", " //<< std::setw(5) << genjet_exeta->at(ijet)
+      // 		    << ", " << std::setw(8) << (TMath::RadToDeg()*genjet_phi->at(ijet)) //<< ", " << std::setw(5) << (TMath::RadToDeg()*genjet_exphi->at(ijet))
+      // 		    << ", " << std::setw(8) << genjet_energy->at(ijet) << ") "
+      // 		    << std::defaultfloat
+      // 		    << std::endl;
+      // }      
+      // tJetlist.clear();      
+      // delete allJets;
+      // delete sortedIdx;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
     
     // ///////////////////////// Conditions for three jets ////////////////////////////////////
     // if(jetlist.size()>2){
@@ -833,60 +926,60 @@ int main(int argc, char** argv)
       std::cout << "Issue: Event: " << ievent << ", njetsp: " << njetsp << ", njetsm: " << njetsm << std::endl;
     }
     
-    // /////////////////////////// Conditions for 0 jets and others ////////////////////////////////////
+    /////////////////////////// Conditions for 0 jets and others ////////////////////////////////////
 
-    // if(njets==0 or (jetlist.size()==2 and !isOneperSide) or njets>2){
-    //   //if(jetlist.size()==0 or !isOneperSide or nofHGCalJetsPos>1 or nofHGCalJetsNeg>1){
-    //   //if(jetlist.size()==0 or jetlist.size()>2 or !isOneperSide){
-    //   //if(jetlist.size()==0){
-    //   taudlist.clear();
-    //   taugdlist.clear();
-    //   genlist.clear();
-    //   partlist.clear();
-    //   //jetlist.clear();
+    if(njets==0 or (jetlist.size()==2 and !isOneperSide) or njets>2){
+      //if(jetlist.size()==0 or !isOneperSide or nofHGCalJetsPos>1 or nofHGCalJetsNeg>1){
+      //if(jetlist.size()==0 or jetlist.size()>2 or !isOneperSide){
+      //if(jetlist.size()==0){
+      taudlist.clear();
+      taugdlist.clear();
+      genlist.clear();
+      partlist.clear();
+      //jetlist.clear();
       
-    //   gen_pt->clear();
-    //   gen_eta->clear();
-    //   gen_phi->clear();
-    //   gen_pdgid->clear();
-    //   gen_energy->clear();
-    //   gen_charge->clear();
-    //   gen_status->clear();
-    //   for(uint32_t i=0;i<gen_daughters->size();i++) (gen_daughters->at(i)).clear();
-    //   gen_daughters->clear();
-    //   genpart_pt->clear();
-    //   genpart_eta->clear();
-    //   genpart_phi->clear();
-    //   genpart_pid->clear();
-    //   genpart_mother->clear();
-    //   genpart_energy->clear();
-    //   genpart_gen->clear();
-    //   genpart_fromBeamPipe->clear();
-    //   genpart_exeta->clear();
-    //   genpart_exphi->clear();
-    //   genjet_pt->clear();
-    //   genjet_eta->clear();
-    //   genjet_phi->clear();
-    //   genjet_energy->clear();
-    //   tc_pt->clear();
-    //   //tc_mipPt->clear();
-    //   tc_eta->clear();
-    //   tc_phi->clear();
-    //   tc_layer->clear();
-    //   tc_x->clear();
-    //   tc_y->clear();
-    //   tc_z->clear();
-    //   tc_energy->clear();
-    //   tc_data->clear();
-    //   tc_subdet->clear();
-    //   tc_wafertype->clear();
-    //   tc_uncompressedCharge->clear();
-    //   cl3d_pt->clear();
-    //   cl3d_phi->clear();
-    //   cl3d_eta->clear();
-    //   continue;
-    // }
-    // ////////////////////////////////////////////////////////////////////////////////////////
+      gen_pt->clear();
+      gen_eta->clear();
+      gen_phi->clear();
+      gen_pdgid->clear();
+      gen_energy->clear();
+      gen_charge->clear();
+      gen_status->clear();
+      for(uint32_t i=0;i<gen_daughters->size();i++) (gen_daughters->at(i)).clear();
+      gen_daughters->clear();
+      genpart_pt->clear();
+      genpart_eta->clear();
+      genpart_phi->clear();
+      genpart_pid->clear();
+      genpart_mother->clear();
+      genpart_energy->clear();
+      genpart_gen->clear();
+      genpart_fromBeamPipe->clear();
+      genpart_exeta->clear();
+      genpart_exphi->clear();
+      genjet_pt->clear();
+      genjet_eta->clear();
+      genjet_phi->clear();
+      genjet_energy->clear();
+      tc_pt->clear();
+      //tc_mipPt->clear();
+      tc_eta->clear();
+      tc_phi->clear();
+      tc_layer->clear();
+      tc_x->clear();
+      tc_y->clear();
+      tc_z->clear();
+      tc_energy->clear();
+      tc_data->clear();
+      tc_subdet->clear();
+      tc_wafertype->clear();
+      tc_uncompressedCharge->clear();
+      cl3d_pt->clear();
+      cl3d_phi->clear();
+      cl3d_eta->clear();
+      continue;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
     
     hNJetsF1->Fill(float(njets));
     hSelEvents->Fill(2);
@@ -901,6 +994,12 @@ int main(int argc, char** argv)
     int detType = -1;
     int subdet = -1, wafertype = -1;
     
+    tci_pt.clear();
+    tci_layer.clear();
+    tci_x.clear();
+    tci_y.clear();
+    tci_z.clear();
+    tci_sect.clear();
     std::vector<TPGTCBits> vTcw[6];
     for(unsigned itc=0;itc<tc_pt->size();itc++){
       double z(fabs(tc_z->at(itc)));
@@ -973,8 +1072,7 @@ int main(int argc, char** argv)
       //double ptcorr = f2->Eval(tcpt);
       double ptcorr = (tc_layer->at(itc)<=26)?1.07:1.14;//1.07:1.13f2->Eval(tcpt);
       tcpt = ptcorr*tc_pt->at(itc);
-      tcptMeV = tcpt*1.e3;
-      
+      tcptMeV = tcpt*1.e3;      
       
       if(doPrint){
 	std::cout << "itc-ievent: " << std::fixed << std::setprecision(2) << std::setw(4) << ievent
@@ -1001,8 +1099,15 @@ int main(int argc, char** argv)
 	  tcf0.setEnergyGeV(scale * tc_pt->at(itc));
 	  tcf0.setLayer(tc_layer->at(itc));
 	  //if(doPrint) tcf0.print();
-	  //if((tc_eta->at(itc)<0. and genjetpt_negEta>-1.) or (tc_eta->at(itc)>0. and genjetpt_posEta>-1.))
-	  vTcw[isect+addisect].push_back(tcf0);
+	  if((tc_eta->at(itc)<0. and genjetpt_negEta>-1.) or (tc_eta->at(itc)>0. and genjetpt_posEta>-1.)){
+	    vTcw[isect+addisect].push_back(tcf0);
+	    tci_pt.push_back(scale * tc_pt->at(itc));
+	    tci_layer.push_back(tc_layer->at(itc));
+	    tci_x.push_back(tc_x->at(itc));
+	    tci_y.push_back(tc_y->at(itc));
+	    tci_z.push_back(z);
+	    tci_sect.push_back(isect+addisect);
+	  }
 	}
       }//sector loop
       
@@ -1044,7 +1149,7 @@ int main(int argc, char** argv)
       if(doPrint) std::cout << isect << ", Size of Tcs: " << vTcw[isect].size() << ", Size of Clusters: " << vCld[isect].size() << std::endl;
     }
     ///////////////////=========== Emulation ============= ///////////////////////
-
+    
     hSelEvents->Fill(4);
     ///////////////////=========== Fill Cluster only details ============= ///////////////////////
     int nofClus1GeV = 0;
@@ -1052,6 +1157,24 @@ int main(int argc, char** argv)
     int nofClus5GeV = 0;
     int nofClus10GeV = 0;
     
+    clus_pass.clear();
+    clus_pt.clear();
+    clus_pt_corr1D.clear();
+    clus_pt_corr2D.clear();
+    clus_eta.clear();
+    clus_phi.clear();
+    clus_zcm.clear();
+    clus_sect.clear();
+    clus_local_eta.clear();
+    clus_local_phi.clear();
+
+    tcf_pt.clear();
+    tcf_layer.clear();
+    tcf_xbyz.clear();
+    tcf_ybyz.clear();
+    tcf_zcm.clear();
+    tcf_sect.clear();
+
     std::vector<int> pt_uncorr, pt1d, pt2d;
     for (uint32_t isect = 0 ; isect < 6 ; isect++ ){
       //for(TPGCluster const& clf : vCld[isect]){
@@ -1060,6 +1183,14 @@ int main(int argc, char** argv)
 	nofClus3GeV = 0;
 	nofClus5GeV = 0;
 	nofClus10GeV = 0;
+      }
+      for(TPGTCFloats const& tcf : vTcw[isect]){
+	tcf_pt.push_back(tcf.getEnergyGeV());
+	tcf_layer.push_back(float(tcf.getLayer().to_uint()));
+	tcf_xbyz.push_back(tcf.getXOverZF());
+	tcf_ybyz.push_back(tcf.getYOverZF());
+	tcf_zcm.push_back(tcf.getZCm());
+	tcf_sect.push_back(isect);
       }
       int iclus = 0;
       for(TPGCluster const& clf : vCld[isect]){
@@ -1114,6 +1245,17 @@ int main(int argc, char** argv)
 		    << std::endl;
 	}
 	
+	clus_pass.push_back(clf.getMaxFinderPass());
+	clus_pt.push_back(clf.getEnergyGeV());
+	clus_pt_corr1D.push_back(ClusE1D);
+	clus_pt_corr2D.push_back(ClusE);
+	clus_eta.push_back(clf.getGlobalEtaRad(isect));
+	clus_phi.push_back(clf.getGlobalPhiRad(isect));
+	clus_zcm.push_back(clf.getGlobalZCm(isect));
+	clus_sect.push_back(isect);
+	clus_local_eta.push_back(clf.getEtaRad());
+	clus_local_phi.push_back(clf.getLocalPhiRad());
+	
 	if(clf.getEnergyGeV()>1.0) nofClus1GeV++;
 	if(clf.getEnergyGeV()>3.0) nofClus3GeV++;	
 	if(clf.getEnergyGeV()>5.0) nofClus5GeV++;
@@ -1127,6 +1269,7 @@ int main(int argc, char** argv)
       // 	hNClus10GeV->Fill(nofClus10GeV);
       // }
     }//sector loop
+
     float maxpt = 0;
     for(uint32_t ipt=0;ipt<pt_uncorr.size();ipt++)  {
       hBkgRateSingle_Uncorr->Fill(pt_uncorr.at(ipt));
@@ -1159,141 +1302,155 @@ int main(int argc, char** argv)
     pt_uncorr.clear();
     pt1d.clear();
     pt2d.clear();
-    ///////////////////=========== Fill Cluster only details ============= ///////////////////////
-    
+    ///////////////////=========== Fill Cluster only details ============= ///////////////////////    
+    outgj_pt.clear();
+    outgj_eta.clear();
+    outgj_phi.clear();
+    tctot_ptsum.clear();
+    tctot_xbyz.clear();
+    tctot_ybyz.clear();
+    tctot_eta.clear();
     hSelEvents->Fill(5);
     bool hasAnyClus = false;
     bool hasMatchClus = false;
-    // ///////////////////=========== comapre genjet and Cluster ============= ///////////////////////
-    // for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
-    //   int ijet = jetlist.at(ipjet).index ;
-    //   //hEt->Fill(genjet_pt->at(ijet));
-    //   int minsect = (genjet_eta->at(ijet) < 0) ? 0 : 3;
-    //   int maxsect = (genjet_eta->at(ijet) < 0) ? 3 : 6;
-    //   double tcPtSum = (genjet_eta->at(ijet) < 0) ? totTCpt_negEta : totTCpt_posEta ;
-    //   double avgXoZ = (genjet_eta->at(ijet) < 0) ? tcXoZnegEta/tcPtSum : tcXoZposEta/tcPtSum ;
-    //   double avgYoZ = (genjet_eta->at(ijet) < 0) ? tcYoZnegEta/tcPtSum : tcYoZposEta/tcPtSum ;
-    //   double avgPhi = (genjet_eta->at(ijet) < 0) ? tcPhi_negEta/tcPtSum : tcPhi_posEta/tcPtSum ;
-    //   double avgEta = (genjet_eta->at(ijet) < 0) ? tcEta_negEta/tcPtSum : tcEta_posEta/tcPtSum ;
-    //   double gjroz = 1/sinh(genjet_eta->at(ijet)) ; //tan(2*atan(exp(-1.0*genjet_eta->at(ijet))));
-    //   double gjxoz = gjroz*cos(genjet_phi->at(ijet));
-    //   double gjyoz = gjroz*sin(genjet_phi->at(ijet));
-    //   double avgRoZ = sqrt((avgXoZ-gjxoz)*(avgXoZ-gjxoz) + (avgYoZ-gjyoz)*(avgYoZ-gjyoz));
-    //   bool hasFound = false, hasFoundPt = false;
-    //   int binPt, binEta;
-    //   int binPtClus, binEtaClus;
-    //   double cluspt = genjet_pt->at(ijet);
-    //   int nofClus = 0;
-    //   //hTrigGen->Fill(genjet_pt->at(ijet));
-    //   double minRoz = 1., closestClusE= 0., closestClusE1D = 0., closestClusE_UnCorr= 0., closestClusEDiff= 100., totClusE = 0., totClusE_UnCorr = 0.;
-    //   double clstdeltaR = 0., clstEta = 0., clstPhi = 0.;
-    //   double clstXoZ = 0., clstYoZ = 0., clstRoZ = 0., clstZcm = 0.;
-    //   int clstisect = -1;
-    //   for (uint32_t isect = minsect ; isect < maxsect ; isect++ ){
-    // 	for(TPGCluster const& clf : vCld[isect]){	  
-    // 	  if(clf.getEnergyGeV()<3.0) continue;
-    // 	  hasAnyClus = true;
-    // 	  //hClusE->Fill(clf.getEnergyGeV());
-    // 	  double deltaR = TMath::Sqrt((clf.getGlobalEtaRad(isect)-genjet_eta->at(ijet))*(clf.getGlobalEtaRad(isect)-genjet_eta->at(ijet))
-    // 				      +
-    // 				      (clf.getGlobalPhiRad(isect)-genjet_phi->at(ijet))*(clf.getGlobalPhiRad(isect)-genjet_phi->at(ijet)));
-
-    // 	  double dClusGenRoz = sqrt( (clf.getGlobalXOverZF(isect) - gjxoz)*(clf.getGlobalXOverZF(isect) - gjxoz) + (clf.getGlobalYOverZF(isect) - gjyoz)*(clf.getGlobalYOverZF(isect) - gjyoz) );
-    // 	  GetHistoBin(hJetEtaPtBin,clf.getGlobalEtaRad(isect), clf.getEnergyGeV(), binEtaClus, binPtClus);
-    // 	  double ptcorr1D = fClusCorr->Eval(clf.getEnergyGeV()) ;
-    // 	  double ptcorr2D = fClusEtaCorr[binEtaClus-1]->Eval(clf.getEnergyGeV()) ;
-    // 	  ptcorr1D = (ptcorr1D>8)?8.:ptcorr1D; //to avoid very low energy over-correction
-    // 	  ptcorr2D = (ptcorr2D>8)?8.:ptcorr2D; //to avoid very low energy over-correction
-    // 	  if(dClusGenRoz<minRoz){
-    // 	    minRoz = dClusGenRoz;
-    // 	    closestClusE_UnCorr = clf.getEnergyGeV();	    
-    // 	    closestClusE1D = clf.getEnergyGeV() * ptcorr1D;
-    // 	    closestClusE = clf.getEnergyGeV() * ptcorr2D;
-    // 	    closestClusEDiff = closestClusE - genjet_pt->at(ijet);
-    // 	    clstdeltaR = deltaR;
-    // 	    clstisect = isect;
-    // 	    clstEta = clf.getGlobalEtaRad(isect);
-    // 	    clstPhi = clf.getGlobalPhiRad(isect);
-    // 	    clstXoZ = clf.getGlobalXOverZF(isect);
-    // 	    clstYoZ = clf.getGlobalYOverZF(isect);
-    // 	    clstRoZ = clf.getGlobalRhoOverZF(isect);
-    // 	    clstZcm = clf.getGlobalZCm(isect);
-    // 	  }//minRoZ condition
-    // 	  totClusE_UnCorr += clf.getEnergyGeV() ;
-    // 	  totClusE += ( clf.getEnergyGeV()*ptcorr2D ) ;
-    // 	  nofClus++;
-    // 	}//cluster loop
-    //   }//sector loop      
+    ///////////////////=========== comapre genjet and Cluster ============= ///////////////////////
+    for(int ipjet=0; ipjet < jetlist.size() ; ipjet++ ){
+      int ijet = jetlist.at(ipjet).index ;
+      //hEt->Fill(genjet_pt->at(ijet));
+      outgj_pt.push_back(genjet_pt->at(ijet));
+      outgj_eta.push_back(genjet_eta->at(ijet));
+      outgj_phi.push_back(genjet_phi->at(ijet));
+      int minsect = (genjet_eta->at(ijet) < 0) ? 0 : 3;
+      int maxsect = (genjet_eta->at(ijet) < 0) ? 3 : 6;
+      double tcPtSum = (genjet_eta->at(ijet) < 0) ? totTCpt_negEta : totTCpt_posEta ;
+      double avgXoZ = (genjet_eta->at(ijet) < 0) ? tcXoZnegEta/tcPtSum : tcXoZposEta/tcPtSum ;
+      double avgYoZ = (genjet_eta->at(ijet) < 0) ? tcYoZnegEta/tcPtSum : tcYoZposEta/tcPtSum ;
+      double avgPhi = (genjet_eta->at(ijet) < 0) ? tcPhi_negEta/tcPtSum : tcPhi_posEta/tcPtSum ;
+      double avgEta = (genjet_eta->at(ijet) < 0) ? tcEta_negEta/tcPtSum : tcEta_posEta/tcPtSum ;
+      tctot_ptsum.push_back(tcPtSum);
+      tctot_xbyz.push_back(avgXoZ);
+      tctot_ybyz.push_back(avgYoZ);
+      tctot_eta.push_back(avgEta);
+      double gjroz = 1/sinh(genjet_eta->at(ijet)) ; //tan(2*atan(exp(-1.0*genjet_eta->at(ijet))));
+      double gjxoz = gjroz*cos(genjet_phi->at(ijet));
+      double gjyoz = gjroz*sin(genjet_phi->at(ijet));
+      double avgRoZ = sqrt((avgXoZ-gjxoz)*(avgXoZ-gjxoz) + (avgYoZ-gjyoz)*(avgYoZ-gjyoz));
+      bool hasFound = false, hasFoundPt = false;
+      int binPt, binEta;
+      int binPtClus, binEtaClus;
+      double cluspt = genjet_pt->at(ijet);
+      int nofClus = 0;
+      //hTrigGen->Fill(genjet_pt->at(ijet));
+      double minRoz = 1., closestClusE= 0., closestClusE1D = 0., closestClusE_UnCorr= 0., closestClusEDiff= 100., totClusE = 0., totClusE_UnCorr = 0.;
+      double clstdeltaR = 0., clstEta = 0., clstPhi = 0.;
+      double clstXoZ = 0., clstYoZ = 0., clstRoZ = 0., clstZcm = 0.;
+      int clstisect = -1;
+      for (uint32_t isect = minsect ; isect < maxsect ; isect++ ){
+	for(TPGCluster const& clf : vCld[isect]){	  
+	  if(clf.getEnergyGeV()<3.0) continue;
+	  hasAnyClus = true;
+	  //hClusE->Fill(clf.getEnergyGeV());
+	  double deltaR = TMath::Sqrt((clf.getGlobalEtaRad(isect)-genjet_eta->at(ijet))*(clf.getGlobalEtaRad(isect)-genjet_eta->at(ijet))
+				      +
+				      (clf.getGlobalPhiRad(isect)-genjet_phi->at(ijet))*(clf.getGlobalPhiRad(isect)-genjet_phi->at(ijet)));
+	  
+	  double dClusGenRoz = sqrt( (clf.getGlobalXOverZF(isect) - gjxoz)*(clf.getGlobalXOverZF(isect) - gjxoz) + (clf.getGlobalYOverZF(isect) - gjyoz)*(clf.getGlobalYOverZF(isect) - gjyoz) );
+	  GetHistoBin(hJetEtaPtBin,clf.getGlobalEtaRad(isect), clf.getEnergyGeV(), binEtaClus, binPtClus);
+	  double ptcorr1D = fClusCorr->Eval(clf.getEnergyGeV()) ;
+	  double ptcorr2D = fClusEtaCorr[binEtaClus-1]->Eval(clf.getEnergyGeV()) ;
+	  ptcorr1D = (ptcorr1D>8)?8.:ptcorr1D; //to avoid very low energy over-correction
+	  ptcorr2D = (ptcorr2D>8)?8.:ptcorr2D; //to avoid very low energy over-correction
+	  if(dClusGenRoz<minRoz){
+	    minRoz = dClusGenRoz;
+	    closestClusE_UnCorr = clf.getEnergyGeV();	    
+	    closestClusE1D = clf.getEnergyGeV() * ptcorr1D;
+	    closestClusE = clf.getEnergyGeV() * ptcorr2D;
+	    closestClusEDiff = closestClusE - genjet_pt->at(ijet);
+	    clstdeltaR = deltaR;
+	    clstisect = isect;
+	    clstEta = clf.getGlobalEtaRad(isect);
+	    clstPhi = clf.getGlobalPhiRad(isect);
+	    clstXoZ = clf.getGlobalXOverZF(isect);
+	    clstYoZ = clf.getGlobalYOverZF(isect);
+	    clstRoZ = clf.getGlobalRhoOverZF(isect);
+	    clstZcm = clf.getGlobalZCm(isect);
+	  }//minRoZ condition
+	  totClusE_UnCorr += clf.getEnergyGeV() ;
+	  totClusE += ( clf.getEnergyGeV()*ptcorr2D ) ;
+	  nofClus++;
+	}//cluster loop
+      }//sector loop      
 
       
-    //   double minRoz_cl3d = 1., closestClusE_cl3d= 0., closestClusE_cl3d_UnCorr = 0., closestClusEta_cl3d= 0.;
-    //   for(int icl3=0;icl3<cl3d_n;icl3++){	  
-    // 	if(cl3d_pt->at(icl3)<3.0) continue;
-    // 	double clusXoZ = cos(cl3d_phi->at(icl3))/sinh(cl3d_eta->at(icl3)) ; 
-    // 	double clusYoZ = sin(cl3d_phi->at(icl3))/sinh(cl3d_eta->at(icl3)); 
-    // 	double dClusGenRoz = sqrt( (clusXoZ - gjxoz)*(clusXoZ - gjxoz) + (clusYoZ - gjyoz)*(clusYoZ - gjyoz) );
-    // 	if(dClusGenRoz<minRoz_cl3d){
-    // 	  minRoz_cl3d = dClusGenRoz;
-    // 	  closestClusE_cl3d_UnCorr = cl3d_pt->at(icl3) ;
-    // 	  closestClusE_cl3d = cl3d_pt->at(icl3) * fcl3d->Eval(cl3d_pt->at(icl3)) ;
-    // 	  closestClusEta_cl3d = cl3d_eta->at(icl3);
-    // 	}//minRoZ condition
-    //   }//cluster loop
+      double minRoz_cl3d = 1., closestClusE_cl3d= 0., closestClusE_cl3d_UnCorr = 0., closestClusEta_cl3d= 0.;
+      for(int icl3=0;icl3<cl3d_n;icl3++){	  
+	if(cl3d_pt->at(icl3)<3.0) continue;
+	double clusXoZ = cos(cl3d_phi->at(icl3))/sinh(cl3d_eta->at(icl3)) ; 
+	double clusYoZ = sin(cl3d_phi->at(icl3))/sinh(cl3d_eta->at(icl3)); 
+	double dClusGenRoz = sqrt( (clusXoZ - gjxoz)*(clusXoZ - gjxoz) + (clusYoZ - gjyoz)*(clusYoZ - gjyoz) );
+	if(dClusGenRoz<minRoz_cl3d){
+	  minRoz_cl3d = dClusGenRoz;
+	  closestClusE_cl3d_UnCorr = cl3d_pt->at(icl3) ;
+	  closestClusE_cl3d = cl3d_pt->at(icl3) * fcl3d->Eval(cl3d_pt->at(icl3)) ;
+	  closestClusEta_cl3d = cl3d_eta->at(icl3);
+	}//minRoZ condition
+      }//cluster loop
       
-    //   bool hasClosestFound = (minRoz<1.)?true:false;
-    //   bool hasClosestFound_cl3d = (minRoz_cl3d<1.)?true:false;
-    //   bool hasClosestFoundPt = (hasClosestFound and closestClusE>pt_clusThresh)?true:false;
-    //   bool hasClosestFoundPt1D = (hasClosestFound and closestClusE1D>pt_clusThresh)?true:false;
-    //   bool hasClosestFoundPt_cl3d = (hasClosestFound_cl3d and closestClusE_cl3d>pt_clusThresh)?true:false;
-    //   bool hasClosestFoundPt_UnCorr = (hasClosestFound and closestClusE_UnCorr>pt_clusThresh)?true:false;
-    //   bool hasClosestFoundPt_cl3d_UnCorr = (hasClosestFound_cl3d and closestClusE_cl3d_UnCorr>pt_clusThresh)?true:false;
-    //   bool hasClosestFoundPtTot = (hasClosestFound and totClusE>(pt_clusThresh))?true:false;
-    //   bool hasClosestFoundEta = (hasClosestFound and closestClusE>pt_clusThresh_etaeff)?true:false;
-    //   bool hgcalInnerEta = (fabs(genjet_eta->at(ijet))>innerEtaMin and fabs(genjet_eta->at(ijet))<innerEtaMax) ? true : false;
-    //   bool hgcalOuterEta = (fabs(genjet_eta->at(ijet))>etaMin and fabs(genjet_eta->at(ijet))<etaMax) ? true : false;
-
-    //   hasMatchClus = (hgcalOuterEta and hasClosestFound);
-    //   rateSingles1D->Fill((hgcalOuterEta and hasClosestFound), closestClusE1D);
-    //   rateSingles2D->Fill((hgcalOuterEta and hasClosestFound), closestClusE);
-    //   rateSingles_Uncorr->Fill((hgcalOuterEta and hasClosestFound), closestClusE_UnCorr);
-
-    //   hTotClus->Fill(closestClusE_UnCorr);
-    //   if(hasClosestFound) hClusPtNoCut->Fill(closestClusE_UnCorr);
+      bool hasClosestFound = (minRoz<1.)?true:false;
+      bool hasClosestFound_cl3d = (minRoz_cl3d<1.)?true:false;
+      bool hasClosestFoundPt = (hasClosestFound and closestClusE>pt_clusThresh)?true:false;
+      bool hasClosestFoundPt1D = (hasClosestFound and closestClusE1D>pt_clusThresh)?true:false;
+      bool hasClosestFoundPt_cl3d = (hasClosestFound_cl3d and closestClusE_cl3d>pt_clusThresh)?true:false;
+      bool hasClosestFoundPt_UnCorr = (hasClosestFound and closestClusE_UnCorr>pt_clusThresh)?true:false;
+      bool hasClosestFoundPt_cl3d_UnCorr = (hasClosestFound_cl3d and closestClusE_cl3d_UnCorr>pt_clusThresh)?true:false;
+      bool hasClosestFoundPtTot = (hasClosestFound and totClusE>(pt_clusThresh))?true:false;
+      bool hasClosestFoundEta = (hasClosestFound and closestClusE>pt_clusThresh_etaeff)?true:false;
+      bool hgcalInnerEta = (fabs(genjet_eta->at(ijet))>innerEtaMin and fabs(genjet_eta->at(ijet))<innerEtaMax) ? true : false;
+      bool hgcalOuterEta = (fabs(genjet_eta->at(ijet))>etaMin and fabs(genjet_eta->at(ijet))<etaMax) ? true : false;
       
-    //   if(hgcalOuterEta and hasClosestFound) {
-
-    // 	hClusPt1D->Fill(closestClusE1D);
-    // 	hClusPt2D->Fill(closestClusE);
-    // 	hClusPt_Uncorr->Fill(closestClusE_UnCorr);
+      hasMatchClus = (hgcalOuterEta and hasClosestFound);
+      rateSingles1D->Fill((hgcalOuterEta and hasClosestFound), closestClusE1D);
+      rateSingles2D->Fill((hgcalOuterEta and hasClosestFound), closestClusE);
+      rateSingles_Uncorr->Fill((hgcalOuterEta and hasClosestFound), closestClusE_UnCorr);
+      
+      hTotClus->Fill(closestClusE_UnCorr);
+      if(hasClosestFound) hClusPtNoCut->Fill(closestClusE_UnCorr);
+      
+      if(hgcalOuterEta and hasClosestFound) {
 	
-    // 	if(hgcalInnerEta){
-    // 	  effTrigGen->Fill(hasClosestFoundPt,genjet_pt->at(ijet));
-    // 	  effTrigGenTDR->Fill(hasClosestFoundPt,genjet_pt->at(ijet));
-    // 	  effTrigGenTDR1D->Fill(hasClosestFoundPt1D,genjet_pt->at(ijet));
-    // 	  effTrigGenTDR_UnCorr->Fill(hasClosestFoundPt_UnCorr,genjet_pt->at(ijet));
+	hClusPt1D->Fill(closestClusE1D);
+	hClusPt2D->Fill(closestClusE);
+	hClusPt_Uncorr->Fill(closestClusE_UnCorr);
 	
-    // 	  h2GenVsClusPt->Fill(genjet_pt->at(ijet), closestClusE);
-    // 	  h2GenVsTCPt->Fill(genjet_pt->at(ijet), tcPtSum);
-    // 	  h2TCVsClusPt->Fill( tcPtSum, closestClusE);
-    // 	  if(hasClosestFound_cl3d){
-    // 	    h2NewVsOldPtcl3d->Fill( closestClusE_cl3d , closestClusE);
-    // 	  }
-    // 	}	
-    //   }
-    //   if(genjet_pt->at(ijet)>pt_clusThresh_etaeff and hasClosestFound)
-    // 	effTrigGenEta->Fill(hasClosestFoundPt,fabs(genjet_eta->at(ijet)));
+	if(hgcalInnerEta){
+	  effTrigGen->Fill(hasClosestFoundPt,genjet_pt->at(ijet));
+	  effTrigGenTDR->Fill(hasClosestFoundPt,genjet_pt->at(ijet));
+	  effTrigGenTDR1D->Fill(hasClosestFoundPt1D,genjet_pt->at(ijet));
+	  effTrigGenTDR_UnCorr->Fill(hasClosestFoundPt_UnCorr,genjet_pt->at(ijet));
+	
+	  h2GenVsClusPt->Fill(genjet_pt->at(ijet), closestClusE);
+	  h2GenVsTCPt->Fill(genjet_pt->at(ijet), tcPtSum);
+	  h2TCVsClusPt->Fill( tcPtSum, closestClusE);
+	  if(hasClosestFound_cl3d){
+	    h2NewVsOldPtcl3d->Fill( closestClusE_cl3d , closestClusE);
+	  }
+	}	
+      }
+      if(genjet_pt->at(ijet)>pt_clusThresh_etaeff and hasClosestFound)
+	effTrigGenEta->Fill(hasClosestFoundPt,fabs(genjet_eta->at(ijet)));
       
-    //   if(genjet_pt->at(ijet)>pt_clusThresh_etaeff and hgcalInnerEta)
-    // 	effTrigGenPhi->Fill(hasClosestFoundPt,TMath::RadToDeg()*genjet_phi->at(ijet));
+      if(genjet_pt->at(ijet)>pt_clusThresh_etaeff and hgcalInnerEta)
+	effTrigGenPhi->Fill(hasClosestFoundPt,TMath::RadToDeg()*genjet_phi->at(ijet));
 
-    //   if(hgcalInnerEta and hasClosestFound_cl3d) {
-    // 	h2GenVsClusPtcl3d->Fill(genjet_pt->at(ijet),closestClusE_cl3d);
-    // 	effTrigGenTDR_cl3d->Fill(hasClosestFoundPt_cl3d,genjet_pt->at(ijet));
-    // 	effTrigGenTDR_cl3d_UnCorr->Fill(hasClosestFoundPt_cl3d_UnCorr,genjet_pt->at(ijet));
-    //   }
-
-    // }//jet from decay of pions from tau
-    // ///////////////////=========== comapre genjet and Cluster ============= ///////////////////////
+      if(hgcalInnerEta and hasClosestFound_cl3d) {
+	h2GenVsClusPtcl3d->Fill(genjet_pt->at(ijet),closestClusE_cl3d);
+	effTrigGenTDR_cl3d->Fill(hasClosestFoundPt_cl3d,genjet_pt->at(ijet));
+	effTrigGenTDR_cl3d_UnCorr->Fill(hasClosestFoundPt_cl3d_UnCorr,genjet_pt->at(ijet));
+      }
+      
+    }//jet from decay of pions from tau
+    outputTree->Fill();
+    ///////////////////=========== comapre genjet and Cluster ============= ///////////////////////
     if(hasAnyClus) hSelEvents->Fill(6);
     if(hasMatchClus) hSelEvents->Fill(7);
     
@@ -1348,7 +1505,8 @@ int main(int argc, char** argv)
     cl3d_eta->clear();
 
   }//event loop
-  
+  foutTree->Write();
+    
   std::string outname = "stage2SemiEmulator_" + outputfile_extn + "_" + index;
   
   effTrigGen->SetStatisticOption(TEfficiency::kBJeffrey);

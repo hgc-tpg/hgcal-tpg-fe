@@ -464,6 +464,17 @@ namespace TPGBEDataformat{
       accumulate(t.getEnergy(), t.getROverZ(), t.getPhi(), t.getZ(), t.getLayer());
       //printdetail(false);
     }    
+
+    void accumulate(TPGTCFloats *t){
+      // if(t->getEnergy()>0)
+      // 	t->print();
+      accumulate(t->getEnergy(), t->getROverZ(), t->getPhi(), t->getZ(), t->getLayer());
+      //printdetail(false);
+      vTcf.push_back(t);
+    }
+    
+    std::vector<TPGTCFloats *> getTCFArray() const { return vTcf ; }
+    
     uint16_t  getTriggerLayer(const uint16_t  layer) const { //assuming 1<=layer<=47
       bool iscee = (layer<=26)?true:false;
       uint16_t  triggerLayer = 0;
@@ -489,10 +500,11 @@ namespace TPGBEDataformat{
         if ( triggerLayer>=4 and triggerLayer<=8 ) sumCeeCore += e;
       }
       else if (triggerLayer>=14 and triggerLayer<=17) sumCehEarly += e;      
-
+      
       ap_uint<19>  w = e/(1<<kpower);
       w = (w.to_uint()<1)?1:w.to_uint();
       
+      w = 1;
       sumW_ += w;
       sumW2_ += w * w;
       
@@ -532,7 +544,10 @@ namespace TPGBEDataformat{
       vNN.push_back(tca);
     }
 
-    void clear() { vNN.clear(); }
+    void clear() {
+      vNN.clear();      
+      vTcf.clear();
+    }
     
     void calcmax(){      
       maxW = uint32_t(pow(2,(19-kpower)) - 1);
@@ -746,6 +761,7 @@ namespace TPGBEDataformat{
     // ap_uint<45>  maxWRoZ2;       //45-bits
 
     std::vector<TcAccumulatorFW *> vNN;
+    std::vector<TPGTCFloats *> vTcf;
   };
 
   class Stage2ToL1TData {

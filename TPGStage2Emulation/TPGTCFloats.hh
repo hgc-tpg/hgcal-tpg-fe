@@ -27,19 +27,19 @@ public:
     phi -= TMath::Pi()/2.; //shifts the phi
     return phi;
   }
-
+  
   double getROverZF() const {
     return getROverZ() * lsbScales.LSB_roz_TC();
   }
-
+  
   double getXOverZF() const {
     return getROverZF() * cos(getPhiF()) ;
   }
-
+  
   double getYOverZF() const {
     return getROverZF() * sin(getPhiF()) ;
   }
-
+  
   double getZCm() const {
     uint16_t l(getLayer());
     return lsbScales.getZcm(l);
@@ -94,7 +94,7 @@ public:
     setPhiF(atan2(yl,xl));
     //setPhiF(atan(yl/xl));
   }
-
+  
   void print() const {
     std::cout << "TPGTCFloats(" << this << ")::print()"
 	      << std::endl << " ";
@@ -104,7 +104,7 @@ public:
 	      << ", " << getYOverZF()
 	      << ", " << getZCm() << std::endl;
   }
-
+  
 private:
   TPGLSBScales::TPGStage2ClusterLSB lsbScales;
 };

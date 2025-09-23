@@ -100,6 +100,7 @@ echo "stage2SemiEmulator.exe $infile $ofindex $nevents $sidelength $ofextn $samp
 ##########################################################
 # transfer output file
 ##########################################################
+rsync -avP  TPGS2Emu_tree_${ofextn}_${ofindex}.root $condorOutDir
 rsync -avP  stage2SemiEmulator_${ofextn}_${ofindex}.root $condorOutDir
 rsync -avP  local.tar.gz $condorOutDir/../
 rsync -avP  out_${sampletype}_${ofextn}_${clusproc}.log $HOME/EmulatorChain/hgcal-tpg-fe/condor/tmpLog_s2emu_iter$iloop/logs/

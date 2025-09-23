@@ -836,20 +836,12 @@ namespace TPGStage2Emulation
       TPGTCFloats *vTcf[vTcw.size()];
       for (unsigned itc(0); itc < vTcw.size(); itc++)
       {
-<<<<<<< HEAD
         // TPGTCFloats vTcf(vTcw[itc]);
         // float tcfX(vTcf.getXOverZF());
         // float tcfY(vTcf.getYOverZF());
         vTcf[itc] = new TPGTCFloats(vTcw[itc]);
         float tcfX(vTcf[itc]->getXOverZF());
         float tcfY(vTcf[itc]->getYOverZF());
-
-=======
-        TPGTCFloats vTcf(vTcw[itc]);
-        float tcfX(vTcf.getXOverZF());
-        float tcfY(vTcf.getYOverZF());
-	
->>>>>>> 8ac962012f93faef19b847676f6522da1f78944c
         for (unsigned c(0); c < 3; c++)
         {
           double dr2Min(1.0e10);
@@ -910,7 +902,7 @@ namespace TPGStage2Emulation
       
       constexpr double epsilon = 1e-6;
 
-      constexpr unsigned nPasses = 6;
+      constexpr unsigned nPasses = 1;
       for ( unsigned iPass(0); iPass < nPasses; iPass++ ) {
         // First, find and store local maxima
         std::vector<std::tuple<unsigned, unsigned, unsigned>> localMaxima;

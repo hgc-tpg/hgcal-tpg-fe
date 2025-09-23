@@ -122,8 +122,58 @@ int main(int argc, char** argv)
   pt_clusThresh = 30.; //GeV electron 30 GeV //pion = 100, VBF = 150 GeV
   pt_clusThresh_etaeff = 50.; //GeV electron 50 GeV //pion = 150, VBF = 200 GeV
   if(sampleType.find("vbfHInv")!=std::string::npos){
+
     pt_clusThresh = 150.; 
-    pt_clusThresh_etaeff = 200.; 
+    pt_clusThresh_etaeff = 200.;
+    int sdlg = int(sidelength*1000) ;
+    //===============================================
+    // @10 kHz
+    //===============================================
+    //gr16_corr2D_passall: a = 0.016:: Lower that rate 10 kHz: 140, and higher : 146, Xval: 143.352
+    //gr30_corr2D_passall: a = 0.03:: Lower that rate 10 kHz: 152, and higher : 158, Xval: 152.457
+    //gr45_corr2D_passall: a = 0.045:: Lower that rate 10 kHz: 158, and higher : 164, Xval: 163.346
+    //===============================================
+    if(sdlg==16)
+      pt_clusThresh = 143.;
+    else if(sdlg==30)
+      pt_clusThresh = 152.;
+    else if(sdlg==45)
+      pt_clusThresh = 163.; 
+    pt_clusThresh_etaeff = pt_clusThresh + 50.;
+    //===============================================
+    
+    //===============================================
+    // @100 kHz
+    //===============================================
+    //gr16_corr2D_passall: a = 0.016:: Lower that rate 100 kHz: 86, and higher : 92, Xval: 90.8449
+    //gr30_corr2D_passall: a = 0.03:: Lower that rate 100 kHz: 92, and higher : 98, Xval: 95.3578
+    //gr45_corr2D_passall: a = 0.045:: Lower that rate 100 kHz: 110, and higher : 116, Xval: 115.74
+    //===============================================
+    // if(sdlg==16)
+    //   pt_clusThresh = 91.;
+    // else if(sdlg==30)
+    //   pt_clusThresh = 95.;
+    // else if(sdlg==45)
+    //   pt_clusThresh = 116.; 
+    // pt_clusThresh_etaeff = pt_clusThresh + 50.;
+    //===============================================
+    
+    //===============================================
+    // @50 kHz
+    //===============================================
+    // gr16_corr2D_passall: a = 0.016:: Lower that rate 50 kHz: 98, and higher : 104, Xval: 100.644
+    // gr30_corr2D_passall: a = 0.03:: Lower that rate 50 kHz: 104, and higher : 110, Xval: 107.071
+    // gr45_corr2D_passall: a = 0.045:: Lower that rate 50 kHz: 122, and higher : 128, Xval: 126.683
+    //===============================================
+    // if(sdlg==16)
+    //   pt_clusThresh = 101.;
+    // else if(sdlg==30)
+    //   pt_clusThresh = 107.;
+    // else if(sdlg==45)
+    //   pt_clusThresh = 127.; 
+    // pt_clusThresh_etaeff = pt_clusThresh + 50.;
+    //===============================================
+
   }else if(sampleType.find("singlePion")!=std::string::npos){
     // pt_clusThresh = 150.; 
     // pt_clusThresh_etaeff = 200.; 

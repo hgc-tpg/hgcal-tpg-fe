@@ -17,14 +17,14 @@ public:
   TPGCluster() : maxFinderPass_(0) {}
   TPGCluster(const l1thgcfirmware::HGCalCluster_HW *clus) : cldata(*clus) {}
   void setHGCalCluster_HW(const l1thgcfirmware::HGCalCluster_HW *clus) { cldata = *clus ; }
-
+  
   void setMaxFinderPass(unsigned int pass) { maxFinderPass_ = pass; }
   unsigned int getMaxFinderPass() const { return maxFinderPass_; }
-
+  
   uint32_t getEnergy() const { return cldata.e.to_uint(); }
   double getEnergyGeV() const { return getEnergy() * lsbScales.LSB_E(); }
   double getCeeFractionF() const { return cldata.fractionInCE_E.to_uint() * lsbScales.LSB_Frac(); }
-
+  
   int getLocalPhi() const { return cldata.w_phi.to_int(); }
   double getLocalPhiRad() const { return getLocalPhi() * lsbScales.LSB_phi(); }
   

@@ -349,7 +349,7 @@ int main(int argc, char** argv)
   ///////////////========== Pt,eta hist bins =========///////////////
   
   const double effPtBin[29] = {0, 10., 20., 30., 40., 50., 60., 70., 80., 90., 100., 110., 120., 130., 140., 150., 160., 170., 180., 190., 200., 210., 220., 230., 240., 250., 300., 400., 600.};
-
+  
   const int nJetEtaBins = 6;
   Float_t jetEtaBin[nJetEtaBins+1] = {1.321, 1.7, 2.0, 2.3, 2.6, 2.9, 3.152} ;
   const int nJetPtBins = 43;
@@ -393,17 +393,17 @@ int main(int argc, char** argv)
   float par0[nJetEtaBins] = {1.07956, 1.2916, 1.18022, 1.14248, 1.12945, 0.976157};
   float par1[nJetEtaBins] = {68.9515, 51.967, 52.3593, 47.0961, 39.7107, 32.1626};
   float par2[nJetEtaBins] = {18.5932, 5.89004, 8.34816, 10.0994, 9.27638, 16.5888};
-
+  
   // //VBF correction 30
   // float par0[6] = {1.03452, 1.17763, 1.04363, 1.11672, 1.11673, 1.00139};
   // float par1[6] = {41.6436, 34.3258, 47.9796, 26.7711, 20.9924, 27.4734};
   // float par2[6] = {16.7377, 1.34016, 16.0725, 4.91101, 3.39069, 24.9721};
-
+  
   // //VBF correction 45
   // float par0[6] = {0.9205, 1.09595, 1.01855, 1.09636, 1.06454, 0.91201};
   // float par1[6] = {53.1531, 28.7612, 35.9239, 18.509, 18.412, 24.4667};
   // float par2[6] = {30.0757, 4.80461, 13.5817, 1.28464, 6.60814, 20.6122};
-
+  
   // //Poin correction (pt150) [size =16]
   // float par0[nJetEtaBins] = {1.07567, 1.17335, 1.18182, 1.19163, 1.17032, 1.1243};
   // float par1[nJetEtaBins] = {26.7441, 16.8533, 14.6125, 13.4602, 12.0038, 17.2314};
@@ -495,7 +495,11 @@ int main(int argc, char** argv)
   //std::vector<TPGCluster> tpgClus;
   std::vector<float> clus_pt,clus_eta,clus_phi;
   std::vector<float> clus_pt_corr1D, clus_pt_corr2D;
-  std::vector<unsigned int> clus_pass;
+  std::vector<unsigned int> clus_pass, clus_sect;
+  std::vector<float> clus_local_eta,clus_local_phi;
+  std::vector<float> tci_pt,tci_layer,tci_x,tci_y,tci_z,tci_sect;
+  std::vector<float> tcf_pt,tcf_layer,tcf_xbyz,tcf_ybyz,tcf_zcm,tcf_sect;
+  
   TFile *foutTree = new TFile(Form("%s.root",outtreefname.c_str()),"recreate");
   TTree *outputTree = new TTree("TPG_Reco","TPG_Reco");
   outputTree->SetAutoSave();
@@ -506,6 +510,21 @@ int main(int argc, char** argv)
   outputTree->Branch("clus_pt_corr2D", &clus_pt_corr2D);
   outputTree->Branch("clus_eta", &clus_eta);
   outputTree->Branch("clus_phi", &clus_phi);
+  outputTree->Branch("clus_sect", &clus_sect);
+  outputTree->Branch("clus_local_eta", &clus_local_eta);
+  outputTree->Branch("clus_local_phi", &clus_local_phi);
+  // outputTree->Branch("tci_pt", &tci_pt);
+  // outputTree->Branch("tci_layer", &tci_layer);
+  // outputTree->Branch("tci_x", &tci_x);
+  // outputTree->Branch("tci_y", &tci_y);
+  // outputTree->Branch("tci_z", &tci_z);
+  // outputTree->Branch("tci_sect", &tci_sect);
+  // outputTree->Branch("tcf_pt", &tcf_pt);
+  // outputTree->Branch("tcf_layer", &tcf_layer);
+  // outputTree->Branch("tcf_xbyz", &tcf_xbyz);
+  // outputTree->Branch("tcf_ybyz", &tcf_ybyz);
+  // outputTree->Branch("tcf_zcm", &tcf_zcm);
+  // outputTree->Branch("tcf_sect", &tcf_sect);
   savedir->cd();
   
   //TPGTriggerCellFloats tcf0,tcf1;
@@ -921,7 +940,13 @@ int main(int argc, char** argv)
     double tcEta_posEta = 0.,tcEta_negEta = 0.;
     int detType = -1;
     int subdet = -1, wafertype = -1;
-    
+
+    tci_pt.clear();
+    tci_layer.clear();
+    tci_x.clear();
+    tci_y.clear();
+    tci_z.clear();
+    tci_sect.clear();
     std::vector<TPGTCBits> vTcw[6];
     for(unsigned itc=0;itc<tc_pt->size();itc++){
       double z(fabs(tc_z->at(itc)));
@@ -1023,6 +1048,12 @@ int main(int argc, char** argv)
 	  //if(doPrint) tcf0.print();
 	  //if((tc_eta->at(itc)<0. and genjetpt_negEta>-1.) or (tc_eta->at(itc)>0. and genjetpt_posEta>-1.))
 	  vTcw[isect+addisect].push_back(tcf0);
+	  tci_pt.push_back(scale * tc_pt->at(itc));
+	  tci_layer.push_back(tc_layer->at(itc));
+	  tci_x.push_back(tc_x->at(itc));
+	  tci_y.push_back(tc_y->at(itc));
+	  tci_z.push_back(z);
+	  tci_sect.push_back(isect+addisect);
 	}
       }//sector loop
       
@@ -1079,6 +1110,17 @@ int main(int argc, char** argv)
     clus_pt_corr2D.clear();
     clus_eta.clear();
     clus_phi.clear();
+    clus_sect.clear();
+    clus_local_eta.clear();
+    clus_local_phi.clear();
+    
+    tcf_pt.clear();
+    tcf_layer.clear();
+    tcf_xbyz.clear();
+    tcf_ybyz.clear();
+    tcf_zcm.clear();
+    tcf_sect.clear();
+
     std::vector<int> pt_uncorr, pt1d, pt2d;
     for (uint32_t isect = 0 ; isect < 6 ; isect++ ){
       //for(TPGCluster const& clf : vCld[isect]){
@@ -1087,6 +1129,14 @@ int main(int argc, char** argv)
 	nofClus3GeV = 0;
 	nofClus5GeV = 0;
 	nofClus10GeV = 0;
+      }
+      for(TPGTCFloats const& tcf : vTcw[isect]){
+	tcf_pt.push_back(tcf.getEnergyGeV());
+	tcf_layer.push_back(float(tcf.getLayer().to_uint()));
+	tcf_xbyz.push_back(tcf.getXOverZF());
+	tcf_ybyz.push_back(tcf.getYOverZF());
+	tcf_zcm.push_back(tcf.getZCm());
+	tcf_sect.push_back(isect);
       }
       int iclus = 0;
       for(TPGCluster const& clf : vCld[isect]){
@@ -1121,14 +1171,15 @@ int main(int argc, char** argv)
 	isPresent = false;
 	for(uint32_t ipt=0;ipt<pt2d.size();ipt++) if(pt2d.at(ipt)==TMath::Nint(ClusE)) isPresent = true ;	
 	if(!isPresent) pt2d.push_back(TMath::Nint(ClusE));
-		
+	//doPrint = true;
 	if(doPrint){
-	  std::cout << "iclus-ievent: " << std::fixed << std::setprecision(2) << std::setw(4) << ievent
+	  std::cout << "iclus-ievent: " << std::fixed << std::setprecision(5) << std::setw(7) << ievent
 		    << ", sector: " << std::setw(5) << isect
 		    << ", iclus: " << std::setw(5) << iclus++
 		    <<", (x,y,z): (" << std::setw(7) << (clf.getGlobalXOverZF(isect) * clf.getZCm()) << ", " << std::setw(7) << (clf.getGlobalYOverZF(isect) * clf.getZCm()) << ", " << std::setw(7) << clf.getGlobalZCm(isect) << ")"
 		    <<", (xoz,yoz,roz): (" << std::setw(5) << clf.getGlobalXOverZF(isect) << ", " << std::setw(5) << clf.getGlobalYOverZF(isect) << ", " << std::setw(5) << clf.getGlobalRhoOverZF(isect) << ")"
-		    <<", (pt,eta,phi): (" << std::fixed << std::setprecision(2) << std::setw(8) << clf.getEnergyGeV()
+		    <<", (xoz,yoz): (" << std::setw(5) << clf.getLocalXOverZF() << ", " << std::setw(5) << clf.getLocalYOverZF() << ")"
+		    <<", (pt,eta,phi): (" << std::fixed << std::setprecision(5) << std::setw(8) << clf.getEnergyGeV()
 		    << ", " << std::setw(8) << clf.getGlobalEtaRad(isect)
 		    << ", " << std::setw(8) << (TMath::RadToDeg()* clf.getGlobalPhiRad(isect))
 	            //<< ", " << std::setw(8) << tc_energy->at(itc)*1.e6
@@ -1141,13 +1192,16 @@ int main(int argc, char** argv)
 		    << std::defaultfloat
 		    << std::endl;
 	}
-	
+	doPrint = false;
 	clus_pass.push_back(clf.getMaxFinderPass());
 	clus_pt.push_back(clf.getEnergyGeV());
 	clus_pt_corr1D.push_back(ClusE1D);
 	clus_pt_corr2D.push_back(ClusE);
 	clus_eta.push_back(clf.getGlobalEtaRad(isect));
 	clus_phi.push_back(clf.getGlobalPhiRad(isect));
+	clus_sect.push_back(isect);
+	clus_local_eta.push_back(clf.getEtaRad());
+	clus_local_phi.push_back(clf.getLocalPhiRad());
 	
 	if(clf.getEnergyGeV()>1.0) nofClus1GeV++;
 	if(clf.getEnergyGeV()>3.0) nofClus3GeV++;	

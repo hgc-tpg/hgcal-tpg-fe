@@ -111,76 +111,77 @@ int plotStdPerf(int index = 5)
   // PlotTrigEff(fin2, "hTrigEff", "Trigger Efficiencies of #it{e}^{+}#it{e}^{-}", "p_{T} (GeV}", cTrigEffPiIdeal);
   // ////////////////////////////////////////////////////////
   
-  ///////////////////Efficiency plots PU200 ////////////////////
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter6/SinglePi_realistic_PU200/";
-  // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter6/SingleEle_realistic_PU200/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter11/singlePion_PU0/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter11/vbfHInv_200PU/";
-  //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter10/doubleElectron_PU200/";
-  //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter11/singlePion_PU200/";
-  //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter12/vbfHInv_200PU/";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter20/doublePhoton_PU0/";
-  // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter20/doubleElectron_PU200/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter19/singlePion_PU0/";
-  //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter19/singlePion_PU0/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter17/singlePion_PU200/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter26/vbfHInv_200PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter24/singlePion_PU200/";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter17/singlePion_PU0/";
-  // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter26/vbfHInv_200PU/";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter27/singlePion_PU0/";
-  // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter33/singlePion_PU0/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_0PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_0PU_ID/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter36/vbfHInv_0PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_200PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_0PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_0PU_ID/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_200PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/singlePion_PU0_Realistic/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/singlePion_PU0_Realistic100GeV/";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38//singlePion_PU200/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/vbfHInv_0PU_ID/";
-  //inpath1 = "/Data/hgcal-tpg-fe/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_200PU/";
-  //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter55/vbfHInv_200PU/";
-  inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter56/vbfHInv_200PU/";
+  // ///////////////////Efficiency plots PU200 ////////////////////
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter6/SinglePi_realistic_PU200/";
+  // // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter6/SingleEle_realistic_PU200/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter11/singlePion_PU0/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter11/vbfHInv_200PU/";
+  // //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter10/doubleElectron_PU200/";
+  // //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter11/singlePion_PU200/";
+  // //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter12/vbfHInv_200PU/";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter20/doublePhoton_PU0/";
+  // // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter20/doubleElectron_PU200/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter19/singlePion_PU0/";
+  // //inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter19/singlePion_PU0/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter17/singlePion_PU200/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter26/vbfHInv_200PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter24/singlePion_PU200/";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter17/singlePion_PU0/";
+  // // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter26/vbfHInv_200PU/";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter27/singlePion_PU0/";
+  // // inpath2 = "/Data/root_files/stage2_emulation_results/Result_iter33/singlePion_PU0/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_0PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_0PU_ID/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter36/vbfHInv_0PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter35/vbfHInv_200PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_0PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_0PU_ID/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_200PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/singlePion_PU0_Realistic/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/singlePion_PU0_Realistic100GeV/";
+  // // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38//singlePion_PU200/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter38/vbfHInv_0PU_ID/";
+  // //inpath1 = "/Data/hgcal-tpg-fe/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter37/vbfHInv_200PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter55/vbfHInv_200PU/";
+  // //inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter56/vbfHInv_200PU/";
+  // inpath1 = "/home/hep/idas/stage2_emulation_results/Result_iter56/vbfHInv_200PU/";
   
   
-  std::string aval[7] = {"16", "30", "45", "60", "75", "90", "105"};
-  //std::string aval[7] = {"11", "16", "22", "45", "60", "75", "90"};
-  TFile *fin1[7],*fin2[7];
-  for(int idroz=0;idroz<3;idroz++){
-    std::cout << "idroz : " << idroz << ", aval: "<< aval[idroz]<< std::endl;
-    std::string infile1 = inpath1 + "/" + "stage2SemiEmulator_ntuples_" + aval[idroz] + "_merged.root";
-    //std::string infile2 = inpath2 + "/" + "stage2SemiEmulator_ntuples_" + aval[idroz] + "_merged.root";
-    //std::string infile1 = inpath1 + "/" + "output_only_2nd_iter.root";
-    //std::string infile1 = inpath1 + "/" + "output_only_2nd-et-3rd_iter.root";
-    //std::string infile1 = inpath1 + "/" + "output_only_2nd_iter_2radii.root";
-    //std::string infile1 = inpath1 + "/" + "output_only_2nd-et-3rd_iter_2radii.root";
-    fin1[idroz] = TFile::Open(infile1.c_str());
-    //fin2[idroz] = TFile::Open(infile2.c_str());
-  }
-  TCanvas *cTrigEffPiIdeal,*cTrigEffEleIdeal;
+  // std::string aval[7] = {"16", "30", "45", "60", "75", "90", "105"};
+  // //std::string aval[7] = {"11", "16", "22", "45", "60", "75", "90"};
+  // TFile *fin1[7],*fin2[7];
+  // for(int idroz=0;idroz<3;idroz++){
+  //   std::cout << "idroz : " << idroz << ", aval: "<< aval[idroz]<< std::endl;
+  //   std::string infile1 = inpath1 + "/" + "stage2SemiEmulator_ntuples_" + aval[idroz] + "_merged.root";
+  //   //std::string infile2 = inpath2 + "/" + "stage2SemiEmulator_ntuples_" + aval[idroz] + "_merged.root";
+  //   //std::string infile1 = inpath1 + "/" + "output_only_2nd_iter.root";
+  //   //std::string infile1 = inpath1 + "/" + "output_only_2nd-et-3rd_iter.root";
+  //   //std::string infile1 = inpath1 + "/" + "output_only_2nd_iter_2radii.root";
+  //   //std::string infile1 = inpath1 + "/" + "output_only_2nd-et-3rd_iter_2radii.root";
+  //   fin1[idroz] = TFile::Open(infile1.c_str());
+  //   //fin2[idroz] = TFile::Open(infile2.c_str());
+  // }
+  // TCanvas *cTrigEffPiIdeal,*cTrigEffEleIdeal;
   
-  //PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr", "TrigEff: VBF PU0, no correction, 1st pass", "p_{T} (GeV)", cTrigEffPiIdeal);
-  //PlotTrigEff(fin1, 1, "effTrigGenTDR", "TrigEff: VBF PU0, 2D correction, 1st pass", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, two passes", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, two passes", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, three passes", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, three passes", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, three passes, r=2*0.016", "p_{T} (GeV)", cTrigEffPiIdeal);
-  // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, three passes, r=2*0.016", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr", "TrigEff: VBF PU0, no correction, 1st pass", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, 1, "effTrigGenTDR", "TrigEff: VBF PU0, 2D correction, 1st pass", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, two passes", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, two passes", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, three passes", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, three passes", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_UnCorr_ClusSum", "TrigEff: VBF PU0, no correction, three passes, r=2*0.016", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // // PlotTrigEff(fin1, 1, "effTrigGenTDR_ClusSum", "TrigEff: VBF PU0, 2D correction, three passes, r=2*0.016", "p_{T} (GeV)", cTrigEffPiIdeal);
 
-  PlotTrigEff(fin1, 1, "effTrigGenTDR", "Trigger Efficiencies of VBF for PU200", "p_{T} (GeV)", cTrigEffPiIdeal);
-  //PlotTrigEff(fin1, 1, "effTrigGenTDR1D", "Trigger Efficiencies of VBF for PU0", "p_{T} (GeV)", cTrigEffPiIdeal);
-  //PlotTrigEff(fin1, 0, "effTrigGenTDR_cl3d", "Trigger Efficiencies of VBF for PU0 (old)", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // PlotTrigEff(fin1, 1, "effTrigGenTDR", "Trigger Efficiencies of VBF for PU200", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, 1, "effTrigGenTDR1D", "Trigger Efficiencies of VBF for PU0", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, 0, "effTrigGenTDR_cl3d", "Trigger Efficiencies of VBF for PU0 (old)", "p_{T} (GeV)", cTrigEffPiIdeal);
   
-  //PlotTrigEff(fin1, 0, "effTrigGen", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "p_{T} (GeV)", cTrigEffEleIdeal);
-  //PlotTrigEff(fin1, 0, "effTrigGenEta", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "|#eta|", cTrigEffPiIdeal);
-  //PlotTrigEff(fin1, 0, "effTrigGenPhi", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "#phi", cTrigEffPiIdeal);
-  //PlotTrigEff(fin1, "effTrigGenClstPt", "effTrigGenClstPtTot", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "p_{T} (GeV)", cTrigEffPiIdeal);
-  ////////////////////////////////////////////////////////
+  // //PlotTrigEff(fin1, 0, "effTrigGen", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "p_{T} (GeV)", cTrigEffEleIdeal);
+  // //PlotTrigEff(fin1, 0, "effTrigGenEta", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "|#eta|", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, 0, "effTrigGenPhi", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "#phi", cTrigEffPiIdeal);
+  // //PlotTrigEff(fin1, "effTrigGenClstPt", "effTrigGenClstPtTot", "Trigger Efficiencies of #pi^{+}#pi^{-} for PU0", "p_{T} (GeV)", cTrigEffPiIdeal);
+  // ////////////////////////////////////////////////////////
   
   // /////////////////////Jet cone DeltaR //////////////
   // inpath1 = "/Data/root_files/stage2_emulation_results/Result_iter7/SingleEle_Ideal_PU0";
@@ -268,193 +269,199 @@ int plotStdPerf(int index = 5)
   
   // ///////////////////////////////////////////////////////////////////////////////
   
-  // ////////////////////// Calibration plots //////////////////////////////////////
-  // void PlotPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
-  // void PlotTCPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
-  // void PlotTCPtReso1DLog(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
-  // void ShowReso2D(TFile *fin, int fixpt, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
-  // void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter16/singlePion_PU0_Ideal";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter16/doublePhoton_PU0";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter18/doublePhoton_PU0";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter18/doublePhoton_PU0";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter28/doublePhoton_PU0";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter27/vbfHInv_0PU";
-  // //  inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter30/vbfHInv_0PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter32/vbfHInv_0PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter33/vbfHInv_200PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter34/vbfHInv_0PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter35/vbfHInv_200PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter36/vbfHInv_200PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter37/vbfHInv_200PU"; //iter1
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter38/vbfHInv_200PU"; //iter2
+  ////////////////////////////////////// Calibration plots //////////////////////////////////////
+  void PlotPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
+  void PlotTCPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
+  void PlotTCPtReso1DLog(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
+  void ShowReso2D(TFile *fin, int fixpt, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
+  void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& cPtReso);
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter16/singlePion_PU0_Ideal";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter16/doublePhoton_PU0";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter18/doublePhoton_PU0";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter18/doublePhoton_PU0";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter28/doublePhoton_PU0";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter27/vbfHInv_0PU";
+  //  inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter30/vbfHInv_0PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter32/vbfHInv_0PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter33/vbfHInv_200PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter34/vbfHInv_0PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter35/vbfHInv_200PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter36/vbfHInv_200PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter37/vbfHInv_200PU"; //iter1
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter38/vbfHInv_200PU"; //iter2
   
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter39/vbfHInv_0PU"; //cluster reso
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter40/vbfHInv_0PU"; //cluster reso
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter39/vbfHInv_0PU"; //cluster reso
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter40/vbfHInv_0PU"; //cluster reso
   
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter42/vbfHInv_0PU"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter42/vbfHInv_200PU"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/vbfHInv_0PU"; //tcRoz < 0.03 
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/vbfHInv_200PU"; //tcRoz < 0.03 
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/doubleElectron_PU200"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singleElectron_PU0_Ideal"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singlePion_PU200"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singlePion_PU0_Ideal"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter44/singlePion_PU200"; //tcRoz < 0.02
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/vbfHInv_0PU_ID"; 
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Realistic";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/vbfHInv_0PU";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter80/vbfHInv_0PU_ID";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter80/singlePion_PU0_Realistic";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter42/vbfHInv_0PU"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter42/vbfHInv_200PU"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/vbfHInv_0PU"; //tcRoz < 0.03 
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/vbfHInv_200PU"; //tcRoz < 0.03 
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/doubleElectron_PU200"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singleElectron_PU0_Ideal"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singlePion_PU200"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter43/singlePion_PU0_Ideal"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter44/singlePion_PU200"; //tcRoz < 0.02
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Ideal";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/vbfHInv_0PU_ID"; 
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0_Realistic";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/singlePion_PU0";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter79/vbfHInv_0PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/vbfHInv_0PU";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter80/singlePion_PU0_Realistic";
   // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/vbfHInv_0PU_ID";
-  // //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/singlePion_PU0_Realistic";
-  // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter82/singlePion_PU0_Realistic";
+  inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter81/vbfHInv_0PU";
+  //inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter83/vbfHInv_0PU";
+  // inpath1 = "/home/hep/idas/stage2_emulation_results/Result_iter60/vbfHInv_0PU_ID";
+  //inpath1 = "/home/hep/idas/EmulatorChain/hgcal-tpg-fe/";
+  //sftp://idas@lx04.hep.ph.ic.ac.uk/home/hep/idas/EmulatorChain/hgcal-tpg-fe/output16.root
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/singlePion_PU0_Realistic";
+  //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter82/singlePion_PU0_Realistic";
   
-  // std::string infile1 = inpath1 + "/" + "CalcResolution_ntuples_16_merged.root";
-  // TCanvas *cPtReso;
-  // TFile *fin = TFile::Open(infile1.c_str());
-  // //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet-Cluster) vs Genjet","p_{T}^{Genjet}-p_{T}^{Cluster}  (GeV)",cPtReso);
-  // //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","GenClus p_{T} resolution vs Genjet","#frac{p_{T}^{Genjet}-p_{T}^{Cluster}}{p_{T}^{Genjet}} ",cPtReso);
-  // //PlotPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","Genjet-TC vs Genjet","(p_{T}^{Genjet}-p_{T}^{TC}) (GeV)",cPtReso);
-  // //PlotPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","GenTC p_{T} resolution vs Genjet","#frac{p_{T}^{Genjet}-p_{T}^{TC}}{p_{T}^{Genjet}} ",cPtReso);
-  // //PlotPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","TC-Clus vs Genjet","(p_{T}^{TC}-p_{T}^{Clus}) (GeV)",cPtReso);
-  // //PlotPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","TCClus p_{T} resolution vs Genjet","#frac{p_{T}^{TC}-p_{T}^{Clus}}{p_{T}^{Genjet}} ",cPtReso);
+  std::string infile1 = inpath1 + "/" + "CalcResolution_ntuples_16_merged.root";
+  //std::string infile1 = inpath1 + "/" + "output16_thresh30GeV.root";
+  TCanvas *cPtReso;
+  TFile *fin = TFile::Open(infile1.c_str());
+  //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet-Cluster) vs Genjet","p_{T}^{Genjet}-p_{T}^{Cluster}  (GeV)",cPtReso);
+  //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","GenClus p_{T} resolution vs Genjet","#frac{p_{T}^{Genjet}-p_{T}^{Cluster}}{p_{T}^{Genjet}} ",cPtReso);
+  //PlotPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","Genjet-TC vs Genjet","(p_{T}^{Genjet}-p_{T}^{TC}) (GeV)",cPtReso);
+  //PlotPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","GenTC p_{T} resolution vs Genjet","#frac{p_{T}^{Genjet}-p_{T}^{TC}}{p_{T}^{Genjet}} ",cPtReso);
+  //PlotPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","TC-Clus vs Genjet","(p_{T}^{TC}-p_{T}^{Clus}) (GeV)",cPtReso);
+  //PlotPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","TCClus p_{T} resolution vs Genjet","#frac{p_{T}^{TC}-p_{T}^{Clus}}{p_{T}^{Genjet}} ",cPtReso);
   
-  // //PlotTCPtReso1D(fin,"Reso_1D/hGenTCPtResovsTCPt1D","GenTC p_{T} resolution vs p_{T}^{maxTC} (e/#gamma)","#frac{p_{T}^{Genjet}-p_{T}^{TCPtsum}}{p_{T}^{maxTC}} ",cPtReso);
+  //PlotTCPtReso1D(fin,"Reso_1D/hGenTCPtResovsTCPt1D","GenTC p_{T} resolution vs p_{T}^{maxTC} (e/#gamma)","#frac{p_{T}^{Genjet}-p_{T}^{TCPtsum}}{p_{T}^{maxTC}} ",cPtReso);
   
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenTCPtResovsTCPt1DLog", "Genjet-TC p_{T} resolution vs p_{T}^{TC} (VBF)","#frac{p_{T}^{Genjet}-p_{T}^{TCPtsum}}{p_{T}^{TC}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenTCPtResovsTCPt1DLog", "Genjet-TC p_{T} resolution vs p_{T}^{TC} (VBF)","#frac{p_{T}^{Genjet}-p_{T}^{TCPtsum}}{p_{T}^{TC}} ",cPtReso);
   
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/TC p_{T} resolution vs p_{T}^{TC} (VBF PU0)","#frac{p_{T}^{Genjet}}{p_{T}^{TCPtsum}} ",cPtReso);
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU0)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU200)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU0 p_{T}-scaled)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
-  // //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU200 p_{T}-scaled iteration 1)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/TC p_{T} resolution vs p_{T}^{TC} (VBF PU0)","#frac{p_{T}^{Genjet}}{p_{T}^{TCPtsum}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU0)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU200)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU0 p_{T}-scaled)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
+  //PlotTCPtReso1DLog(fin,"Reso_1D/hGenjetByTCPtSumVsTCPt1DLog", "Genjet/#Sigmap_{T}^{TC} vs p_{T}^{TC} (VBF PU200 p_{T}-scaled iteration 1)","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}} ",cPtReso);
+    
+  //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet/Cluster) vs Cluster","p_{T}^{Genjet}/p_{T}^{Cluster}",cPtReso);
+
+  //PlotTCPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","(Genjet/#Sigmap_{T}^{TC}) vs Cluster","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}}",cPtReso);
+  //PlotTCPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
+  //PlotTCPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet/Cluster) vs Cluster","#frac{p_{T}^{Genjet}}{p_{T}^{Cluster}}",cPtReso);
+  //PlotTCPtReso1D(fin,"Reso_1D/hGenClusPtReso1Dcl3d","(Genjet/cl3d) vs cl3d","#frac{p_{T}^{Genjet}}{p_{T}^{cl3d}}",cPtReso);
+  //PlotTCPtReso1D(fin,"Reso_1D/hNewOldPtReso1Dcl3d","(New Cluster/Old Cluster) vs New Cluster","#frac{p_{T}^{Cluster}}{p_{T}^{cl3d}}",cPtReso);
   
+  //PlotTCPtReso1D(fin,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
+  //ShowReso2D(fin,32,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
+  PlotTCPtReso2D(fin,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
+  //PlotTCPtReso2D(fin,"Reso_2D/hGenClusPtReso","(Genjet/Cluster) vs Cluster","#frac{p_{T}^{Genjet}}{p_{T}^{Cluster}}",cPtReso);
+  ////////////////////////////////////////////////////////////////////////////
+
   
-  // //PlotPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet/Cluster) vs Cluster","p_{T}^{Genjet}/p_{T}^{Cluster}",cPtReso);
-
-  // //PlotTCPtReso1D(fin,"Reso_1D/hGenTCPtReso1D","(Genjet/#Sigmap_{T}^{TC}) vs Cluster","#frac{p_{T}^{Genjet}}{#Sigmap_{T}^{TC}}",cPtReso);
-  // PlotTCPtReso1D(fin,"Reso_1D/hTCClusPtReso1D","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
-  // //PlotTCPtReso1D(fin,"Reso_1D/hGenClusPtReso1D","(Genjet/Cluster) vs Cluster","#frac{p_{T}^{Genjet}}{p_{T}^{Cluster}}",cPtReso);
-  // //PlotTCPtReso1D(fin,"Reso_1D/hGenClusPtReso1Dcl3d","(Genjet/cl3d) vs cl3d","#frac{p_{T}^{Genjet}}{p_{T}^{cl3d}}",cPtReso);
-  // //PlotTCPtReso1D(fin,"Reso_1D/hNewOldPtReso1Dcl3d","(New Cluster/Old Cluster) vs New Cluster","#frac{p_{T}^{Cluster}}{p_{T}^{cl3d}}",cPtReso);
+  // ////////////////////////////////////// Background rates //////////////////////////////////////////////////
+  // int GetTreeDataCMSSW(TTree *tr, const char *br1, const char *br2, const char *br3, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3);
+  // int GetTreeDataStandalone(std::unique_ptr<TTree>& tr, const char *br1, const char *br2, const char *br3, const char *brpas, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3, int pass=3);
+  // int PlotBkgGraphs(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3);
+  // int PlotBkgGraphs6(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3,
+  // 		     TGraphErrors* gr1p, TGraphErrors* gr2p, TGraphErrors* gr3p, const char *entry1p, const char *entry2p, const char *entry3p);
   
-  // //PlotTCPtReso1D(fin,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
-  // //ShowReso2D(fin,32,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
-  // PlotTCPtReso2D(fin,"Reso_2D/hTCClusPtReso","(#Sigmap_{T}^{TC}/Cluster) vs Cluster","#frac{#Sigmap_{T}^{TC}}{p_{T}^{Cluster}}",cPtReso);
-  // //PlotTCPtReso2D(fin,"Reso_2D/hGenClusPtReso","(Genjet/Cluster) vs Cluster","#frac{p_{T}^{Genjet}}{p_{T}^{Cluster}}",cPtReso);
-  // ////////////////////////////////////////////////////////////////////////////
+  // // //=============================================================================
+  // // TChain *trcmssw = new TChain("l1tHGCalTriggerNtuplizer/HGCalTriggerNtuple");
+  // // const char *inputfname = "/tmp/local_fs.txt";
+  // // std::string s;
+  // // ifstream fin(inputfname);
+  // // int nfiles = 0;
+  // // while(getline(fin,s)){
+  // //   std::cout << "Filename : " << s << std::endl;
+  // //   //trcmssw->Add(Form("%s/%s",server,s.c_str()));
+  // //   trcmssw->Add(Form("%s",s.c_str()));
+  // //   nfiles++;
+  // // }
+  // // std::cout << "Nof added files : " << nfiles << std::endl;
 
+  // // TGraphErrors *gr16_cmssw, *gr30_cmssw, *gr45_cmssw;
+  // // GetTreeDataCMSSW(trcmssw, "cl3d_p16Tri_pt", "cl3d_p03Tri_pt", "cl3d_p045Tri_pt", gr16_cmssw, gr30_cmssw, gr45_cmssw);
 
-  ////////////////////////////////////// Background rates //////////////////////////////////////////////////
-  int GetTreeDataCMSSW(TTree *tr, const char *br1, const char *br2, const char *br3, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3);
-  int GetTreeDataStandalone(std::unique_ptr<TTree>& tr, const char *br1, const char *br2, const char *br3, const char *brpas, TGraphErrors*& gr1, TGraphErrors*& gr2, TGraphErrors*& gr3, int pass=3);
-  int PlotBkgGraphs(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3);
-  int PlotBkgGraphs6(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3,
-		     TGraphErrors* gr1p, TGraphErrors* gr2p, TGraphErrors* gr3p, const char *entry1p, const char *entry2p, const char *entry3p);
+  // // gr16_cmssw->SetName("gr16_cmssw");
+  // // gr30_cmssw->SetName("gr30_cmssw");
+  // // gr45_cmssw->SetName("gr45_cmssw");
   
-  // //=============================================================================
-  // TChain *trcmssw = new TChain("l1tHGCalTriggerNtuplizer/HGCalTriggerNtuple");
-  // const char *inputfname = "/tmp/local_fs.txt";
-  // std::string s;
-  // ifstream fin(inputfname);
-  // int nfiles = 0;
-  // while(getline(fin,s)){
-  //   std::cout << "Filename : " << s << std::endl;
-  //   //trcmssw->Add(Form("%s/%s",server,s.c_str()));
-  //   trcmssw->Add(Form("%s",s.c_str()));
-  //   nfiles++;
-  // }
-  // std::cout << "Nof added files : " << nfiles << std::endl;
-
-  // TGraphErrors *gr16_cmssw, *gr30_cmssw, *gr45_cmssw;
-  // GetTreeDataCMSSW(trcmssw, "cl3d_p16Tri_pt", "cl3d_p03Tri_pt", "cl3d_p045Tri_pt", gr16_cmssw, gr30_cmssw, gr45_cmssw);
-
-  // gr16_cmssw->SetName("gr16_cmssw");
-  // gr30_cmssw->SetName("gr30_cmssw");
-  // gr45_cmssw->SetName("gr45_cmssw");
+  // // //PlotBkgGraphs(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected, CMSSW)", "a = 0.016", "a = 0.03", "a = 0.045");
   
-  // //PlotBkgGraphs(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected, CMSSW)", "a = 0.016", "a = 0.03", "a = 0.045");
+  // // delete trcmssw;
+  // // ============================================================================
+
+  // const char *infile16 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_16_merged.root";
+  // const char *infile30 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_30_merged.root";
+  // const char *infile45 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_45_merged.root";
+  // std::unique_ptr<TFile> fin16(TFile::Open(Form("%s",infile16)));
+  // std::unique_ptr<TFile> fin30(TFile::Open(Form("%s",infile30)));
+  // std::unique_ptr<TFile> fin45(TFile::Open(Form("%s",infile45)));
+
+  // std::unique_ptr<TTree> tr16((TTree*)fin16->Get("TPG_Reco"));
+  // std::unique_ptr<TTree> tr30((TTree*)fin30->Get("TPG_Reco"));
+  // std::unique_ptr<TTree> tr45((TTree*)fin45->Get("TPG_Reco"));
+
+  // TGraphErrors *gr16_uncorr_pass1, *gr16_corr1D_pass1, *gr16_corr2D_pass1;
+  // TGraphErrors *gr16_uncorr_pass2, *gr16_corr1D_pass2, *gr16_corr2D_pass2;
+  // TGraphErrors *gr16_uncorr_passall, *gr16_corr1D_passall, *gr16_corr2D_passall;
+  // TGraphErrors *gr30_uncorr_pass1, *gr30_corr1D_pass1, *gr30_corr2D_pass1;
+  // TGraphErrors *gr30_uncorr_passall, *gr30_corr1D_passall, *gr30_corr2D_passall;
+  // TGraphErrors *gr45_uncorr_pass1, *gr45_corr1D_pass1, *gr45_corr2D_pass1;
+  // TGraphErrors *gr45_uncorr_passall, *gr45_corr1D_passall, *gr45_corr2D_passall;
+  // GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, 0);
+  // GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, 1);
+  // GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, 2);
+  // GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, 0);
+  // GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, 2);
+  // GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, 0);
+  // GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, 2);
   
-  // delete trcmssw;
-  //============================================================================
+  // gr16_uncorr_pass1->SetName("gr16_uncorr_pass1");
+  // gr16_corr1D_pass1->SetName("gr16_corr1D_pass1");
+  // gr16_corr2D_pass1->SetName("gr16_corr2D_pass1");
 
-  const char *infile16 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_16_merged.root";
-  const char *infile30 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_30_merged.root";
-  const char *infile45 = "/home/hep/idas/stage2_emulation_results/ResultBkg_iter42/minbias_PU200_2kFiles/TPGReco_tree_ntuples_45_merged.root";
-  std::unique_ptr<TFile> fin16(TFile::Open(Form("%s",infile16)));
-  std::unique_ptr<TFile> fin30(TFile::Open(Form("%s",infile30)));
-  std::unique_ptr<TFile> fin45(TFile::Open(Form("%s",infile45)));
+  // gr16_uncorr_pass2->SetName("gr16_uncorr_pass2");
+  // gr16_corr1D_pass2->SetName("gr16_corr1D_pass2");
+  // gr16_corr2D_pass2->SetName("gr16_corr2D_pass2");
 
-  std::unique_ptr<TTree> tr16((TTree*)fin16->Get("TPG_Reco"));
-  std::unique_ptr<TTree> tr30((TTree*)fin30->Get("TPG_Reco"));
-  std::unique_ptr<TTree> tr45((TTree*)fin45->Get("TPG_Reco"));
+  // gr16_uncorr_passall->SetName("gr16_uncorr_passall");
+  // gr16_corr1D_passall->SetName("gr16_corr1D_passall");
+  // gr16_corr2D_passall->SetName("gr16_corr2D_passall");
 
-  TGraphErrors *gr16_uncorr_pass1, *gr16_corr1D_pass1, *gr16_corr2D_pass1;
-  TGraphErrors *gr16_uncorr_pass2, *gr16_corr1D_pass2, *gr16_corr2D_pass2;
-  TGraphErrors *gr16_uncorr_passall, *gr16_corr1D_passall, *gr16_corr2D_passall;
-  TGraphErrors *gr30_uncorr_pass1, *gr30_corr1D_pass1, *gr30_corr2D_pass1;
-  TGraphErrors *gr30_uncorr_passall, *gr30_corr1D_passall, *gr30_corr2D_passall;
-  TGraphErrors *gr45_uncorr_pass1, *gr45_corr1D_pass1, *gr45_corr2D_pass1;
-  TGraphErrors *gr45_uncorr_passall, *gr45_corr1D_passall, *gr45_corr2D_passall;
-  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, 0);
-  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, 1);
-  GetTreeDataStandalone(tr16, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, 2);
-  GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, 0);
-  GetTreeDataStandalone(tr30, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, 2);
-  GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, 0);
-  GetTreeDataStandalone(tr45, "clus_pt", "clus_pt_corr1D", "clus_pt_corr2D", "clus_pass", gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, 2);
+  // gr30_uncorr_pass1->SetName("gr30_uncorr_pass1");
+  // gr30_corr1D_pass1->SetName("gr30_corr1D_pass1");
+  // gr30_corr2D_pass1->SetName("gr30_corr2D_pass1");
+
+  // gr30_uncorr_passall->SetName("gr30_uncorr_passall");
+  // gr30_corr1D_passall->SetName("gr30_corr1D_passall");
+  // gr30_corr2D_passall->SetName("gr30_corr2D_passall");
+
+  // gr45_uncorr_pass1->SetName("gr45_uncorr_pass1");
+  // gr45_corr1D_pass1->SetName("gr45_corr1D_pass1");
+  // gr45_corr2D_pass1->SetName("gr45_corr2D_pass1");
+
+  // gr45_uncorr_passall->SetName("gr45_uncorr_passall");
+  // gr45_corr1D_passall->SetName("gr45_corr1D_passall");
+  // gr45_corr2D_passall->SetName("gr45_corr2D_passall");
   
-  gr16_uncorr_pass1->SetName("gr16_uncorr_pass1");
-  gr16_corr1D_pass1->SetName("gr16_corr1D_pass1");
-  gr16_corr2D_pass1->SetName("gr16_corr2D_pass1");
-
-  gr16_uncorr_pass2->SetName("gr16_uncorr_pass2");
-  gr16_corr1D_pass2->SetName("gr16_corr1D_pass2");
-  gr16_corr2D_pass2->SetName("gr16_corr2D_pass2");
-
-  gr16_uncorr_passall->SetName("gr16_uncorr_passall");
-  gr16_corr1D_passall->SetName("gr16_corr1D_passall");
-  gr16_corr2D_passall->SetName("gr16_corr2D_passall");
-
-  gr30_uncorr_pass1->SetName("gr30_uncorr_pass1");
-  gr30_corr1D_pass1->SetName("gr30_corr1D_pass1");
-  gr30_corr2D_pass1->SetName("gr30_corr2D_pass1");
-
-  gr30_uncorr_passall->SetName("gr30_uncorr_passall");
-  gr30_corr1D_passall->SetName("gr30_corr1D_passall");
-  gr30_corr2D_passall->SetName("gr30_corr2D_passall");
-
-  gr45_uncorr_pass1->SetName("gr45_uncorr_pass1");
-  gr45_corr1D_pass1->SetName("gr45_corr1D_pass1");
-  gr45_corr2D_pass1->SetName("gr45_corr2D_pass1");
-
-  gr45_uncorr_passall->SetName("gr45_uncorr_passall");
-  gr45_corr1D_passall->SetName("gr45_corr1D_passall");
-  gr45_corr2D_passall->SetName("gr45_corr2D_passall");
+  // // PlotBkgGraphs(gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  // // PlotBkgGraphs(gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, "Minbias, PU 200, second pass (exclusive)", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  // // PlotBkgGraphs(gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
   
-  // PlotBkgGraphs(gr16_uncorr_pass1, gr16_corr1D_pass1, gr16_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
-  // PlotBkgGraphs(gr16_uncorr_pass2, gr16_corr1D_pass2, gr16_corr2D_pass2, "Minbias, PU 200, second pass (exclusive)", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
-  // PlotBkgGraphs(gr16_uncorr_passall, gr16_corr1D_passall, gr16_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.016 uncorrected", "a = 0.016, 1D corr", "a = 0.016, 2D corr");
+  // // PlotBkgGraphs(gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
+  // // PlotBkgGraphs(gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
   
-  // PlotBkgGraphs(gr30_uncorr_pass1, gr30_corr1D_pass1, gr30_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
-  // PlotBkgGraphs(gr30_uncorr_passall, gr30_corr1D_passall, gr30_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.030 uncorrected", "a = 0.030, 1D corr", "a = 0.030, 2D corr");
-  
-  // PlotBkgGraphs(gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
-  // PlotBkgGraphs(gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
+  // // PlotBkgGraphs(gr45_uncorr_pass1, gr45_corr1D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
+  // // PlotBkgGraphs(gr45_uncorr_passall, gr45_corr1D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes", "a = 0.045 uncorrected", "a = 0.045, 1D corr", "a = 0.045, 2D corr");
 
-  // PlotBkgGraphs(gr16_corr2D_pass1, gr30_corr2D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
-  //PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
-  PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Hexagon side length in (x/z,y/z) plane", "a = 0.016", "a = 0.03", "a = 0.045");
+  // // PlotBkgGraphs(gr16_corr2D_pass1, gr30_corr2D_pass1, gr45_corr2D_pass1, "Minbias, PU 200, first pass, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
+  // //PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Minbias, PU 200, two passes, 2D corr", "a = 0.016", "a = 0.03", "a = 0.045");
+  // PlotBkgGraphs(gr16_corr2D_passall, gr30_corr2D_passall, gr45_corr2D_passall, "Hexagon side length in (x/z,y/z) plane", "a = 0.016", "a = 0.03", "a = 0.045");
   
-  // PlotBkgGraphs(gr16_corr2D_passall, gr30_corr1D_passall, gr45_uncorr_passall, "Minbias, PU 200, two passes", "a = 0.016: 2D corr", "a = 0.03: 1D corr", "a = 0.045: no corr");
-  //PlotBkgGraphs(gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "Minbias, PU 200, first pass (uncorrected, standalone)", "a = 0.016", "a = 0.03", "a = 0.045");
+  // // PlotBkgGraphs(gr16_corr2D_passall, gr30_corr1D_passall, gr45_uncorr_passall, "Minbias, PU 200, two passes", "a = 0.016: 2D corr", "a = 0.03: 1D corr", "a = 0.045: no corr");
+  // //PlotBkgGraphs(gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "Minbias, PU 200, first pass (uncorrected, standalone)", "a = 0.016", "a = 0.03", "a = 0.045");
 
-  // PlotBkgGraphs6(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected)", "a = 0.016:CMSSW", "a = 0.03:CMSSW", "a = 0.045:CMSSW",
-  // 		 gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "a = 0.016:standalone", "a = 0.03:standalone", "a = 0.045:standalone");
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // // PlotBkgGraphs6(gr16_cmssw, gr30_cmssw, gr45_cmssw, "Minbias, PU 200, first pass (uncorrected)", "a = 0.016:CMSSW", "a = 0.03:CMSSW", "a = 0.045:CMSSW",
+  // // 		 gr16_uncorr_pass1, gr30_uncorr_pass1, gr45_uncorr_pass1, "a = 0.016:standalone", "a = 0.03:standalone", "a = 0.045:standalone");
+  // ///===============================================================================================
+  
   
   return true;
 }
@@ -1494,14 +1501,14 @@ Double_t Lorentzian(Double_t *x, Double_t *par)
 
 void PlotTCPtReso1D(TFile *fin, const char* histName, const char* plotTitle, const char* yaxisTitle, TCanvas*& c1)
 {
-
+  
   const int nJetPtBins = 43;
   Float_t jetPtBin[44] = {0, 15., 16., 18., 20., 22., 25., 30., 35., 40., 45., 50., 55., 60., 65., 70., 75., 80., 85., 90., 95., 100.,  
 			  110., 120., 130., 140., 150., 160., 170., 180., 190., 200.,
 			  220., 240., 260., 280., 300.,
 			  330., 360., 390., 420.,
 			  440., 480., 520.};
-
+  
   float x, xerror, y, yerror;
   TGraphErrors *gr = new TGraphErrors();
   int i=0;
@@ -2051,8 +2058,8 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
       
       //if(ipt<nTCPtBins){
       if(ieta==0 or ieta==5){
-      	//fh1[ieta][ipt] = new TF1(Form("funch%d",gindex++),"landau",xmin,xmax);
-      	fh1[ieta][ipt] = new TF1(Form("funch%d",gindex++),"landau",0.2,xmax);
+      	fh1[ieta][ipt] = new TF1(Form("funch%d",gindex++),"landau",xmin,xmax);
+      	//fh1[ieta][ipt] = new TF1(Form("funch%d",gindex++),"landau",0.2,xmax);
       	fh1[ieta][ipt]->SetParameters(norm, h1[ieta][ipt]->GetMean(), rms);
       }else{
       	//fh1[ieta][ipt] = new TF1(Form("funch%d",gindex++),CrystallBall,xmin,xmax,5);
@@ -2127,17 +2134,17 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
       if(h1[ieta][ipt]->GetEntries()<maxEntries) continue;
       
       if(ieta==0 or ieta==5)
-      	y = fh1[ieta][ipt]->GetParameter(1);
+	y = fh1[ieta][ipt]->GetParameter(1);
       else
-      	y = h1[ieta][ipt]->GetMean();      
+	y = h1[ieta][ipt]->GetMean();      
       
       if(ieta==0 or ieta==1 or ieta==2 or ieta==3 or ieta==4 or ieta==5)
-      	yerror = 0.0;
+	yerror = 0.0;
       else
       	yerror = h1[ieta][ipt]->GetRMS();
 
-      y = fh1[ieta][ipt]->GetParameter(1);
-      yerror = fh1[ieta][ipt]->GetParError(1);
+      //y = fh1[ieta][ipt]->GetParameter(1);
+      //yerror = fh1[ieta][ipt]->GetParError(1);
       
       if(ieta==0)
       	fitmax = 250.;
@@ -2153,8 +2160,8 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
       	fitmax = 100.;
       else 
       	fitmax = 250.;
-
-      fitmax = 300.;
+      
+      //fitmax = 500.;
       
       // x = 0.5*abs(float(ipt+1)+float(ipt));
       // xerror = 0.5*abs(float(ipt+1)-float(ipt));
@@ -2166,7 +2173,7 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
       // y = y/x;
       // yerror = abs(y*rerror);
     
-      //std::cout<<"x : "<<x<<", xerror "<<xerror<<", y : "<<y<<", yerror "<<yerror<<std::endl;
+      std::cout<<"ieta: "<<ieta<<", x : "<<x<<", xerror "<<xerror<<", y : "<<y<<", yerror "<<yerror<<std::endl;
     
       gr[ieta]->SetPoint(i,x,y);
       gr[ieta]->SetPointError(i,xerror,yerror);
@@ -2177,28 +2184,35 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
       gr[ieta]->GetYaxis()->SetTitle(yaxisTitle);
       gr[ieta]->GetXaxis()->SetTitleOffset(1.2);
       gr[ieta]->GetYaxis()->SetTitleOffset(1.4);
-      gr[ieta]->SetMinimum(1.1);
-      gr[ieta]->SetMaximum(1.6);
-      // gr[ieta]->SetMinimum(0.0);
-      // gr[ieta]->SetMaximum(8.0);
+      // gr[ieta]->SetMinimum(1.1);
+      // gr[ieta]->SetMaximum(1.6);
+      gr[ieta]->SetMinimum(0.0);
+      gr[ieta]->SetMaximum(8.0);
       gr[ieta]->SetLineColor(GetColor(ieta));
       gr[ieta]->SetMarkerColor(GetColor(ieta));
       gr[ieta]->SetMarkerSize(((ieta<2)?1.4:1.8));
-      gr[ieta]->SetMarkerStyle(GetMarker(ieta));
-
-      f1[ieta] = new TF1(Form("func_%d",ieta),"[0]+[1]/(x+[2])",1.,fitmax);
-      f1[ieta]->SetParameters(0.8, 105, 41);
-      //f1[ieta]->SetParameters(1.1, 23, 2);
-      // f1[ieta] = new TF1(Form("func_%d",ieta),"1.5+[0]/(x+[1])",0.,500);
-      // f1[ieta]->SetParameters(83, 18);
-      f1[ieta]->SetNpx(1000);
-      f1[ieta]->SetLineColor(GetColor(ieta));
-      f1[ieta]->SetLineWidth(4.0);
-      //if(ieta==refeta)
-      gr[ieta]->Fit(f1[ieta],"R");
-      
+      gr[ieta]->SetMarkerStyle(GetMarker(ieta));      
       i++;    
     }
+    // gr[ieta]->SetPoint(i,300.,2.3);
+    // gr[ieta]->SetPointError(i,0.5,0);
+    // i++;
+    // gr[ieta]->SetPoint(i,600.,1.5);
+    // gr[ieta]->SetPointError(i,0.5,0);
+    // i++;
+    
+    f1[ieta] = new TF1(Form("func_%d",ieta),"[0]+[1]/(x+[2])",1.,fitmax);
+    f1[ieta]->SetParameters(0.8, 105, 41);
+    //f1[ieta]->SetParameters(1.0, 40, 10);
+    //f1[ieta]->SetParameters(2.1, 13, 8);
+    // f1[ieta] = new TF1(Form("func_%d",ieta),"1.5+[0]/(x+[1])",0.,500);
+    // f1[ieta]->SetParameters(83, 18);
+    f1[ieta]->SetNpx(1000);
+    f1[ieta]->SetLineColor(GetColor(ieta));
+    f1[ieta]->SetLineWidth(4.0);
+    //if(ieta==refeta)
+    gr[ieta]->Fit(f1[ieta],"R");
+
   }
   // // auto f1 = new TF1(Form("func%d",gindex),"[0]+[1]*x",22,460);
   // // f1->SetParameters(1.0, 1.e-6);  
@@ -2219,7 +2233,7 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
   // //legend->AddEntry((TObject *)0x0,Form("N: %4.2e, x0: %4.2f,",f1->GetParameter(0), f1->GetParameter(1)),"");
   
   // legend->SetShadowColor(kWhite);
-
+  
   // //gr->GetXaxis()->SetLimits(0,40.);
   c1 = new TCanvas(Form("c%d",gindex),Form("c%d",gindex),900,900); gindex++;
   SetCanvasStyle(c1);
@@ -2244,15 +2258,15 @@ void PlotTCPtReso2D(TFile *fin, const char* histName, const char* plotTitle, con
   c1->SaveAs(Form("~/temp/%s_%d.pdf",c1->GetName(),refeta));
   c1->SaveAs(Form("~/temp/%s_%d.png",c1->GetName(),refeta));
   
-  std::cout << "float par0[6] = {" ;
+  std::cout << "float par0[nTCEtaBins] = {" ;
   for(int ieta=0;ieta<nTCEtaBins;ieta++) (ieta==(nTCEtaBins-1))? std::cout << f1[ieta]->GetParameter(0)  : std::cout << f1[ieta]->GetParameter(0) << ", " ;
   std::cout << "};" << std::endl;
 
-  std::cout << "float par1[6] = {" ;
+  std::cout << "float par1[nTCEtaBins] = {" ;
   for(int ieta=0;ieta<nTCEtaBins;ieta++) (ieta==(nTCEtaBins-1))? std::cout << f1[ieta]->GetParameter(1)  : std::cout << f1[ieta]->GetParameter(1) << ", " ;
   std::cout << "};" << std::endl;
 
-  std::cout << "float par2[6] = {" ;
+  std::cout << "float par2[nTCEtaBins] = {" ;
   for(int ieta=0;ieta<nTCEtaBins;ieta++) (ieta==(nTCEtaBins-1))? std::cout << f1[ieta]->GetParameter(2)  : std::cout << f1[ieta]->GetParameter(2) << ", " ;
   std::cout << "};" << std::endl;
 
@@ -2503,7 +2517,7 @@ int GetTreeDataStandalone(std::unique_ptr<TTree>& tree, const char *br1, const c
 int PlotBkgGraphs(TGraphErrors* gr1, TGraphErrors* gr2, TGraphErrors* gr3, const char* header, const char *entry1, const char *entry2, const char *entry3)
 {
 
-  int fixedrate = 50.0;
+  int fixedrate = 100.0;
   int refip1 = -1;
   for(int ipoint=1;ipoint<gr1->GetN()-1;ipoint++){
     if(gr1->GetPointY(ipoint)>fixedrate and gr1->GetPointY(ipoint+1)<=fixedrate) refip1 = ipoint;

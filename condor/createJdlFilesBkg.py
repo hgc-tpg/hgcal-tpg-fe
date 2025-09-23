@@ -6,7 +6,7 @@ import time
 
 #IMPORT MODULES FROM OTHER DIR
 
-iloop= "42"
+iloop= "51"
 
 #samplelist_Ideal = ["SingleEle_Ideal_PU0","SinglePi_Ideal_PU0"]
 samplelist_Ideal = ["SingleEle_Ideal_PU0"]
@@ -25,7 +25,11 @@ samplelist_PU200 = ["SinglePi_realistic_PU200", "SingleEle_realistic_PU200", "VB
 #samplelist_PU200_Emyr = ["singlePion_PU200"]#, "vbfHInv_200PU", "singlePion_PU200"]
 #samplelist_PU200_Emyr = ["singlePion_PU0_Realistic"]
 #samplelist_PU200_Emyr = ["vbfHInv_200PU"]
-samplelist_PU200_Emyr = ["minbias_PU200_2kFiles"]
+#samplelist_PU200_Emyr = ["minbias_PU200_2kFiles"]
+#samplelist_PU200_Emyr = ["singlePion_PU0_Ideal"]
+#samplelist_PU200_Emyr = ["singlePion_PU0"]
+#samplelist_PU200_Emyr = ["singlePion_PU0_Realistic"]
+samplelist_PU200_Emyr = ["vbfHInv_0PU"]
 
 
 ntuple_path = ["ntuples"]
