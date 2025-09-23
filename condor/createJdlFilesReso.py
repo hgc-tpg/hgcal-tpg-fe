@@ -6,7 +6,7 @@ import time
 
 #IMPORT MODULES FROM OTHER DIR
 
-iloop= "84"
+iloop= "86"
 
 #samplelist_Ideal = ["SingleEle_Ideal_PU0","SinglePi_Ideal_PU0"]
 #samplelist_Ideal = ["SingleEle_Ideal_PU0"]
@@ -22,7 +22,7 @@ samplelist_PU0 = ["SinglePi_realistic_PU0", "SingleEle_realistic_PU0", "VBFHToIn
 #samplelist_PU0_Emyr = ["doublePhoton_PU0", "singleElectron_PU0_Ideal"]
 #samplelist_PU0_Emyr = ["singlePion_PU0", "singlePion_PU0", "doublePhoton_PU0", "vbfHInv_0PU"] #"doubleElectron_PU200", "singlePion_PU200", "singlePion_PU0_Ideal", "singleElectron_PU0_Ideal", 
 #samplelist_PU0_Emyr = ["doubleElectron_PU200", "singlePion_PU200", "singlePion_PU0_Ideal", "singleElectron_PU0_Ideal", "vbfHInv_0PU", "vbfHInv_200PU"]
-samplelist_PU0_Emyr = ["vbfHInv_0PU", "vbfHInv_0PU_ID"]
+samplelist_PU0_Emyr = ["vbfHInv_0PU_ID"]
 #samplelist_PU0_Emyr = ["singlePion_PU0_Realistic"]
 #samplelist_PU0_Emyr = ["vbfHInv_0PU", "vbfHInv_0PU_ID", "singlePion_PU0", "singlePion_PU0_Ideal", "singlePion_PU0_Realistic"] #"vbfHInv_0PU", "vbfHInv_0PU_ID", 
 #"vbfHInv_0PU", "vbfHInv_200PU" "doubleElectron_PU200", "singlePion_PU200", "singlePion_PU0_Ideal", "singleElectron_PU0_Ideal"
@@ -38,11 +38,11 @@ samplelist_PU200_Emyr = ["vbfHInv_200PU"]
 ntuple_path = ["ntuples"]
 
 #triangle_side_list = ["0.016", "0.03", "0.045", "0.06", "0.075", "0.090", "0.105"]
-#triangle_side_list = ["0.016", "0.03", "0.045"]
+triangle_side_list = ["0.016", "0.03", "0.045"]
 #triangle_side_list = ["0.0113", "0.016", "0.0226"]
 #triangle_side_list = ["0.03", "0.045"]
 #triangle_side_list = ["0.0113"]
-triangle_side_list = ["0.016"]
+#triangle_side_list = ["0.016"]
 
 #----------------------------------------
 #Create run and log directory
@@ -241,6 +241,30 @@ nevents=0
 #             subFile.write("condor_submit %s\n"%jdlName)
 #             findex = findex + 1
                 
+# for sample in samplelist_PU200_Emyr:
+#     for sidelength in triangle_side_list:
+#         dirpath = '%s/stage2_emulator_tests/Emyr/%s/'%(os.environ["HOME"],sample)
+#         findarg = '%s -name \"*.root\"'%(dirpath)
+#         p = subprocess.Popen([("find %s "%findarg)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
+#         filelist, errors = p.communicate()
+#         filelist = filelist.split('\n')
+#         filelist.remove("")
+#         nFiles = len(filelist)
+#         findex  = 0
+#         for fname in filelist:
+#             print ("fname: %s, sidelength: %s, index: %s"%(fname,sidelength,findex))
+#             fsidelen = float(sidelength)
+#             fsidelen_index = int(fsidelen*1000)
+#             ofextn = 'ntuples_%s'%(fsidelen_index)
+#             jdlName = 'submitJobs_%s_ntuples_%s_%s.jdl'%(sample,fsidelen_index,findex)
+#             jdlFile = open('%s/%s'%(jdlDir,jdlName),'w')
+#             jdlFile.write(common_command)
+#             run_command =  'Arguments  = %s %s %s %s %s %s %s $(process) \nQueue 1\n\n' %(fname,findex,nevents,sidelength,ofextn,sample,iloop)
+#             jdlFile.write(run_command)        
+#             jdlFile.close()
+#             subFile.write("condor_submit %s\n"%jdlName)
+#             findex = findex + 1
+
 for sample in samplelist_PU200_Emyr:
     for sidelength in triangle_side_list:
         dirpath = '%s/stage2_emulator_tests/Emyr/%s/'%(os.environ["HOME"],sample)
@@ -251,44 +275,20 @@ for sample in samplelist_PU200_Emyr:
         filelist.remove("")
         nFiles = len(filelist)
         findex  = 0
+        fsidelen = float(sidelength)
+        fsidelen_index = int(fsidelen*1000)
+        jdlName = 'submitJobs_%s_ntuples_%s.jdl'%(sample,fsidelen_index)
+        jdlFile = open('%s/%s'%(jdlDir,jdlName),'w')
+        jdlFile.write(common_command)
         for fname in filelist:
+            #if findex < 200:
             print ("fname: %s, sidelength: %s, index: %s"%(fname,sidelength,findex))
-            fsidelen = float(sidelength)
-            fsidelen_index = int(fsidelen*1000)
             ofextn = 'ntuples_%s'%(fsidelen_index)
-            jdlName = 'submitJobs_%s_ntuples_%s_%s.jdl'%(sample,fsidelen_index,findex)
-            jdlFile = open('%s/%s'%(jdlDir,jdlName),'w')
-            jdlFile.write(common_command)
             run_command =  'Arguments  = %s %s %s %s %s %s %s $(process) \nQueue 1\n\n' %(fname,findex,nevents,sidelength,ofextn,sample,iloop)
             jdlFile.write(run_command)        
-            jdlFile.close()
-            subFile.write("condor_submit %s\n"%jdlName)
             findex = findex + 1
-
-# for sample in samplelist_PU0_Emyr:
-#     for sidelength in triangle_side_list:
-#         dirpath = '%s/stage2_emulator_tests/Emyr/%s/'%(os.environ["HOME"],sample)
-#         findarg = '%s -name \"*.root\"'%(dirpath)
-#         p = subprocess.Popen([("find %s "%findarg)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
-#         filelist, errors = p.communicate()
-#         filelist = filelist.split('\n')
-#         filelist.remove("")
-#         nFiles = len(filelist)
-#         findex  = 0
-#         fsidelen = float(sidelength)
-#         fsidelen_index = int(fsidelen*1000)
-#         jdlName = 'submitJobs_%s_ntuples_%s.jdl'%(sample,fsidelen_index)
-#         jdlFile = open('%s/%s'%(jdlDir,jdlName),'w')
-#         jdlFile.write(common_command)
-#         for fname in filelist:
-#             #if findex < 200:
-#             print ("fname: %s, sidelength: %s, index: %s"%(fname,sidelength,findex))
-#             ofextn = 'ntuples_%s'%(fsidelen_index)
-#             run_command =  'Arguments  = %s %s %s %s %s %s %s $(process) \nQueue 1\n\n' %(fname,findex,nevents,sidelength,ofextn,sample,iloop)
-#             jdlFile.write(run_command)        
-#             findex = findex + 1
-#         jdlFile.close()
-#         subFile.write("condor_submit %s\n"%jdlName)
+        jdlFile.close()
+        subFile.write("condor_submit %s\n"%jdlName)
         
 subFile.close()
 

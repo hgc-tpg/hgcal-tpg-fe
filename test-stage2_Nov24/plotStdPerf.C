@@ -310,8 +310,8 @@ int plotStdPerf(int index = 5)
   //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/vbfHInv_0PU";
   //inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter80/singlePion_PU0_Realistic";
   // inpath1 = "/Data/root_files/stage2_emulation_results/Reso_iter81/vbfHInv_0PU_ID";
-  inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter81/vbfHInv_0PU";
-  //inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter83/vbfHInv_0PU";
+  //inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter81/vbfHInv_0PU";
+  inpath1 = "/home/hep/idas/stage2_emulation_results/Reso_iter85/vbfHInv_0PU_ID";
   // inpath1 = "/home/hep/idas/stage2_emulation_results/Result_iter60/vbfHInv_0PU_ID";
   //inpath1 = "/home/hep/idas/EmulatorChain/hgcal-tpg-fe/";
   //sftp://idas@lx04.hep.ph.ic.ac.uk/home/hep/idas/EmulatorChain/hgcal-tpg-fe/output16.root
