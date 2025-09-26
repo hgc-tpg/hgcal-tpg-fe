@@ -1,5 +1,7 @@
 common*
 common/*
+offline*
+offline/*
 */*~
 */#*
 */*/*~
