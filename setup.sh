@@ -29,6 +29,7 @@ fi
 
 cd $CURRDIR
 rsync -avP $downloaddir/hgcal10glinkreceiver/common .
+rsync -avP $downloaddir/hgcal10glinkreceiver/offline .
 #rsync -avP $downloadir/slow_control_configuration cfgmap/
 
 if [ -L dat ] ; then
@@ -36,7 +37,7 @@ if [ -L dat ] ; then
 fi
 
 if [ $islxplus -eq 1 ] ; then
-    ln -s /eos/cms/store/group/dpg_hgcal/tb_hgcal/2024/BeamTestAug/HgcalBeamtestAug2024 dat
+    ln -s /eos/cms/store/group/dpg_hgcal/comm_hgcal/TPG/ESR2Data dat
 fi
 if [ $ishgcbeamtestpc -eq 1 ] ;  then
     ln -s /till/HgcalBeamtest2024_TEST dat

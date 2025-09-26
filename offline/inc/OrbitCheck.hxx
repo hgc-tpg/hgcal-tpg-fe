@@ -1,32 +1,32 @@
 #include <iostream>
-
-#include "TFileHandlerLocal.h"
-#include "FileReader.h"
-
-#include "TPGFEDataformat.hh"
-#include "TPGFEModuleEmulation.hh"
-#include "Stage1IO.hh"
+#include <fstream>
+#include <cassert>
+#include <string>
+#include <thread>
 
 #include "OrbitReader.h"
-#include "OrbitDumpEvent.h"
-typedef OrbitDumpEvent OrbitCheckTypedef;
 
-using namespace std;
-
-///Source: offline/inc/OrbitCheck.hxx
-
-int main(int argc, char** argv){
-  
-  uint32_t runNumber(12600113);
-  uint32_t sourceId(1260);
+int main(int argc, char *argv[]) {
+  uint32_t runNumber(0xffffffff);
+  uint32_t sourceId(0xffffffff);
   uint32_t firstLs(1);
-  /////========================================================
+  if(argc<3) return 1;
+
+  std::istringstream issrn(argv[1]);
+  issrn >> runNumber;
+  std::istringstream issid(argv[2]);
+  issid >> sourceId;
+  if(argc>=4) {
+    std::istringstream issls(argv[3]);
+    issls >> firstLs;
+  }
+  
   std::vector<Hgcal10gLinkReceiver::OrbitReaderEvent> vEvents;
 
   OrbitCheckTypedef ct;
   assert(ct.runStart(runNumber,sourceId));
   
-  std::string oDir("dat/");
+  std::string oDir("OrbitData/");
 
   Hgcal10gLinkReceiver::OrbitReader oReader;
   if(argc>3) oReader.setPrint(true);
@@ -66,7 +66,6 @@ int main(int argc, char** argv){
   std::cout << "Total number of events in run = " << nEvents << std::endl;
 
   assert(ct.runStop());
-  /////========================================================
-  
+
   return 0;
 }
