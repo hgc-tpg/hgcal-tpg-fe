@@ -17,24 +17,44 @@ using namespace std;
 
 int main(int argc, char** argv){
   
+  std::cout << "Nof arguments : " << argc << std::endl;
+  if(argc < 3){
+    std::cerr << argv[0] << ": no run numbers specified" << std::endl;
+    return 1;
+  }
+  
+  //Command line arg assignment
+  //Assign relay and run numbers
   uint32_t runNumber(12600113);
   uint32_t sourceId(1260);
   uint32_t firstLs(1);
+  
+  unsigned dumpEvent(0);
+  
+  std::istringstream issRun(argv[1]);
+  issRun >> runNumber;
+  std::istringstream issLink(argv[2]);
+  issLink >> sourceId;
+  if(argc > 3){
+    std::istringstream isfirstLs(argv[3]);
+    isfirstLs >> firstLs;
+  }
+  
   /////========================================================
   std::vector<Hgcal10gLinkReceiver::OrbitReaderEvent> vEvents;
-
+  
   OrbitCheckTypedef ct;
   assert(ct.runStart(runNumber,sourceId));
   
   std::string oDir("dat/");
 
   Hgcal10gLinkReceiver::OrbitReader oReader;
-  if(argc>3) oReader.setPrint(true);
+  oReader.setPrint(false);
   
   unsigned nEvents(0);
-
+  
   const Hgcal10gLinkReceiver::OrbitHeader *oh;
-  Hgcal10gLinkReceiver::FragmentTrailer *ft;
+  //Hgcal10gLinkReceiver::FragmentTrailer *ft;
   
   bool done(false);
   for(unsigned i(firstLs);!done;i++) {
@@ -50,7 +70,7 @@ int main(int argc, char** argv){
       continue;
     }
     std::cout << "Opened " << oss.str() << std::endl << std::endl;
-
+    
     while((oh=oReader.readOrbit(vEvents))!=nullptr) {
       assert(ct.orbit(*oh));
       

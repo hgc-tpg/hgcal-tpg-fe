@@ -1,6 +1,9 @@
 #all: emul_test-beam_Sep23 findEMax read_econt_Jul24 GenerateEmpRxFile
-LDFLAGS=-L$(HOME)/Software/yaml-cpp/lib64
-CPPFLAGS=-I$(HOME)/Software/yaml-cpp/include -I common/inc -I offline/inc -I inc -I TPGStage1Emulation/ -I TPGFEEmulation/ -I`root-config --incdir` 
+#LDFLAGS=-L$(HOME)/idas/Software/yaml-cpp/lib64
+#CPPFLAGS=-I$(HOME)/idas/Software/yaml-cpp/include -I common/inc -I offline/inc -I inc -I TPGStage1Emulation/ -I TPGFEEmulation/ -I`root-config --incdir`
+
+LDFLAGS=-L/usr/lib64
+CPPFLAGS=-I/usr/include/yaml-cpp -I common/inc -I offline/inc -I inc -I TPGStage1Emulation/ -I TPGFEEmulation/ -I`root-config --incdir` 
 
 all:  TpgTimingCheck.exe dump_event25.exe #sipm-emul.exe findEMax.exe #findFixedpattern.exe findEMax.exe tpgdata_3T_tcproc.exe  tpgdata_3T_fe.exe  scanadc_Sep24.exe dump_event.exe tpgdata_2T_fe.exe emul_Sep24.exe emul_3T_Sep24.exe dqm-tpgdata.exe dqm-emulSep24.exe #loop_emul_Sep24.exe scanconfigval_Sep24.exe emul_Sep24.exe validateFixedADC.exe # findEMax.exe GenerateEmpRxFile.exe dump_event.exe emul_test-beam_Sep23.exe 
 
@@ -67,10 +70,10 @@ TestUnpackerTCProcInterface.exe: TPGStage1Emulation/TestUnpackerTCProcInterface.
 sipm-emul.exe: test-beam_Sep24_macros/sipm-emul.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
 	g++ $(LDFLAGS) $(CPPFLAGS) test-beam_Sep24_macros/sipm-emul.cpp  -l yaml-cpp `root-config --libs --cflags` -o sipm-emul.exe -lm
 
-dump_event25.exe: test-beam_Sep25_macros/dump_event.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
-	g++ $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/dump_event.cpp  -l yaml-cpp `root-config --libs --cflags` -o dump_event25.exe
+dump_event25.exe: test-beam_Sep25_macros/dump_event.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/dump_event.cpp  -l yaml-cpp `root-config --libs --cflags` -o dump_event25.exe
 
-TpgTimingCheck.exe: test-beam_Sep25_macros/TpgTimingCheck.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h 
-	g++ $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/TpgTimingCheck.cpp  -l yaml-cpp `root-config --libs --cflags` -o TpgTimingCheck.exe
+TpgTimingCheck.exe: test-beam_Sep25_macros/TpgTimingCheck.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/TpgTimingCheck.cpp  -l yaml-cpp `root-config --libs --cflags` -o TpgTimingCheck.exe
 clean:
 	rm *.exe
