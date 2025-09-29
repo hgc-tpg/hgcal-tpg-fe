@@ -47,7 +47,7 @@ int main(int argc, char** argv){
   assert(ct.runStart(runNumber,sourceId));
   
   std::string oDir("dat/");
-
+  
   Hgcal10gLinkReceiver::OrbitReader oReader;
   oReader.setPrint(false);
   
