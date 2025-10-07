@@ -86,25 +86,27 @@ public:
 	  unsigned emp_chan(tsh->channelId()/2);
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
-	  if(emp_chan==100){
+	  if(emp_chan==100 or emp_chan==102){
 	    uint wpspd = 0;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
 	      const uint64_t *el64packed((const uint64_t*)(tsh+1+bx*tsh->numberOfWordsPerBx()));
-	      uint32_t elinks[7];
+	      uint32_t elinks[8];
 	      for(unsigned j(0);j<tsh->numberOfWordsPerBx();j++) {
-		if(j<(tsh->numberOfWordsPerBx()-1)){
-		  elinks[2*j] = el64packed[j] & 0xffffffff;
-		  elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
-		}else{
-		  elinks[2*j] = el64packed[j] & 0xffffffff;
-		}
+		// if(j<(tsh->numberOfWordsPerBx()-1)){
+		//   elinks[2*j] = el64packed[j] & 0xffffffff;
+		//   elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
+		// }else{
+		//   elinks[2*j] = el64packed[j] & 0xffffffff;
+		// }
+		elinks[2*j] = el64packed[j] & 0xffffffff;
+		elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
 		std::cout << "Word " << std::setw(6) << wpspd++ << " = 0x"
 			  << std::hex << std::setfill('0')
 			  << std::setw(16) << el64packed[j]
 			  << std::dec << std::setfill(' ')
 			  << std::endl;	      
 	      }
-	      for(unsigned iel(0);iel<7;iel++) {
+	      for(unsigned iel(0);iel<8;iel++) {
 		std::cout << "\t elink " << std::setw(3) << iel << " = 0x"
 			  << std::hex << std::setfill('0')
 			  << std::setw(8) << elinks[iel]
@@ -114,17 +116,22 @@ public:
 	      
 	      const int neTx = 4;
 	      uint32_t el[neTx];
-	      el[0] = elinks[2];
-	      el[1] = elinks[1];
-	      el[2] = elinks[0];
+	      // el[0] = elinks[0];
+	      // el[1] = elinks[1];
+	      // el[2] = elinks[2];
+	      // if(neTx>3) el[3] = elinks[3];
+	      
+	      //Run 111137 and 111138
+	      el[0] = elinks[6];
+	      el[1] = elinks[5];
+	      el[2] = elinks[4];
 	      if(neTx>3) el[3] = elinks[3];
 	      for(unsigned iel(0);iel<neTx;iel++){
 		std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"
 			  << std::hex << std::setfill('0')
 			  << std::setw(8) << el[iel]
 			  << std::dec << std::setfill(' ')
-			  << std::endl;	      
-		
+			  << std::endl;	      		
 	      }
 	      
 	      TPGFEDataformat::TcRawDataPacket rdp;
@@ -142,14 +149,14 @@ public:
       noffecafe++;
     }
 
-    // for(unsigned j(0);j<n64;j++) {
-    //   std::cout << "Word " << std::setw(6) << j << " = 0x"
-    // 		<< std::hex << std::setfill('0')
-    // 		<< std::setw(16) << p[j]
-    // 		<< std::dec << std::setfill(' ')
-    // 	      << std::endl;
-    // }
-    // std::cout << std::endl;
+    for(unsigned j(0);j<n64;j++) {
+      std::cout << "Word " << std::setw(6) << j << " = 0x"
+		<< std::hex << std::setfill('0')
+		<< std::setw(16) << p[j]
+		<< std::dec << std::setfill(' ')
+	      << std::endl;
+    }
+    std::cout << std::endl;
  
     std::cout << "Processing event : " <<  iEvent++ << ", noffecafe: " << noffecafe << std::endl;
     return true;

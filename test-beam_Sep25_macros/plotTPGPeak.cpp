@@ -88,19 +88,21 @@ public:
 	  
 	  unsigned emp_chan(tsh->channelId()/2);
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
+	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
 	  if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
-	  //if(emp_chan==100){
 	    uint wpspd = 0;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
 	      const uint64_t *el64packed((const uint64_t*)(tsh+1+bx*tsh->numberOfWordsPerBx()));
-	      uint32_t elinks[7];
+	      uint32_t elinks[8];
 	      for(unsigned j(0);j<tsh->numberOfWordsPerBx();j++) {
-		if(j<(tsh->numberOfWordsPerBx()-1)){
-		  elinks[2*j] = el64packed[j] & 0xffffffff;
-		  elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
-		}else{
-		  elinks[2*j] = el64packed[j] & 0xffffffff;
-		}
+		// if(j<(tsh->numberOfWordsPerBx()-1)){
+		//   elinks[2*j] = el64packed[j] & 0xffffffff;
+		//   elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
+		// }else{
+		//   elinks[2*j] = el64packed[j] & 0xffffffff;
+		// }
+		elinks[2*j] = el64packed[j] & 0xffffffff;
+		elinks[2*j+1] = (el64packed[j]>>32) & 0xffffffff;
 		// std::cout << "Word " << std::setw(6) << wpspd++ << " = 0x"
 		// 	  << std::hex << std::setfill('0')
 		// 	  << std::setw(16) << el64packed[j]
@@ -115,11 +117,12 @@ public:
 	      // 		  << std::endl;	      
 	      // }
 	      
-	      int neTx = (emp_chan==120)?3:4;
+	      //int neTx = (emp_chan==106)?3:4;
+	      int neTx = 4;
 	      uint32_t *el = new uint32_t[neTx];
-	      el[0] = elinks[2];
+	      el[0] = elinks[0];
 	      el[1] = elinks[1];
-	      el[2] = elinks[0];
+	      el[2] = elinks[2];
 	      if(neTx>3) el[3] = elinks[3];
 	      // for(unsigned iel(0);iel<neTx;iel++){
 	      // 	std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"
@@ -200,15 +203,17 @@ int main(int argc, char** argv){
   
   /////=======================================================
   int emp_ch[12] = {100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122} ;
-  TFile *fout = new TFile(Form("output_run%u.root",runNumber),"recreate");
-  TDirectory *dir_hist = fout->mkdir(Form("run%u",runNumber));
+  TFile *fout = new TFile(Form("output_run%u_src%u_lumi%u.root",runNumber,sourceId,firstLs),"recreate");
+  //TDirectory *dir_hist = fout->mkdir(Form("run",runNumber));
+  TDirectory *dir_hist = fout->mkdir("run");
   //Create hists
   for(int iemp=0;iemp<12;iemp++){
-    TH1D *hEMS = new TH1D(Form("hEMS_empch%d",emp_ch[iemp]),Form("Run:%u MS distn of layer %d (EMPch:%d)",runNumber,(iemp+1),emp_ch[iemp]),7,-3,3);
+    TH1D *hEMS = new TH1D(Form("hEMS_empch%d",emp_ch[iemp]),Form("Run:%u MS Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),7,-3.5,3.5);
     hEMS->GetXaxis()->SetTitle("Bx");
     hEMS->GetYaxis()->SetTitle("Entries");
     hEMS->GetXaxis()->SetTitleSize(0.05);
     hEMS->GetYaxis()->SetTitleSize(0.05);
+    hEMS->GetYaxis()->SetTitleOffset(1.2);
     hEMS->GetXaxis()->SetLabelSize(0.05);
     hEMS->GetYaxis()->SetLabelSize(0.05);
     hEMS->SetLineWidth(3);
@@ -256,10 +261,8 @@ int main(int argc, char** argv){
       for(unsigned j(0);j<vEvents.size();j++) {
 	assert(ct.event(vEvents[j],list));
 	nEvents++;
-      }
-      
-    }
-    
+      }      
+    }    
     oReader.close();
   }
 
@@ -267,7 +270,7 @@ int main(int argc, char** argv){
 
   assert(ct.runStop());
   /////========================================================
-  TCanvas *c1 = new TCanvas(Form("Run%u_source%d",runNumber,sourceId),Form("Run%u_source%d",runNumber,sourceId),1600,800);
+  TCanvas *c1 = new TCanvas(Form("Run%u_source%d_lumi%d",runNumber,sourceId,firstLs),Form("Run%u_source%d_lumi%d",runNumber,sourceId),1600,800);
   c1->Divide(4,3);
   for(int iemp=0;iemp<12;iemp++){
     c1->cd(iemp+1);//->SetLogy();
