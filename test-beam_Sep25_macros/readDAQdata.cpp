@@ -80,6 +80,7 @@ namespace Hgcal10gLinkReceiver {
 	for(unsigned j(0);j<getNeRx();j++) {
 	  uint32_t idata = ffidxlst.at(j) + 1;
 	  for(unsigned k(0);k<37;k++) {
+	    if(k==18) continue;
 	    o << s << "ErxPassThSubpacket::print() "
 	      << "\t iData ith-half-roc: " << std::setfill('0') << std::setw(2) << j
 	      <<", ch: " << std::setfill('0') << std::setw(2) << k
@@ -137,6 +138,7 @@ namespace Hgcal10gLinkReceiver {
     uint64_t getEventWord() const	{return getWord(wpos);}    
     uint32_t getPayloadSize() const	{return ((getEventWord()>>46)&0x1ff);}
     bool isPassTh() const		{return (((getEventWord()>>45)&0x1)==1)?true:false;}
+    uint32_t getBx() const		{return ((getEventWord()>>20)&0xfff) ;}
     
     int nextEcon(int iecon){
       if(iecon==0)
@@ -162,6 +164,9 @@ namespace Hgcal10gLinkReceiver {
         << std::setw(16) << getEconDHeaderWord()
         << std::dec << std::setfill(' ')
 	<< std::endl;
+      o << s << " Number of Valid Econs = "
+	<< std::setw(3) << unsigned(numberOfValidEcons())
+	<< std::endl;
       for(uint32_t iecon=0;iecon<numberOfValidEcons();iecon++) {
 	nextEcon(iecon);
 	o << s << " EconD event header Word = 0x"
@@ -174,12 +179,12 @@ namespace Hgcal10gLinkReceiver {
 	  << std::setw(4) << getWordPos()
 	  << ", global word pos: "
 	  << std::setw(4) << getEventWordPos()
+	  << ", isPassThrough: "
+	  << std::setw(4) << isPassTh()
+	  << ", getBx: "
+	  << std::setw(4) << getBx()
 	  << std::endl;
       }
-
-      o << s << " Number of Valid Econs = "
-	<< std::setw(3) << unsigned(numberOfValidEcons())
-	<< std::endl;
       o << s << std::endl;
     }
     
@@ -277,8 +282,10 @@ public:
 	  uint32_t n32 = econdsp->getPayloadSize() + 1;
 	  unsigned fpos = econdsp->getEventWordPos()+econdsp->getWordPos()+1;
 	  Hgcal10gLinkReceiver::ErxPassThSubpacket *desp = new Hgcal10gLinkReceiver::ErxPassThSubpacket();
-	  if(!desp->setData(p,fpos,n32)) continue;
-	  desp->print(std::cout,"verbose::");
+	  if(!desp->setData(p,fpos,n32)) { delete desp ; continue;}
+	  //desp->print(std::cout,"verbose::");
+	  desp->print();	  
+	  delete desp;
 	}	
       }//econ loop;
     }while(econdsp->nextSubpacketHeader(n64-2));

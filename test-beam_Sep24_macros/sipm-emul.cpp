@@ -326,8 +326,7 @@ int main(int argc, char** argv)
       std::cout << "============++++++++++++++++++++++++================================================" << std::endl;
       TcRawdata.second.print();
       hasTCshowed = true ;
-    }
-    
+    }    
     if(event==refEvent and hasTCshowed) {
       //TPGFEDataformat::TcModuleBxPackets
       //if(tpgarray[event].second.size()>=8) tpgarray[event].second.at(7).print();

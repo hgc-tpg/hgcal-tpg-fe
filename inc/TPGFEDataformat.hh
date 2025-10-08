@@ -519,10 +519,10 @@ namespace TPGFEDataformat{
   };
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  typedef std::vector<std::pair<uint32_t,TPGFEDataformat::HalfHgcrocData>> HRocarray;
   //typedef std::pair<uint32_t,std::vector<TPGFEDataformat::TcRawData>> TcRawDataPacket;
   typedef std::pair<uint32_t,TPGFEDataformat::TcRawDataPacket> TcModulePacket;  
-  typedef std::pair<uint32_t,std::vector<TPGFEDataformat::TcRawDataPacket>> TcModuleBxPackets;
-  
+  typedef std::pair<uint32_t,std::vector<TPGFEDataformat::TcRawDataPacket>> TcModuleBxPackets;  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   class HgcrocTcData {
   public:

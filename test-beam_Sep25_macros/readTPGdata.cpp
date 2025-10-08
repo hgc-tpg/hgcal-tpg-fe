@@ -86,7 +86,8 @@ public:
 	  unsigned emp_chan(tsh->channelId()/2);
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
-	  if(emp_chan==100 or emp_chan==102){
+	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==123){
+	  if(emp_chan==120 or emp_chan==123){
 	    uint wpspd = 0;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
 	      const uint64_t *el64packed((const uint64_t*)(tsh+1+bx*tsh->numberOfWordsPerBx()));
@@ -113,33 +114,90 @@ public:
 			  << std::dec << std::setfill(' ')
 			  << std::endl;	      
 	      }
+
+	      if(emp_chan!=123){
+		// /////////////////////////// Si ////////////////////////////
+		const int neTx = 4;
+		uint32_t el[neTx];
+		el[0] = elinks[0];
+		el[1] = elinks[1];
+		el[2] = elinks[2];
+		if(neTx>3) el[3] = elinks[3];
 	      
-	      const int neTx = 4;
-	      uint32_t el[neTx];
-	      // el[0] = elinks[0];
-	      // el[1] = elinks[1];
-	      // el[2] = elinks[2];
-	      // if(neTx>3) el[3] = elinks[3];
+		//Run 111137 and 111138
+		// el[0] = elinks[6];
+		// el[1] = elinks[5];
+		// el[2] = elinks[4];
+		// if(neTx>3) el[3] = elinks[3];
 	      
-	      //Run 111137 and 111138
-	      el[0] = elinks[6];
-	      el[1] = elinks[5];
-	      el[2] = elinks[4];
-	      if(neTx>3) el[3] = elinks[3];
-	      for(unsigned iel(0);iel<neTx;iel++){
-		std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"
-			  << std::hex << std::setfill('0')
-			  << std::setw(8) << el[iel]
-			  << std::dec << std::setfill(' ')
-			  << std::endl;	      		
+		for(unsigned iel(0);iel<neTx;iel++){
+		  std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"
+			    << std::hex << std::setfill('0')
+			    << std::setw(8) << el[iel]
+			    << std::dec << std::setfill(' ')
+			    << std::endl;	      		
+		}
+	      
+		TPGFEDataformat::TcRawDataPacket rdp;
+		if(neTx==4){
+		  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 9, el, rdp);
+		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::STC4A, 12, el, rdp);
+		}else
+		  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 6, el, rdp);
+		rdp.print();
+		// /////////////////////////// Si ////////////////////////////
+	      }else{
+		/////////////////////////// Sci ////////////////////////////
+		const int neTx1 = 4;
+		const int neTx2 = 3;
+		uint32_t *el1 = new uint32_t[neTx1];
+		uint32_t *el2 = new uint32_t[neTx2];
+		el1[0] = elinks[1];
+		el1[1] = elinks[0];
+		el1[2] = elinks[2];
+		el1[3] = elinks[3];
+	      
+		el2[0] = elinks[4];
+		el2[1] = elinks[5];
+		el2[2] = elinks[6];
+	      
+		//Run 111137 and 111138
+		// el[0] = elinks[6];
+		// el[1] = elinks[5];
+		// el[2] = elinks[4];
+		// if(neTx>3) el[3] = elinks[3];
+	      
+		for(unsigned iel(0);iel<neTx1;iel++){
+		  std::cout << "\t\t el1 " << std::setw(3) << iel << " = 0x"
+			    << std::hex << std::setfill('0')
+			    << std::setw(8) << el1[iel]
+			    << std::dec << std::setfill(' ')
+			    << std::endl;	      		
+		}
+	      
+		for(unsigned iel(0);iel<neTx2;iel++){
+		  std::cout << "\t\t el1 " << std::setw(3) << iel << " = 0x"
+			    << std::hex << std::setfill('0')
+			    << std::setw(8) << el2[iel]
+			    << std::dec << std::setfill(' ')
+			    << std::endl;	      		
+		}
+	      
+		TPGFEDataformat::TcRawDataPacket rdp1, rdp2;
+		TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::STC4A, 12, el1, rdp1);
+		rdp1.print();
+		TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::STC4A, 10, el2, rdp2);
+		rdp2.print();
+
+		uint64_t tot0 = 0, tot1 = 0;
+		for(const auto& itc: rdp1.getTcData()) tot0 += itc.decodedE(rdp1.type());
+		for(const auto& itc: rdp2.getTcData()) tot1 += itc.decodedE(rdp2.type());
+		std::cout << "tot0: " << tot0 << ", tot1: " << tot1 << std::endl;
+	      
+		delete []el1;
+		delete []el2;
+		/////////////////////////// Sci ////////////////////////////
 	      }
-	      
-	      TPGFEDataformat::TcRawDataPacket rdp;
-	      if(neTx==4)
-		TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 9, el, rdp);
-	      else
-		TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 6, el, rdp);
-	      rdp.print();	    
 	    }
 	  }
 	}
