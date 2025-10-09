@@ -730,7 +730,7 @@ namespace TPGFEModuleEmulation{
     
     const TPGFEDataformat::Type& outputType = configs.getEconTPara().at(moduleId).getOutType();
     const TPGFEDataformat::ModuleTcData& mdata = moddata.at(moduleId);
-
+    
     uint16_t bx = (mdata.getBx()==3564) ? 0xF : mdata.getBx() & 0x7 ; //make 8 modulo
     uint64_t decompressedMS = 0;
     std::vector<TPGFEDataformat::TcRawData> tcrawdatalist;
@@ -761,11 +761,18 @@ namespace TPGFEModuleEmulation{
     }
     batcherOEMSort(tcrawdatalist);
     if(isVerbose) for(int itc=0;itc<48;itc++) tcrawdatalist[itc].print();
+
+    uint32_t nofBCTcs = configs.getEconTPara().at(moduleId).getNofTCs();
+    if(!configs.getEconTPara().at(moduleId).getMSSumType()){
+      uint64_t totBCSelRawE = 0;
+      for(uint32_t itc = 0 ; itc<nofBCTcs ; itc++) totBCSelRawE += tcrawdatalist[itc].rawE();
+      decompressedMS -= totBCSelRawE;
+    }
     
     uint16_t compressed_modsum = CompressEcontModsum(decompressedMS,dropLSB);
     emulOut.second.reset();
     emulOut.second.setTBM(outputType, bx, compressed_modsum, decompressedMS>>dropLSB); 
-    uint32_t nofBCTcs = configs.getEconTPara().at(moduleId).getBCType();
+    //uint32_t nofBCTcs = configs.getEconTPara().at(moduleId).getBCType();
     for(uint32_t itc = 0 ; itc<nofBCTcs ; itc++)
       emulOut.second.setTcData(outputType, tcrawdatalist[itc].address(), tcrawdatalist[itc].energy(), tcrawdatalist[itc].rawE(),tcrawdatalist[itc].isTcTp1(),tcrawdatalist[itc].isTcTp2(),tcrawdatalist[itc].isTcTp3());
     

@@ -138,7 +138,7 @@ namespace TPGFEConfiguration{
   //////https://edms.cern.ch/ui/#!master/navigator/document?P:100053490:100430098:subDocs
   class ConfigEconT {
   public:
-    ConfigEconT() : density(0), dropLSB(0), select(0), stc_type(0) {
+    ConfigEconT() : density(0), dropLSB(0), select(0), stc_type(0), usesum(true) {
       for(uint32_t itc=0;itc<48;itc++) {
 	calv[itc] = 0;
 	mux[itc] = 0;
@@ -149,6 +149,7 @@ namespace TPGFEConfiguration{
     uint32_t getSelect() const { assert(select==1 or select==2); return uint32_t(select);}
     uint32_t getSTCType() const { assert(stc_type>=0 and stc_type<=4); return uint32_t(stc_type);}
     uint32_t getNElinks() const { assert(eporttx_numen!=0);  return uint32_t(eporttx_numen);}
+    bool getMSSumType() const { return usesum; }
     uint32_t getNofTCs() const { return getBCType(); }
     uint32_t getBCType() const {
       uint32_t maxTcs = 0;
@@ -320,6 +321,7 @@ namespace TPGFEConfiguration{
     void setSelect(uint32_t sel) { assert(sel==1 or sel==2); select = sel;}
     void setSTCType(uint32_t stctype) { assert(stctype>=0 and stctype<=4); stc_type = stctype;}
     void setNElinks(uint32_t nlinks) { assert(nlinks!=0); eporttx_numen = nlinks;}
+    void setMSSumType(bool sumtype)  { usesum = sumtype; }
     void setCalibration(uint32_t itc, uint32_t calib) {
       assert(itc<=47) ;
       calv[itc] = (calib & 0xFFF);
@@ -362,6 +364,7 @@ namespace TPGFEConfiguration{
     uint8_t eporttx_numen;//number of elinks
     uint16_t calv[48]; //12-bit calibration for 48 TCs
     uint8_t mux[48];   //multiplexer between HGCROC and TC to ECONT
+    bool usesum; //true: total of all TCs, false: (total-sumofselectedTcs)
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////Packing several IDs for listing objects
