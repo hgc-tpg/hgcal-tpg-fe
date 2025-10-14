@@ -274,13 +274,15 @@ public:
 	  //========================================================
 	  if(iecon==econd and link==daqlink){
 	    std::cout << "Econ: " << iecon << ", link: " << link << std::endl;
+	    uint32_t rocorder[6] = {4,5,2,3,0,1} ;
 	    for(unsigned ihrc(0);ihrc<desp->getNeRx();ihrc++) {
 	      TPGFEDataformat::HalfHgcrocData hrocdata;
 	      int ich = 0;
 	      for(unsigned iseq(0);iseq<37;iseq++) {
 		if(iseq==18) continue;
 		TPGFEDataformat::HalfHgcrocChannelData chdata;
-		uint32_t rawdata = desp->getChData(ihrc,iseq);
+		//uint32_t rawdata = desp->getChData(ihrc,iseq);
+		uint32_t rawdata = desp->getChData(rocorder[ihrc],iseq);
 		const uint16_t trigflag = (rawdata>>30) & 0x3;
 		if(trigflag==3){
 		  uint16_t ttot = (rawdata>>10) & 0x3FF;
@@ -406,7 +408,7 @@ public:
 	  unsigned emp_chan(tsh->channelId()/2);
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
-	  if(emp_chan==106){ //check for 106 of run 111138 and understand the MS of 100 channel
+	  if(emp_chan==104){ 
 	    uint wpspd = 0;
 	    std::vector<TPGFEDataformat::TcRawDataPacket> tcpktarr;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
@@ -590,7 +592,7 @@ int main(int argc, char** argv){
   std::map<uint64_t,TPGFEDataformat::TcModuleBxPackets> tpgarray; //event,tpgdata_array
   
   uint32_t zside = 0, sector = 0, link = 1, det = 0;
-  uint32_t econd = 1, econt = 1, selTC4 = 1, module = 0;
+  uint32_t econd = 0, econt = 0, selTC4 = 1, module = 0;
   TPGFEConfiguration::TPGFEIdPacking pck;
   
   uint32_t testmodid = pck.packModId(zside, sector, link, det, econt, selTC4, module); //we assume same ECONT and ECOND number for a given module

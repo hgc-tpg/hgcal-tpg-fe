@@ -372,7 +372,7 @@ namespace TPGFEModuleEmulation{
 	while (q>=p){
 	  for(uint32_t i=0; i<(N-d) ; i++){
 	    if ((i & p) != r) continue;
-	    if (tc[i] < tc[i+d]) std::swap(tc[i], tc[i+d]);
+	    if (tc[i] <= tc[i+d]) std::swap(tc[i], tc[i+d]);
 	  }
 	  d = q - p;
 	  q = floor(q/2);
@@ -701,7 +701,7 @@ namespace TPGFEModuleEmulation{
 	  decompressedSTC16 += decompressed ;
 	  if(isVerbose) std::cout << "TPGFEModuleEmulation::ECONTEmulation::EmulateJulSTC16 (moduleid="<<moduleId<<", TC="<<econtc<<") decompressed*calib>>11: " << decompressed << ", decompressedSTC16: " << decompressedSTC16 << std::endl; 
 	  uint16_t compressed_bc = CompressEcontBc(decompressed,dropLSB);
-	  tcdata.setTriggerCell(TPGFEDataformat::BestC, econtc, compressed_bc, decompressed, mdata.getTC(emultc).isTcTp1(), mdata.getTC(emultc).isTcTp2(), mdata.getTC(emultc).isTcTp3()) ;
+	  tcdata.setTriggerCell(TPGFEDataformat::BestC, econtc, compressed_bc, decompressed, mdata.getTC(emultc).isTcTp1(), mdata.getTC(emultc).isTcTp2(), mdata.getTC(emultc).isTcTp3()) ;	  
 	  tcrawdatalist.push_back(tcdata);
 	}
 	batcherOEMSort(tcrawdatalist);
@@ -756,7 +756,8 @@ namespace TPGFEModuleEmulation{
       decompressedMS += (decompressed >> dropLSB) ;
       if(isVerbose) std::cout << "TPGFEModuleEmulation::ECONTEmulation::EmulateBC (moduleid="<<moduleId<<", TC="<<econtc<<") decompressed*calib>>11: " << decompressed << ", decompressedMS: " << decompressedMS << std::endl; 
       uint16_t compressed_bc = CompressEcontBc(decompressed,dropLSB);
-      tcdata.setTriggerCell(outputType, econtc, compressed_bc, decompressed>>dropLSB, mdata.getTC(emultc).isTcTp1(), mdata.getTC(emultc).isTcTp2(), mdata.getTC(emultc).isTcTp3()) ;
+      //tcdata.setTriggerCell(outputType, econtc, compressed_bc, decompressed>>dropLSB, mdata.getTC(emultc).isTcTp1(), mdata.getTC(emultc).isTcTp2(), mdata.getTC(emultc).isTcTp3()) ;
+      tcdata.setTriggerCell(TPGFEDataformat::BestC, econtc, compressed_bc, mdata.getTC(emultc).getCharge(), mdata.getTC(emultc).isTcTp1(), mdata.getTC(emultc).isTcTp2(), mdata.getTC(emultc).isTcTp3()) ;
       tcrawdatalist.push_back(tcdata);
     }
     batcherOEMSort(tcrawdatalist);

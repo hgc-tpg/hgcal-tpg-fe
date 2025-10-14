@@ -228,11 +228,17 @@ namespace TPGFEDataformat{
     friend void swap(TcRawData& lhs, TcRawData& rhs){
       std::swap(lhs._data, rhs._data);
     }
+    // friend bool operator<(const TcRawData& lhs, const TcRawData& rhs) {
+    //   return lhs.energy() < rhs.energy();
+    // }
     friend bool operator<(const TcRawData& lhs, const TcRawData& rhs) {
-      return lhs.energy() < rhs.energy();
+      return lhs.rawE() < rhs.rawE();
     }
+    // friend bool operator<=(const TcRawData& lhs, const TcRawData& rhs) {
+    //   return lhs.energy() <= rhs.energy();
+    // }
     friend bool operator<=(const TcRawData& lhs, const TcRawData& rhs) {
-      return lhs.energy() <= rhs.energy();
+      return lhs.rawE() <= rhs.rawE();
     }
     friend bool operator>(const TcRawData& lhs, const TcRawData& rhs) {
       return lhs.energy() > rhs.energy();
