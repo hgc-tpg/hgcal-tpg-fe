@@ -461,7 +461,7 @@ namespace TPGFEDataformat{
       _tcdata.push_back(tc);
     }
     TPGFEDataformat::TcRawData& operator[](int index){
-      if (index >= _tcdata.size()) {
+      if (uint32_t(index) >= _tcdata.size()) {
 	std::cerr << "TPGFEDataformat::TcRawDataPacket Array index out of bound, exiting" << std::endl;
 	exit(0);
       }
