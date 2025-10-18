@@ -8,6 +8,7 @@
 #include <cassert>
 #include <vector>
 #include <algorithm>
+#include "TMath.h"
 
 namespace TPGFEDataformat{
 
@@ -685,5 +686,355 @@ namespace TPGFEDataformat{
 
 }
 
+namespace TPGFEConfiguration{
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////The configuration of half of ROC based on HGCROC3a [doc. no. v2.0] (See Table@Page-43)
+  //////EDMS ROCv3a: https://edms.cern.ch/ui/#!master/navigator/document?D:100570166:100570166:subDocs
+  //////EDMS ROCv3b(recent): https://edms.cern.ch/ui/#!master/navigator/document?D:101362066:101362066:subDocs
+  class ConfigHfROC {    
+  public:
+    ConfigHfROC() {}
+    uint32_t getAdcTH() const { return uint32_t(Adc_TH);}
+    uint64_t getClrAdcTottrig() const { return ClrAdcTot_trig;}
+    bool isChMasked(uint32_t ich) const {
+      int chnl = ich%36;
+      return (getClrAdcTottrig()>>chnl) & 0x1 ;
+    }
+    uint32_t getTotTH(uint32_t ich) const {
+      uint32_t chnl = ich%36;
+      uint32_t  tot_idx = TMath::FloorNint(chnl/9);
+      return uint32_t(Tot_TH[tot_idx]);
+    }
+    uint32_t getTotP(uint32_t ich) const {
+      uint32_t chnl = ich%36;
+      uint32_t tot_idx = TMath::FloorNint(chnl/9);
+      return uint32_t(Tot_P[tot_idx]);
+    }
+    uint32_t getMultFactor() const { return uint32_t(MultFactor);}    
+    void setAdcTH(uint32_t  adcth) { Adc_TH = adcth & 0x1F;}
+    void setClrAdcTottrig(uint64_t clradctottrig) { ClrAdcTot_trig = clradctottrig & 0xFFFFFFFF;}
+    void setMultFactor(uint32_t multfactor) { MultFactor = multfactor & 0x1F;}
+    void setTotTH(uint32_t tot_idx, uint32_t tot_th) { Tot_TH[tot_idx] = tot_th & 0xFF;}
+    void setTotP(uint32_t tot_idx, uint32_t tot_p) { Tot_P[tot_idx] = tot_p & 0x7F;}
+    void print() const {
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigHfROC(" << this << ")::print(): "
+		<<"Adc_TH = "<< std::setw(4) << getAdcTH()
+		<<", MultFactor = "<< std::setw(3) << getMultFactor()
+		<< std::endl;
+      
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigHfROC(" << this << ")::print(): "
+		<<"ClrAdcTot_trig = ";
+      for(uint32_t ich=0;ich<36;ich++)
+	std::cout << std::setw(2) << "("<< ich <<": " << isChMasked(ich) <<") ";
+      std::cout << std::endl;
+      
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigHfROC(" << this << ")::print(): "
+		<<"Tot_P = ";
+      for(uint32_t itotch=0;itotch<4;itotch++)
+	std::cout << std::setw(4) << "("<< itotch <<": " << uint32_t(Tot_P[itotch]) <<") ";
+      std::cout << std::endl;
+      
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigHfROC(" << this << ")::print(): "
+		<<"Tot_TH = ";
+      for(uint32_t itotch=0;itotch<4;itotch++)
+	std::cout << std::setw(4) << "("<< itotch <<": " << uint32_t(Tot_TH[itotch]) <<") ";
+      std::cout << std::endl;
+
+    }
+
+  private:    
+    //Digital Info
+    uint8_t Adc_TH; //5-bits
+    uint64_t ClrAdcTot_trig;  //36-bits
+    uint8_t MultFactor; //5-bits
+    uint8_t Tot_P[4];  //one per 9 channel (each with 7-bits):not present in 2023 beam test
+    uint8_t Tot_TH[4]; //one per 9 channel (each with 8 bits):not present in 2023 beam test    
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //The configuration of channel corresponding to ADC per module
+  class ConfigCh {
+  public:
+    ConfigCh() {}
+    uint32_t getAdcpedestal() const { return uint32_t(Adc_pedestal);}
+    void setAdcpedestal(uint32_t ped) { Adc_pedestal = ped & 0xFF;}
+    void print() {
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigCh(" << this << ")::print(): "
+		<<"Adc_pedestal = "<< std::setw(4)<< getAdcpedestal()
+		<< std::endl;
+    }
+    void print(uint32_t ich) {
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigCh(" << this << ")::print(): "
+		<<"ich: "<< ich <<", Adc_pedestal = "<< std::setw(4)<< getAdcpedestal()
+		<< std::endl;
+    }
+    
+  private:
+    uint8_t Adc_pedestal; //8-bits 
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////ECON-D [doc. no: v1.1]
+  //////https://edms.cern.ch/ui/#!master/navigator/document?P:100053490:100904542:subDocs
+  class ConfigEconD {
+  public:
+    ConfigEconD() : isPassThrough(false), neRx(0) {}
+    bool passThrough() const { return isPassThrough;}
+    uint32_t getNeRx() const { assert(neRx!=0); return uint32_t(neRx);}
+    void setPassThrough(bool isPT) { isPassThrough = isPT;}
+    void setNeRx(uint32_t nofeRx) { assert(nofeRx!=0); neRx = nofeRx;}
+    void print() {
+      std::cout << std::dec << ::std::setfill(' ')
+		<< "ConfigEconD(" << this << ")::print(): "
+		<<"isPassThrough mode = "
+		<< std::setw(2) << passThrough()
+		<<", \tnof eRx = "
+		<< std::setw(2) << getNeRx()
+		<< std::endl;
+    }
+    
+  private:    
+    bool isPassThrough; //1-bit
+    uint8_t neRx; 
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////ECON-T [doc. no: v10]
+  //////https://edms.cern.ch/ui/#!master/navigator/document?P:100053490:100430098:subDocs
+  class ConfigEconT {
+  public:
+    ConfigEconT() : density(0), dropLSB(0), select(0), stc_type(0), usesum(true) {
+      for(uint32_t itc=0;itc<48;itc++) {
+	calv[itc] = 0;
+	mux[itc] = 0;
+      }
+    }
+    bool getDensity() const { assert(density==0 or density==1); return (density==1) ? true : false;}
+    uint32_t getDropLSB() const { assert(dropLSB>=0 and dropLSB<=4); return uint32_t(dropLSB);}
+    uint32_t getSelect() const { assert(select==1 or select==2); return uint32_t(select);}
+    uint32_t getSTCType() const { assert(stc_type>=0 and stc_type<=4); return uint32_t(stc_type);}
+    uint32_t getNElinks() const { assert(eporttx_numen!=0);  return uint32_t(eporttx_numen);}
+    bool getMSSumType() const { return usesum; }
+    uint32_t getNofTCs() const { return getBCType(); }
+    uint32_t getBCType() const {
+      uint32_t maxTcs = 0;
+      if(getOutType()==TPGFEDataformat::BestC){	
+	switch(getNElinks()){
+	case 1:
+	  maxTcs = 1;
+	  break;
+	case 2:
+	  maxTcs = 4;
+	  break;
+	case 3:
+	  maxTcs = 6;
+	  break;
+	case 4:
+	  maxTcs = 9;
+	  break;
+	case 5:
+	  maxTcs = 14;
+	  break;
+	case 6:
+	  maxTcs = 18;
+	  break;
+	case 7:
+	  maxTcs = 23;
+	  break;
+	case 8:
+	  maxTcs = 28;
+	  break;
+	case 9:
+	  maxTcs = 32;
+	  break;
+	case 10:
+	  maxTcs = 37;
+	  break;
+	case 11:
+	  maxTcs = 41;
+	  break;
+	case 12:
+	  maxTcs = 46;
+	  break;
+	default: //same as case13 or above
+	  maxTcs = 48;
+	  break;
+	}	  
+      }
+      return maxTcs;
+    }
+    uint32_t getNofSTCs() const {
+      uint32_t maxSTCs = 0;
+      switch(getSTCType()){
+      case 0: //0 = STC4B(5E+4M)
+	switch(getNElinks()){
+	case 1:
+	  maxSTCs = 2;
+	  break;
+	case 2:
+	  maxSTCs = 5;
+	  break;
+	case 3:
+	  maxSTCs = 8;
+	  break;
+	case 4:
+	  maxSTCs = 11;
+	  break;
+	default: //case 5 or higher
+	  maxSTCs = 12;
+	  break;
+	}
+	break;
+      case 1: //1 = STC16(5E+4M)
+	switch(getNElinks()){
+	case 1:
+	  maxSTCs = 2;
+	  break;
+	default: //case 2 or higher
+	  maxSTCs = 3;
+	  break;
+	}
+	break;
+      case 2: //2 = CTC4A(4E+3M)
+	switch(getNElinks()){
+	case 1:
+	  maxSTCs = 4;
+	  break;
+	case 2:
+	  maxSTCs = 8;
+	  break;
+	default: //case 3 or higher
+	  maxSTCs = 12;
+	  break;
+	}
+	break;
+      default: //3 = STC4A(4E+3M) //4 = CTC4B(5E+3M)
+	switch(getNElinks()){
+	case 1:
+	  maxSTCs = 3;
+	  break;
+	case 2:
+	  maxSTCs = 6;
+	  break;
+	case 3:
+	  maxSTCs = 10;
+	  break;
+	default: //case 4 or higher
+	  maxSTCs = 12;
+	  break; 
+	}	
+      }//stctype
+      return maxSTCs;
+    }
+    uint32_t getCalibration(uint32_t itc) const {
+      assert(itc<=47) ;
+      return uint32_t(calv[itc]);
+    }
+    uint32_t getInputMux(uint32_t itc) const {
+      assert(itc<=47) ;
+      return (isConnectedMux(itc)) ? uint32_t(mux[itc]) : 0x80 ;
+    }
+    bool isConnectedMux(uint32_t itc) const {
+      assert(itc<=47) ;
+      return (mux[itc]>>7) ? false : true ;
+    }
+    TPGFEDataformat::Type getOutType() const {
+      TPGFEDataformat::Type type;
+      switch(select){
+      case 0:
+	type = TPGFEDataformat::TS;
+	break;
+      case 1:
+	switch(stc_type){
+	case 0:
+	  type = TPGFEDataformat::STC4B;
+	  break;
+	case 1:
+	  type = TPGFEDataformat::STC16;
+	  break;
+	case 2:
+	  type = TPGFEDataformat::CTC4A;
+	  break;
+	case 3:
+	  type = TPGFEDataformat::STC4A;
+	  break;
+	case 4:
+	  type = TPGFEDataformat::CTC4B;
+	  break;
+	default:
+	  type = TPGFEDataformat::Unknown;
+	  break;
+	}
+	break;
+      case 2:
+	type = TPGFEDataformat::BestC;
+	break;
+      case 3:
+	type = TPGFEDataformat::RA;
+	break;
+      case 4:
+	type = TPGFEDataformat::AE;
+	break;
+      default:
+	type = TPGFEDataformat::Unknown;
+	break;
+      }
+      return type;
+    }
+    void setDensity(uint32_t den) { assert(density==1); density = den;}
+    void setDropLSB(uint32_t dLSB) { assert(dLSB<=4); dropLSB = dLSB;}
+    void setSelect(uint32_t sel) { assert(sel==1 or sel==2); select = sel;}
+    void setSTCType(uint32_t stctype) { assert(stctype<=4); stc_type = stctype;}
+    void setNElinks(uint32_t nlinks) { assert(nlinks!=0); eporttx_numen = nlinks;}
+    void setMSSumType(bool sumtype)  { usesum = sumtype; }
+    void setCalibration(uint32_t itc, uint32_t calib) {
+      assert(itc<=47) ;
+      calv[itc] = (calib & 0xFFF);
+    }
+    void setInputMux(uint32_t itc, uint32_t muxval) {
+      assert((muxval<=47 or muxval==0x80) and itc<=47) ; //since default value is not known, set to 0x80 for unconnected TC
+      mux[itc] = muxval & 0xff;
+    }
+    void print() {
+      std::cout << std::dec << ::std::setfill(' ')
+		<<"ConfigEconT(" << this << ")::print(): "
+		// <<", \tECON-T mode = "
+		// << std::setw(8) << getOutType()
+		<<", \tLSB used for TC input = "
+		<< std::setw(2) << getDensity()
+		<<", \tLSB in ECON-T output = "
+		<< std::setw(2) << getDropLSB()
+		<<", \tECON-T select = "
+		<< std::setw(2) << getSelect()
+		<<", \tECON-T stc_type = "
+		<< std::setw(2) << getSTCType()
+		<<", \tECON-T maxTCs = "
+		<< std::setw(2) << ((getSelect()==2) ? getBCType() : getNofSTCs())
+		<< std::endl;
+      for(uint32_t itc=0;itc<48;itc++)
+	std::cout <<"ConfigEconT(" << this << ")::print(): "
+		  <<" itc: " << itc
+		  <<", \tCALV = "
+		  << std::setw(5) << getCalibration(itc)
+		  <<", \tMUX = "
+		  << std::setw(2) << getInputMux(itc)
+		  << std::endl;
+    }
+    
+  private:    
+    uint8_t density; //lsb at the input TC from ROC
+    uint8_t dropLSB; //lsb at the output during the packing
+    uint8_t select; //0 = Threshold Sum (TS), 1 = Super Trigger Cell (STC), 2 = Best Choice (BC), 3 = Repeater, 4=Autoencoder (AE).
+    uint8_t stc_type; //0 = STC4B(5E+4M), 1 = STC16(5E+4M), 2 = CTC4A(4E+3M), 3 = STC4A(4E+3M), 4 = CTC4B(5E+3M)
+    uint8_t eporttx_numen;//number of elinks
+    uint16_t calv[48]; //12-bit calibration for 48 TCs
+    uint8_t mux[48];   //multiplexer between HGCROC and TC to ECONT
+    bool usesum; //true: total of all TCs, false: (total-sumofselectedTcs)
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
 
 #endif

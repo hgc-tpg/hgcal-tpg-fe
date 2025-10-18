@@ -119,16 +119,21 @@ public:
 		// /////////////////////////// Si ////////////////////////////
 		const int neTx = 4;
 		uint32_t el[neTx];
+		el[0] = elinks[2];
+		el[1] = elinks[1];
+		el[2] = elinks[0];
+		if(neTx>3) el[3] = elinks[3];
+
 		// el[0] = elinks[0];
 		// el[1] = elinks[1];
 		// el[2] = elinks[2];
 		// if(neTx>3) el[3] = elinks[3];
 	      
-		//Run 111137 and 111138
-		el[0] = elinks[6];
-		el[1] = elinks[5];
-		el[2] = elinks[4];
-		if(neTx>3) el[3] = elinks[3];
+		// //Run 111137 and 111138
+		// el[0] = elinks[6];
+		// el[1] = elinks[5];
+		// el[2] = elinks[4];
+		// if(neTx>3) el[3] = elinks[3];
 	      
 		for(unsigned iel(0);iel<neTx;iel++){
 		  std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"

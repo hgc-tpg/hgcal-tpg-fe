@@ -90,7 +90,8 @@ public:
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
-	  if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108  or emp_chan==110 or emp_chan==114 or emp_chan==116 or emp_chan==120 or emp_chan==123){
+	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108  or emp_chan==110 or emp_chan==114 or emp_chan==116 or emp_chan==120 or emp_chan==123){
+	  if(emp_chan==100 ){
 	  //if(emp_chan==123){
 	    uint wpspd = 0;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
@@ -124,10 +125,18 @@ public:
 	      if(emp_chan!=123){
 		int neTx = 4;
 		uint32_t *el = new uint32_t[neTx];
+
+		// //very old runs 110693
+		// el[0] = elinks[2];
+		// el[1] = elinks[1];
+		// el[2] = elinks[0];
+		// if(neTx>3) el[3] = elinks[3];
+		
 		el[0] = elinks[0];
 		el[1] = elinks[1];
 		el[2] = elinks[2];
 		if(neTx>3) el[3] = elinks[3];
+
 		// for(unsigned iel(0);iel<neTx;iel++){
 		// 	std::cout << "\t\t el " << std::setw(3) << iel << " = 0x"
 		// 		  << std::hex << std::setfill('0')
@@ -147,7 +156,22 @@ public:
 		uint64_t modsum = TPGFEDataformat::TcRawData::Decode5E3M(rdp.moduleSum());
 		TH1D *hE = (TH1D *) list->FindObject(Form("hEMS_empch%d",emp_chan)) ;
 		hE->SetBinContent(bx+1, (hE->GetBinContent(bx+1)+modsum) );
-	      
+		TProfile *hEProf = (TProfile *) list->FindObject(Form("hProfEMS_empch%d",emp_chan)) ;
+		if(bx<6) hEProf->Fill(float(int(bx)-3), modsum );
+		TH1D *hEMSDistn = (TH1D *) list->FindObject(Form("hEMSDistn_empch%d",emp_chan)) ;
+		hEMSDistn->Fill(modsum);		
+		TH1D *hEMSCent = (TH1D *) list->FindObject(Form("hEMSCent_empch%d",emp_chan)) ;
+		if(bx==3) hEMSCent->Fill(modsum);
+		TH1D *hTCOccu = (TH1D *) list->FindObject(Form("hTCOccu_empch%d",emp_chan)) ;
+		TH1D *hTCEn = (TH1D *) list->FindObject(Form("hTCEn_empch%d",emp_chan)) ;
+		TH1D *hTCEnCent = (TH1D *) list->FindObject(Form("hTCEnCent_empch%d",emp_chan)) ;
+		for(unsigned itc(0) ; itc < rdp.size() ; itc++){
+		  hTCOccu->Fill(double(rdp.getTc(itc).address()));
+		  hTCEn->Fill(double(rdp.getTc(itc).decodedE(rdp.type())));
+		  if(bx==3) hTCEnCent->Fill(double(rdp.getTc(itc).decodedE(rdp.type())));
+		}
+		
+		
 		// //////////////// Si /////////////////////////////
 	      }else{
 		/////////////////////////// Sci ////////////////////////////
@@ -286,6 +310,73 @@ int main(int argc, char** argv){
     hEMS->SetFillColor(kGreen);
     hEMS->SetDirectory(dir_hist);
   }
+  for(int iemp=0;iemp<14;iemp++){
+    TProfile *hEMS = new TProfile(Form("hProfEMS_empch%d",emp_ch[iemp]),Form("Run:%u MS Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),7,-3.5,3.5, 0., 10000.,"");
+    hEMS->GetXaxis()->SetTitle("Bx");
+    hEMS->GetYaxis()->SetTitle("Entries");
+    hEMS->GetYaxis()->SetTitleOffset(1.3);
+    hEMS->SetLineWidth(3);
+    hEMS->SetLineColor(kBlue);
+    hEMS->SetFillColor(kGreen);
+    hEMS->SetDrawOption("bar");
+    hEMS->SetFillStyle(3001);
+    hEMS->SetDirectory(dir_hist);
+  }
+  for(int iemp=0;iemp<14;iemp++){
+    TH1D *hEMSDistn = new TH1D(Form("hEMSDistn_empch%d",emp_ch[iemp]),Form("Run:%u MS energy distribution Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),400,0,4000);
+    hEMSDistn->GetXaxis()->SetTitle("MS/Total energy");
+    hEMSDistn->GetYaxis()->SetTitle("Counts");
+    hEMSDistn->GetYaxis()->SetTitleOffset(1.3);
+    hEMSDistn->SetLineWidth(3);
+    hEMSDistn->SetLineColor(kBlue);
+    hEMSDistn->SetFillColor(kYellow+2);
+    hEMSDistn->SetDirectory(dir_hist);
+  }
+  
+  for(int iemp=0;iemp<14;iemp++){
+    TH1D *hEMSCent = new TH1D(Form("hEMSCent_empch%d",emp_ch[iemp]),Form("Run:%u Central MS energy distn Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),400,0,4000);
+    hEMSCent->GetXaxis()->SetTitle("MS/Total energy of central Bx");
+    hEMSCent->GetYaxis()->SetTitle("Counts");
+    hEMSCent->GetYaxis()->SetTitleOffset(1.3);
+    hEMSCent->SetLineWidth(3);
+    hEMSCent->SetLineColor(kBlue);
+    hEMSCent->SetFillColor(kYellow+2);
+    hEMSCent->SetDirectory(dir_hist);
+  }
+
+  for(int iemp=0;iemp<14;iemp++){
+    TH1D *hTCOccu = new TH1D(Form("hTCOccu_empch%d",emp_ch[iemp]),Form("Run:%u Central MS energy distn Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),48,-0.5,47.5);
+    hTCOccu->GetXaxis()->SetTitle("TC channel");
+    hTCOccu->GetYaxis()->SetTitle("Counts");
+    hTCOccu->GetYaxis()->SetTitleOffset(1.3);
+    hTCOccu->SetLineWidth(3);
+    hTCOccu->SetLineColor(kBlue);
+    hTCOccu->SetFillColor(kCyan);
+    hTCOccu->SetDirectory(dir_hist);
+  }
+
+  for(int iemp=0;iemp<14;iemp++){
+    TH1D *hTCEn = new TH1D(Form("hTCEn_empch%d",emp_ch[iemp]),Form("Run:%u TC energy distn Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),100,0,400);
+    hTCEn->GetXaxis()->SetTitle("MS/Total energy of central Bx");
+    hTCEn->GetYaxis()->SetTitle("Counts");
+    hTCEn->GetYaxis()->SetTitleOffset(1.3);
+    hTCEn->SetLineWidth(3);
+    hTCEn->SetLineColor(kBlue);
+    hTCEn->SetFillColor(kYellow+2);
+    hTCEn->SetDirectory(dir_hist);
+  }
+
+  for(int iemp=0;iemp<14;iemp++){
+    TH1D *hTCEnCent = new TH1D(Form("hTCEnCent_empch%d",emp_ch[iemp]),Form("Run:%u Central MS energy distn Layer:%d (EMPch:%d,lumi:%u)",runNumber,(iemp+1),emp_ch[iemp],firstLs),100,0,400);
+    hTCEnCent->GetXaxis()->SetTitle("MS/Total energy of central Bx");
+    hTCEnCent->GetYaxis()->SetTitle("Counts");
+    hTCEnCent->GetYaxis()->SetTitleOffset(1.3);
+    hTCEnCent->SetLineWidth(3);
+    hTCEnCent->SetLineColor(kBlue);
+    hTCEnCent->SetFillColor(kYellow+2);
+    hTCEnCent->SetDirectory(dir_hist);
+  }
+
   TList *list = (TList *)dir_hist->GetList();
   /////========================================================
   
@@ -322,11 +413,13 @@ int main(int argc, char** argv){
     //while((oh=oReader.readOrbit(vEvents))!=nullptr and nEvents<1) {
     while((oh=oReader.readOrbit(vEvents))!=nullptr) {
       assert(ct.orbit(*oh));
-      
-      for(unsigned j(0);j<vEvents.size();j++) {
-	assert(ct.event(vEvents[j],list));
-	nEvents++;
-      }      
+
+      //if(nEvents%10==0){
+	for(unsigned j(0);j<vEvents.size();j++) {
+	  assert(ct.event(vEvents[j],list));	  
+	}
+	//}
+      nEvents++;	
     }    
     oReader.close();
   }
