@@ -87,6 +87,7 @@ public:
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==108 or emp_chan==110 or emp_chan==112 or emp_chan==114 or emp_chan==116 or emp_chan==118 or emp_chan==120 or emp_chan==122){
 	  //if(emp_chan==100 or emp_chan==102 or emp_chan==104 or emp_chan==106 or emp_chan==123){
+	  //if(emp_chan==118){
 	  if(emp_chan==100){
 	    uint wpspd = 0;
 	    for(unsigned bx(0);bx<tsh->numberOfBxs();bx++) {
@@ -117,13 +118,23 @@ public:
 
 	      if(emp_chan!=123){
 		// /////////////////////////// Si ////////////////////////////
-		const int neTx = 4;
+		const int neTx = 3;
+		const int neTx2 = 3;
+		const int nofetx = 3;
+		const int ntc = 6
 		uint32_t el[neTx];
-		el[0] = elinks[2];
+		el[0] = elinks[0];
 		el[1] = elinks[1];
-		el[2] = elinks[0];
+		if(neTx>2) el[2] = elinks[2];
 		if(neTx>3) el[3] = elinks[3];
+		if(neTx>4) el[4] = elinks[4];
+		if(neTx>5) el[5] = elinks[5];
 
+		uint32_t el2[neTx2];
+		el2[0] = elinks[4];
+		el2[1] = elinks[5];
+		el2[2] = elinks[6];
+		
 		// el[0] = elinks[0];
 		// el[1] = elinks[1];
 		// el[2] = elinks[2];
@@ -142,15 +153,26 @@ public:
 			    << std::dec << std::setfill(' ')
 			    << std::endl;	      		
 		}
+		for(unsigned iel(0);iel<neTx2;iel++){
+		  std::cout << "\t\t el2 " << std::setw(3) << iel << " = 0x"
+			    << std::hex << std::setfill('0')
+			    << std::setw(8) << el2[iel]
+			    << std::dec << std::setfill(' ')
+			    << std::endl;	      		
+		}
 	      
-		TPGFEDataformat::TcRawDataPacket rdp;
-		if(neTx==4){
-		  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 9, el, rdp);
-		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::STC4A, 12, el, rdp);
-		}else
+		TPGFEDataformat::TcRawDataPacket rdp, rdp2;
+		if(neTx==nofetx){
+		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 18, el, rdp);
+		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 9, el, rdp);
 		  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 6, el, rdp);
+		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::STC4A, 4, el, rdp);
+		  //TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 6, el2, rdp2);
+		}// else
+		 //  TPGStage1Emulation::Stage1IO::convertElinksToTcRawData(TPGFEDataformat::BestC, 6, el, rdp);
 		rdp.print();
-		// /////////////////////////// Si ////////////////////////////
+		//rdp2.print();
+		/////////////////////////// Si ////////////////////////////
 	      }else{
 		/////////////////////////// Sci ////////////////////////////
 		const int neTx1 = 4;

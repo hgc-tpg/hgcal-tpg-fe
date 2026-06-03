@@ -29,7 +29,7 @@ public:
     
     std::vector<TPGFEDataformat::TcRawData> &vTc(vTcrdp.setTcData());
     
-    bool doPrint(false);
+    bool doPrint(0);
 
     if(doPrint) {      
       for(unsigned i(0);i<2;i++) {
@@ -56,7 +56,7 @@ public:
     if(type==TPGFEDataformat::BestC) {
       lastBit-=8;
       vTcrdp.setTBM(type, bx, ((d>>lastBit)&0xff));
-      if(false) vTcrdp.print();
+      if(doPrint) vTcrdp.print();
     }else
       vTcrdp.setTBM(type, bx, 0);
     
@@ -72,11 +72,12 @@ public:
 	
 	if(type==TPGFEDataformat::BestC) {
 	  lastBit-=6;
-	  // std::cout<< std::hex
-	  // 	   <<", d-word : 0x" << std::setfill('0') << std::setw(8) << (d>>lastBit)
-	  // 	   <<", masked-d-word : 0x" << std::setfill('0') << std::setw(8) << ((d>>lastBit)&0x3f)
-	  // 	   << std::dec << std::setfill(' ')
-	  // 	   <<std::endl;
+	  if(doPrint) 
+	    std::cout<< std::hex
+		     <<", d-word : 0x" << std::setfill('0') << std::setw(8) << (d>>lastBit)
+		     <<", masked-d-word : 0x" << std::setfill('0') << std::setw(8) << ((d>>lastBit)&0x3f)
+		     << std::dec << std::setfill(' ')
+		     <<std::endl;
 	  vTc.push_back(TPGFEDataformat::TcRawData(type,((d>>lastBit)&0x3f),0));
 	}
 	if(type==TPGFEDataformat::STC4A) {

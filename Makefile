@@ -70,23 +70,23 @@ TestUnpackerTCProcInterface.exe: TPGStage1Emulation/TestUnpackerTCProcInterface.
 sipm-emul.exe: test-beam_Sep24_macros/sipm-emul.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h
 	g++ $(LDFLAGS) $(CPPFLAGS) test-beam_Sep24_macros/sipm-emul.cpp  -l yaml-cpp `root-config --libs --cflags` -o sipm-emul.exe -lm
 
-dump_event25.exe: test-beam_Sep25_macros/dump_event.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/dump_event.cpp  -l yaml-cpp `root-config --libs --cflags` -o dump_event25.exe
+dump_event25.exe: test-beam_May26_macros/dump_event.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/dump_event.cpp  -l yaml-cpp `root-config --libs --cflags` -o dump_event25.exe
 
-TpgTimingCheck.exe: test-beam_Sep25_macros/TpgTimingCheck.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/TpgTimingCheck.cpp  -l yaml-cpp `root-config --libs --cflags` -o TpgTimingCheck.exe
+TpgTimingCheck.exe: test-beam_May26_macros/TpgTimingCheck.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/TpgTimingCheck.cpp  -l yaml-cpp `root-config --libs --cflags` -o TpgTimingCheck.exe
 
-readTPGdata.exe: test-beam_Sep25_macros/readTPGdata.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/readTPGdata.cpp  -l yaml-cpp `root-config --libs --cflags` -o readTPGdata.exe
+readTPGdata.exe: test-beam_May26_macros/readTPGdata.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/readTPGdata.cpp  -l yaml-cpp `root-config --libs --cflags` -o readTPGdata.exe
 
-plotTPGPeak.exe: test-beam_Sep25_macros/plotTPGPeak.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/plotTPGPeak.cpp  -l yaml-cpp `root-config --libs --cflags` -o plotTPGPeak.exe
+plotTPGPeak.exe: test-beam_May26_macros/plotTPGPeak.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/plotTPGPeak.cpp  -l yaml-cpp `root-config --libs --cflags` -o plotTPGPeak.exe
 
-readDAQdata.exe: test-beam_Sep25_macros/readDAQdata.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/readDAQdata.cpp  -l yaml-cpp `root-config --libs --cflags` -o readDAQdata.exe
+readDAQdata.exe: test-beam_May26_macros/readDAQdata.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/readDAQdata.cpp  -l yaml-cpp `root-config --libs --cflags` -o readDAQdata.exe
 
-emulFixedPattern.exe: test-beam_Sep25_macros/emulFixedPattern.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
-	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_Sep25_macros/emulFixedPattern.cpp  -l yaml-cpp `root-config --libs --cflags` -o emulFixedPattern.exe
+emulFixedPattern.exe: test-beam_May26_macros/emulFixedPattern.cpp inc/*.*  TPGFEEmulation/*.hh TPGStage1Emulation/*.hh common/inc/*.h offline/inc/*.h 
+	g++ -std=c++11 $(LDFLAGS) $(CPPFLAGS) test-beam_May26_macros/emulFixedPattern.cpp  -l yaml-cpp `root-config --libs --cflags` -o emulFixedPattern.exe
 
 
 clean:

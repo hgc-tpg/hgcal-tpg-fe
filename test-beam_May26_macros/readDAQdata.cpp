@@ -81,6 +81,23 @@ namespace Hgcal10gLinkReceiver {
 	  uint32_t idata = ffidxlst.at(j) + 1;
 	  for(unsigned k(0);k<37;k++) {
 	    if(k==18) continue;
+	    uint32_t chdata = getChData(j,k); 
+	    int totflag = chdata >> 30;
+	    int adcm = 0, adc = 0, toa = 0, tot = 0;
+	    //adcmL = 0; adcL = 0; toaL = 0; totL = 0;
+	    if(totflag<=1){ //0 or 1
+	      adcm = (chdata>>20) & 0x3FF;
+	      adc = (chdata>>10) & 0x3FF;
+	      toa = chdata & 0x3FF;
+	    }else if(totflag==2){
+	      adcm = (chdata>>20) & 0x3FF;
+	      tot = (chdata>>10) & 0x3FF;
+	      toa = chdata & 0x3FF;	    
+	    }else if(totflag==3){
+	      adcm = (chdata>>20) & 0x3FF;
+	      tot = (chdata>>10) & 0x3FF;
+	      toa = chdata & 0x3FF;
+	    }
 	    o << s << "ErxPassThSubpacket::print() "
 	      << "\t iData ith-half-roc: " << std::setfill('0') << std::setw(2) << j
 	      <<", ch: " << std::setfill('0') << std::setw(2) << k
@@ -88,6 +105,9 @@ namespace Hgcal10gLinkReceiver {
 	      << std::hex << std::setfill('0')
 	      << std::setw(8) << getChData(j,k)
 	      << std::dec << std::setfill(' ')
+	      << ",tctp : " << totflag
+	      << ",tot : " << tot
+	      << ",adc : " << adc
 	      << std::endl;
 	  }//channel loop
 	  o << s << std::endl;
